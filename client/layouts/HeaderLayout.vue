@@ -1,14 +1,14 @@
 <template>
   <header>
-      <nav>
+      <div class="nav">
         <span class="img">LOGO</span>
         <span>CATEGORY</span>
         <span>CATEGORY</span>
-      </nav>
-        <div class="user">
-          <span>Log in</span>
-          <span>sign In</span>
-        </div>
+      </div>
+      <div class="user">
+        <span>Log in</span>
+        <span>sign In</span>
+      </div>
   </header>
 </template>
 
@@ -41,7 +41,7 @@ header {
   }  
 }
 
-nav {
+.nav {
   display: flex;
   align-items: center;
   text-align: center;
