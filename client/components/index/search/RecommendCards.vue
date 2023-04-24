@@ -28,7 +28,7 @@ const { divice } = useDisplay()
 const displayCount = computed<number>(() => {
   switch (divice.value) {
     case 'xl': return 7
-    case 'lg': return 6
+    case 'lg': return 7
     case 'md': return 5
     case 'sm': return 3
     case 'xs': return 4

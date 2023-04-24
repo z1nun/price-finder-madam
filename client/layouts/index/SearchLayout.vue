@@ -24,16 +24,16 @@ $borderTest: 1px solid black;
   flex-direction: column;
   align-items: center;
 
-  height: 994px;
+  min-height: 994px;
+  padding-bottom: 80px;
 
   background-color: #F9FAFB;
   
   .Title {           
-    text-align: center;
+    margin-top: 80px;
     font-size: 28px;
     font-weight: 700;
     line-height: 150%;
-    margin-top: 80px;
   } 
 }
 </style>
