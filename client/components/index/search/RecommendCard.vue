@@ -18,6 +18,10 @@
       </div>        
     </div>
 
+    <div class="check">
+      <img src="~/assets/img/check.png">
+
+    </div>
   </article>
 </template>
 
@@ -38,6 +42,7 @@ const { recommendCard } = defineProps<RecommendCardProp>()
   height: 200px;
   width: 328px;
   height: 200px;  
+  position: relative;
 
   background: #FFFFFF;
   border-radius: 16px;
@@ -86,6 +91,12 @@ const { recommendCard } = defineProps<RecommendCardProp>()
       margin-top: 8px;
       font-weight: 500;
     }
+  }
+
+  .check {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
   }
 }
 </style>
