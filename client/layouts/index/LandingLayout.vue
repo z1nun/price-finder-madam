@@ -20,16 +20,12 @@ import SearchButton from "~/components/SearchButton.vue"
 <style scoped lang="scss">
 nav {
   padding: 48px 20px;
-  height: 630px;
   background-color : #F5F7FF;
-
   @media (min-width : 768px) {
     padding: 80px 20px;
-    height: 694px;
   }
   @media (min-width : 1024px) {
     padding: 120px 20px;
-    height: 720px;
   }
 }
 
@@ -40,6 +36,7 @@ nav {
   text-align: center;
   margin : 0 auto;
   gap: 40px;
+  height: 534px;
 
   @media (min-width : 1024px) {
     flex-direction: row;
