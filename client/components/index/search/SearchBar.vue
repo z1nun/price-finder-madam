@@ -55,5 +55,10 @@ const onEnter = () => {
       opacity: 0;
     }      
   }
+
+  @media (max-width: 414px) {
+    width: 320px;  
+  }
+
 }
 </style>

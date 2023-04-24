@@ -47,6 +47,9 @@ const { recommendCard } = defineProps<RecommendCardProp>()
   background: #FFFFFF;
   border-radius: 16px;
 
+  transition: all .3s;
+  cursor: pointer;
+
   .top {
     display: flex;
     justify-content: space-between;
@@ -97,6 +100,10 @@ const { recommendCard } = defineProps<RecommendCardProp>()
     position: absolute;
     right: 20px;
     bottom: 20px;
+  }
+
+  &:hover {
+    transform: scale(.95);
   }
 }
 </style>

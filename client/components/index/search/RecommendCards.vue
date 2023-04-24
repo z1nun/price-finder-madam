@@ -1,17 +1,19 @@
-<template>
-  <article class="RecommendCards">
+<template>  
+  <article class="RecommendCards">    
     <RecommendCard 
-      v-for="(recommendCard, i) in recommendCards"
+      v-for="(recommendCard, i) in recommendCards.slice(0, displayCount)"
       :key="i"
       :recommendCard="recommendCard"
     />
-    <article class="RecommendCard">
-    </article>
+    <RecommendMore />
+    
   </article>
 </template>
 
 <script setup lang="ts">
+import useDisplay from '~/plugins/display'
 import RecommendCard from './RecommendCard.vue'
+import RecommendMore from './RecommendMore.vue'
 
 export interface IRecommendCard {
   img?: string
@@ -20,6 +22,18 @@ export interface IRecommendCard {
   checked: boolean
   address: string
 }
+
+const { divice } = useDisplay()
+
+const displayCount = computed<number>(() => {
+  switch (divice.value) {
+    case 'xl': return 7
+    case 'lg': return 6
+    case 'md': return 5
+    case 'sm': return 3
+    case 'xs': return 4
+  }
+})
 
 const recommendCards = ref<IRecommendCard[]>([
   {
