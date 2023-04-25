@@ -9,9 +9,8 @@
 </template>
 
 <script setup lang="ts">
-import SearchBar from '~/components/index/search/SearchBar.vue'
-import SearchArticles from '~/components/index/search/SearchArticles.vue'
-
+import SearchBar from '/components/index/search/SearchBar.vue'
+import SearchArticles from '/components/index/search/SearchArticles.vue'
 </script>
 
 <style scoped lang="scss">
