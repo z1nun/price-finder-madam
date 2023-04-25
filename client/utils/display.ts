@@ -1,4 +1,9 @@
-export type Divice = 'xl' | 'lg' | 'md' | 'sm' | 'xs'
+export type Divice = 
+  'xl' | 
+  'lg' | 
+  'md' | 
+  'sm' | 
+  'xs'
 
 const diviceSizeMap: Record<number, Divice> = {
   1: 'xs',
@@ -28,7 +33,6 @@ const useDisplay = () => {
     }
   }
 
-
   const resizeHandler = (): void => {
     if (typeof window !== "undefined") {
       width.value = window.innerWidth;
@@ -46,6 +50,5 @@ const useDisplay = () => {
     divice
   }
 }
-
 
 export default useDisplay
