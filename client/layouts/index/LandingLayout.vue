@@ -7,7 +7,7 @@
         <SearchButton/>
       </div>
       <div class="ImageWrap">
-        <img src="~/assets/img/sampleimg.png" alt="sample">
+        <img src="~/assets/img/착한 소비.png" alt="sample">
       </div>
     </div>
   </nav>
@@ -89,6 +89,49 @@ nav {
   }
 }
 .ImageWrap {
-  flex : 1;
+    height: 280px;
+    width: 320px;
+    left: 0px;
+    top: 254px;
+    border-radius: 0px;
+    @media (min-width : 768px){
+      height: 280px;
+      width: 728px;
+      left: 0px;
+      top: 254px;
+      border-radius: 0px;
+    }
+    @media (min-width : 1024px) {
+      height: 480px;
+      width: 504px;
+      left: 460px;
+      top: 0px;
+      border-radius: 0px;
+    }
+    @media (min-width : 1440px) {
+      height: 480px;
+      width: 640px;
+      left: 460px;
+      top: 0px;
+      border-radius: 0px;
+    }
+    @media (min-width : 1640px) {
+      height: 480px;
+      width: 1016px;
+      left: 460px;
+      top: 0px;
+      border-radius: 0px;
+    }
+    img {
+      width: inherit;
+      height: inherit;
+      //1640px 768px에서 이미지의 좌우 여백이 존재함, 이미지 비율을 조금더 자연스럽게 보이게 하기 위해 너비 임의 조정
+      @media (min-width : 768px) {
+        width: 528px;
+      }
+      @media (min-width : 1640px) {
+        width: 816px;
+      }
+    }
 }
 </style>
