@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <ClientOnly>
     <!-- 진원 -->
     <HeaderLayout />         
     <LandingLayout />
@@ -10,7 +10,7 @@
 
     <!-- 진원 -->
     <FooterLayout />
-  </div>
+  </ClientOnly>
 </template>
 
 <script setup lang="ts">

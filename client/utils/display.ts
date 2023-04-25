@@ -12,7 +12,7 @@ const MOBILE_BREAK_POINT = 360
 
 const useDisplay = () => {
 
-  const width = ref<number>(window.innerWidth)
+  const width = ref<number>(0)
 
   const isMobile = computed<boolean>(() => width.value < MOBILE_BREAK_POINT)
 
@@ -30,18 +30,20 @@ const useDisplay = () => {
 
 
   const resizeHandler = (): void => {
-    width.value = window.innerWidth
+    if (typeof window !== "undefined") {
+      width.value = window.innerWidth;
+    }
   }
 
-  onMounted(() => window.addEventListener('resize', resizeHandler))
-  onUnmounted(() => window.removeEventListener('resize', resizeHandler))
+  onMounted(() => {
+    width.value = window.innerWidth
+    window?.addEventListener('resize', resizeHandler)      
+  })
 
   return {
     getCurrentDiviceBreakPoint,
-    ...toRefs({
-      isMobile,
-      divice
-    })
+    isMobile,
+    divice
   }
 }
 

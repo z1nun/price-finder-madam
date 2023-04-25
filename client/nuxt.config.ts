@@ -1,10 +1,4 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  css: ['@/assets/fonts/main.css'],
-  plugins: [
-    {
-      src: '~/plugins/display',
-      mode: 'client'
-    }
-  ]
+  css: ['@/assets/fonts/main.css'],  
 })

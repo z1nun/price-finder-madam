@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import HowToInformation from '~/components/index/howto/HowToInformation.vue'
-import useDisplay from '~/plugins/display';
+import useDisplay from '~/utils/display';
 
 const { divice } = useDisplay()
 

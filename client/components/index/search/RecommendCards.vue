@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import useDisplay from '~/plugins/display'
+import useDisplay from '~/utils/display'
 import RecommendCard from './RecommendCard.vue'
 import RecommendMore from './RecommendMore.vue'
 
