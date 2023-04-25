@@ -101,9 +101,5 @@ const { recommendCard } = defineProps<RecommendCardProp>()
     right: 20px;
     bottom: 20px;
   }
-
-  &:hover {
-    transform: scale(.95);
-  }
 }
 </style>
