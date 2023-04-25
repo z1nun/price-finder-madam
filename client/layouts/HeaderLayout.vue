@@ -55,7 +55,7 @@ header {
   padding: 8px 20px;
   margin: 0 auto;
   gap: 24px;
-  @media (min-width : 1640px) {
+  @media (min-width : 1440px) {
     width: 1080px;
   }  
 }
