@@ -36,7 +36,7 @@ const onEnter = () => {
     
     box-sizing: border-box;
     background-color: #FDFDFD;
-    background-image: url('assets/img/search.png');
+    background-image: url('assets/img/search.svg');
     background-position: calc(100% - 21.25px);
     background-repeat: no-repeat;
     border: 1px solid #ccc;

@@ -1,7 +1,7 @@
 <template>
   <article class="SearchTag">
     <div class="IconBox">
-      <img :src="url"  />
+      <img :src="url" class="icon"/>
     </div>
     <div class="tagText">
       {{ tag.text }}
@@ -18,7 +18,7 @@ interface SearchTag {
 
 const { tag } = defineProps<SearchTag>()
 
-const url = new URL(`../../../assets/img/${tag.id}.png`, import.meta.url).href
+const url = new URL(`../../../assets/img/${tag.id}.svg`, import.meta.url).href
 
 </script>
 
@@ -43,6 +43,10 @@ const url = new URL(`../../../assets/img/${tag.id}.png`, import.meta.url).href
     background: #FDFDFD;    
     cursor: pointer;    
     box-sizing: border-box;
+    image-rendering:-webkit-optimize-contrast;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    
   }
 
   .tagText {    

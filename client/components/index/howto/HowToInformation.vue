@@ -1,17 +1,17 @@
 <template>
   <article class="HowToInformation">
     <div class="info">
-      <img src="~/assets/img/clipboard.png"/>
+      <img src="~/assets/img/clipboard.svg"/>
       <div class="title">우리 주변의 착한 소비</div>
       <div class="subtitle">주변가게들의 가격과 위치를 제공해요. 모두의 착한 소비를 위해서</div>
     </div>
     <div class="info">
-      <img src="~/assets/img/clipboard.png"/>
+      <img src="~/assets/img/clipboard.svg"/>
       <div class="title">ETC</div>
       <div class="subtitle">ETC INFO</div>
     </div>
     <div class="info">
-      <img src="~/assets/img/clipboard.png"/>
+      <img src="~/assets/img/clipboard.svg"/>
       <div class="title">ETC</div>
       <div class="subtitle">ETC INFO</div>
     </div>
