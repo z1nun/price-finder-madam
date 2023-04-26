@@ -12,10 +12,6 @@ jobs:
       matrix:
         node-version: [14.x, 16.x, 18.x]
 
-    # defaults:
-    #   run:
-    #     working-directory: "price-finder-madam"
-
     steps:
       - uses: actions/checkout@v3
 
@@ -24,11 +20,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install
-        run: npm install
-
       - name: Build
-        run: npm run build
+        run: |
+          npm install
+          npx webpack
 
       - name: Deploy
         env:
