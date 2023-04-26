@@ -22,7 +22,7 @@ jobs:
 
       - name: Build
         run: |
-          ls
+          cd/client
           npm install
           npx webpack
 
