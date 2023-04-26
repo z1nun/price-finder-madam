@@ -18,15 +18,8 @@
   </header>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { BIconList, BIconSearch } from 'bootstrap-icons-vue'
-
-export default {
-  components: {
-    BIconList,
-    BIconSearch
-  }
-}
 
 </script>
 
