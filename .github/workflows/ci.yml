@@ -1,8 +1,6 @@
 name: CI
 
 on:
-  push:
-    branches: ["codma", "z1nun"]
   pull_request:
     branches: ["merge"]
 
@@ -13,6 +11,10 @@ jobs:
     strategy:
       matrix:
         node-version: [14.x, 16.x, 18.x]
+
+    defaults:
+      run:
+        working-directory: "price-finder-madam"
 
     steps:
       - uses: actions/checkout@v3
