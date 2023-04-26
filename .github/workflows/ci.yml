@@ -12,6 +12,10 @@ jobs:
       matrix:
         node-version: [14.x, 16.x, 18.x]
 
+    defaults:
+      run:
+        working-directory: ./client
+
     steps:
       - uses: actions/checkout@v3
 
@@ -23,7 +27,7 @@ jobs:
       - name: Build
         run: |
           npm install
-          npx webpack
+          npm run generate
 
       - name: Deploy
         env:
