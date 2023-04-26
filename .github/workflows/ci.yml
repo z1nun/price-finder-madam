@@ -24,14 +24,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install Yarn
-        run: npm install -g yarn
-
-      - name: Install dependencies # yarn install 추가
-        run: yarn install
+      - name: Install
+        run: npm install
 
       - name: Build
-        run: npm run generate
+        run: npm run build
 
       - name: Deploy
         env:
