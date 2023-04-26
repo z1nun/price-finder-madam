@@ -22,6 +22,7 @@ jobs:
 
       - name: Build
         run: |
+          cd /home/runner/work/price-finder-madam/client/
           npm install
           npx webpack
 
