@@ -2,7 +2,7 @@
   <article class="RecommendCard">
     <div class="top">
       <div class="IconBox">
-        <img src="~/assets/img/defaultIcon.png" />
+        <img src="~/assets/img/defaultIcon.svg" />
       </div>
       <div class="PriceBox">
         금액
@@ -19,7 +19,7 @@
     </div>
 
     <div class="check">
-      <img src="~/assets/img/check.png">
+      <img src="~/assets/img/check.svg">
 
     </div>
   </article>
@@ -53,7 +53,7 @@ const { recommendCard } = defineProps<RecommendCardProp>()
   .top {
     display: flex;
     justify-content: space-between;
-    align-items: start;
+    align-items: flex-start;
     margin: 20px;
 
     .IconBox {

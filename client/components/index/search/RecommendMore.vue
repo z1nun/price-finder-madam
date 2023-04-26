@@ -4,7 +4,7 @@
       주변의 착한 소비 보러가기
     </div>
     <div class="IconBox">
-      <img src="~/assets/img/arrow.png"/>
+      <img src="~/assets/img/arrow.svg"/>
     </div>
   </article>
 </template>
