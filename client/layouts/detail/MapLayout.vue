@@ -37,24 +37,17 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref, computed, onUpdated } from 'vue';
+import { onMounted, ref, computed, onUpdated } from 'vue';
 import { NaverInfoWindow, NaverMap, NaverMarker } from 'vue3-naver-maps';
 import useMapOptions from '~/utils/map'
 
-type Location = {
-  latitude: number
-  longitude: number
-}
-
 type Map = naver.maps.Map
 type Marker = naver.maps.Marker
-type HTMLIcon = naver.maps.HtmlIcon
 type MapOptions = naver.maps.MapOptions
 type InfoWindowOptions = naver.maps.InfoWindowOptions
 type InfoWindow = naver.maps.InfoWindow
 
 const { 
-  DEFAULT_MARKER_SIZE, 
   DEFAULT_ZOOM_OPTIONS,
   DEFAULT_WINDOWINFO_OPTIONS,
   currentPosition
@@ -134,12 +127,12 @@ onUpdated(() => Object.values(currentPosition).includes(0) && loadLocation())
 .NaverMap {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center;  
 }
 
 #map {
   width: calc(1920px - 360px);
-  height: 937px;
+  height: 937px;  
 
   &:focus {
     border: none !important;  
@@ -154,6 +147,7 @@ onUpdated(() => Object.values(currentPosition).includes(0) && loadLocation())
   border-radius: 5px;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
+  box-sizing: content-box;
   display: flex;
   align-items: center;
   transform: translateX(-80px);
@@ -165,6 +159,10 @@ onUpdated(() => Object.values(currentPosition).includes(0) && loadLocation())
     height: 10px;
     border-radius: 10px;
     margin-right: .5rem;
+  }
+
+  &:hover {
+    outline: 1px solid black;
   }
 }
 
