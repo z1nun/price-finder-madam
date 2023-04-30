@@ -15,9 +15,7 @@
       >        
         <div id="innerMarker">
           <div class="icon"></div>
-          <span>
-            마커 1
-          </span>
+          <span> 마커 1 </span>
         </div>
       </NaverMarker>
       <NaverInfoWindow
@@ -50,14 +48,15 @@ type InfoWindow = naver.maps.InfoWindow
 const { 
   DEFAULT_ZOOM_OPTIONS,
   DEFAULT_WINDOWINFO_OPTIONS,
-  currentPosition
+  currentPosition,
+  loadLocation
 } = useMapOptions()
 
-const isError = ref<boolean>(false)
-const initLayers = ['']
+
 
 // Map
 const mapRef = ref<Map>()
+const initLayers = ['']
 const visibleMarker = ref<boolean>(false)
 
 const mapOptions = computed<MapOptions>(() => ({
@@ -73,13 +72,14 @@ const onLoadMap = (map: Map) => {
 }
 
 
+
 // Marker 
 const marker = ref<Marker>()
 const isMarkerOpen = ref<boolean>(false)
 
-const onLoadMarker = (markerObject: Marker) => {  
-  marker.value = markerObject   
-}
+const onLoadMarker = (markerObject: Marker) => marker.value = markerObject   
+
+
 
 // WindowInfo
 const infoWindow = ref<InfoWindow>()
@@ -99,23 +99,6 @@ const onLoadedInfoWindow = (windowInfoObject: InfoWindow) => {
   infoWindow.value = windowInfoObject  
 }
 
-
-// Initial
-const loadLocation = () => {
-  navigator
-    .geolocation
-    .getCurrentPosition(   
-      (success: GeolocationPosition) => {
-        const { coords: { latitude, longitude } } = success
-        currentPosition.latitude = latitude ?? 0
-        currentPosition.longitude = longitude ?? 0
-      },
-      (error: GeolocationPositionError) => {
-        console.log(error)
-        isError.value = true
-      }
-    )
-}
 
 onMounted(() => loadLocation())
 

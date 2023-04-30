@@ -63,8 +63,8 @@ const useMapOptions = () => {
     borderWidth: 0,
     disableAnchor: false,
     anchorSize: {
-      width: 10,
-      height: 20
+      width: 0,
+      height: 0
     },
   }
 
@@ -84,13 +84,13 @@ const useMapOptions = () => {
       )
   }
 
-  onMounted(() => loadLocation())
 
   return {
     DEFAULT_ZOOM_OPTIONS,
     DEFAULT_MARKER_SIZE,
     DEFAULT_WINDOWINFO_OPTIONS,
-    currentPosition
+    currentPosition,
+    loadLocation
   }
 }
 
