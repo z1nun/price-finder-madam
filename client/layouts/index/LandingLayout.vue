@@ -7,7 +7,7 @@
         <SearchButton/>
       </div>
       <div class="ImageWrap">
-        <img src="~/assets/img/착한 소비.png" alt="sample">
+        <img src="~/assets/img/good_consumption.png" alt="sample">
       </div>
     </div>
   </nav>
