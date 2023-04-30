@@ -1,13 +1,13 @@
 <template>
   <section>
-    <DetailLaytout />
-    <MapLayout />
+    <DetailLayout />
+    <!-- <MapLayout /> -->
   </section>
 </template>
 
 <script setup lang="ts">
-import DetailLaytout from '~/layouts/detail/DetailLaytout.vue';
-import MapLayout from '~/layouts/detail/MapLayout.vue';
+import DetailLayout from '/layouts/detail/DetailLayout.vue';
+import MapLayout from '/layouts/detail/MapLayout.vue';
 </script>
 
 <style scoped lang="scss">
