@@ -2,7 +2,7 @@
   <header>
       <div class="nav">
         <!-- div 태그는 나중에 삭제 예정 -->
-        <div class="img"><img src="~/assets/img/LOGO.png"/></div> 
+        <div class="img">Logo</div> 
         <span>착한 가게</span>
         <span>착한 소비</span>
       </div>
@@ -18,15 +18,8 @@
   </header>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { BIconList, BIconSearch } from 'bootstrap-icons-vue'
-
-export default {
-  components: {
-    BIconList,
-    BIconSearch
-  }
-}
 
 </script>
 
