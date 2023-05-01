@@ -1,13 +1,17 @@
 <template>
   <section>
     <DetailHeader/>
-    <ItemCard/>
+    <StoreCard/>
+    <StoreInformCard/>
   </section>
 </template>
 
 <script setup lang="ts">
 import DetailHeader from "/components/detail/DetailHeader.vue";
-import ItemCard from "/components/detail/ItemCard.vue";
+import StoreCard from "/components/detail/StoreCard.vue";
+import StoreInformCard from "/components/detail/StoreInformCard.vue"
+
+
 
 </script>
 
@@ -15,5 +19,8 @@ import ItemCard from "/components/detail/ItemCard.vue";
 section {
   width: 360px;
   background-color : #F9FAFB;
+  display: flex;
+  flex-direction: column;
+  gap : 8px;
 }
 </style>
