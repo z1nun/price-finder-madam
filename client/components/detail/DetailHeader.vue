@@ -77,15 +77,13 @@ header {
 
   position: absolute;
   width: 280px;
-  height: 68px;
+  height: fit-content;
   left: 20px;
   top: 134px;
 
   background: #FFFFFF;
-
   box-shadow: 1px 2px 8px rgba(51, 51, 51, 0.16), 2px 3px 16px 1px rgba(221, 221, 221, 0.08), 2px 3px 6px 3px rgba(230, 230, 230, 0.16);
   border-radius: 16px;
-
   font-size : 1.25rem;
   font-weight: 700;
 
