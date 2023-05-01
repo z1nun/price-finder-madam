@@ -1,7 +1,7 @@
 <template>
   <section>
     <DetailLayout />
-    <!-- <MapLayout /> -->
+    <MapLayout />
   </section>
 </template>
 
