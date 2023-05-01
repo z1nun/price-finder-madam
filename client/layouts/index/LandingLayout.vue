@@ -123,8 +123,8 @@ nav {
       border-radius: 0px;
     }
     img {
+      aspect-ratio: 16 / 9;
       width: inherit;
-      height: inherit;
       //1640px 768px에서 이미지의 좌우 여백이 존재함, 이미지 비율을 조금더 자연스럽게 보이게 하기 위해 너비 임의 조정
       @media (min-width : 768px) {
         width: 528px;
