@@ -40,7 +40,7 @@
 <script setup lang="ts">
 import { onMounted, ref, computed, onUpdated } from 'vue';
 import { NaverInfoWindow, NaverMap, NaverMarker } from 'vue3-naver-maps';
-import useMapOptions from '~/utils/map'
+import useMapOptions, { ZoomType } from '~/utils/map'
 import CustomZoom from '~/components/detail/map/CustomZoom.vue'
 
 type Map = naver.maps.Map
@@ -108,7 +108,7 @@ const onLoadedInfoWindow = (windowInfoObject: InfoWindow) => {
 
 
 // Zoom 
-const zoom = (e: 'in' | 'out') => {
+const zoom = (e: ZoomType) => {
   const target = map.value
   if (!target) return
 

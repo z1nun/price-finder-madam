@@ -1,5 +1,6 @@
-import { onMounted, reactive, ref, toRefs } from "vue"
+import { reactive, ref } from "vue"
 
+export type ZoomType = 'in' | 'out'
 type MapOptions = naver.maps.MapOptions
 type MarkerSize = naver.maps.Size | naver.maps.SizeLiteral
 type InfoWindowOptions = naver.maps.InfoWindowOptions
