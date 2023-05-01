@@ -18,6 +18,7 @@
           <span> 마커 1 </span>
         </div>
       </NaverMarker>
+
       <NaverInfoWindow
         v-show="visibleInfo"
         id="windowInfo"
@@ -31,13 +32,16 @@
         </div>
       </NaverInfoWindow>
     </NaverMap>
-  </section>
+    
+    <CustomZoom @zoom="zoom" />
+  </section> 
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref, computed, onUpdated } from 'vue';
 import { NaverInfoWindow, NaverMap, NaverMarker } from 'vue3-naver-maps';
 import useMapOptions from '~/utils/map'
+import CustomZoom from '~/components/detail/map/CustomZoom.vue'
 
 type Map = naver.maps.Map
 type Marker = naver.maps.Marker
@@ -56,7 +60,7 @@ const {
 
 
 // Map
-const mapRef = ref<Map>()
+const map = ref<Map | null>()
 const initLayers = ['']
 const visibleMarker = ref<boolean>(false)
 
@@ -65,12 +69,13 @@ const mapOptions = computed<MapOptions>(() => ({
   ...currentPosition,    
 }))
 
-const onLoadMap = (map: Map) => {
-  const latLng = new window.naver.maps.LatLng(currentPosition.latitude, currentPosition.longitude)
+const onLoadMap = (mapObject: Map) => {
+  const latLng = new window.naver.maps.LatLng(currentPosition.latitude, currentPosition.longitude)  
   visibleMarker.value = true
-  map.setCenter(latLng)  
-  mapRef.value = map
+  mapObject.setCenter(latLng)
+  map.value = mapObject
 }
+
 
 
 
@@ -97,8 +102,19 @@ const infoWindowOptions = computed<InfoWindowOptions>(() => ({
 }))
 
 const onLoadedInfoWindow = (windowInfoObject: InfoWindow) => {
-  infoWindow.value = windowInfoObject  
+  infoWindow.value = windowInfoObject
 }
+
+
+
+// Zoom 
+const zoom = (e: 'in' | 'out') => {
+  const target = map.value
+  if (!target) return
+
+  target?.setZoom(target.getZoom() + (e === 'in' ? 1 : -1), true)  
+}
+
 
 
 onMounted(() => loadLocation())
@@ -121,8 +137,15 @@ onUpdated(() => Object.values(currentPosition).includes(0) && loadLocation())
   &:focus {
     border: none !important;  
     outline: none !important;
-  }
+  }    
+}  
+
+img[alt="지도 확대"] {
+  display: none !important;
 }
+
+
+
 
 #innerMarker {
   transition: all .1s ease-in-out;
@@ -158,4 +181,6 @@ onUpdated(() => Object.values(currentPosition).includes(0) && loadLocation())
   align-items: center;
 }
 
+
 </style>
+

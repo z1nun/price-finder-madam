@@ -50,7 +50,7 @@ const useMapOptions = () => {
     scaleControl: false,
     logoControl: false,
     mapDataControl: false,
-    zoomControl: true,
+    zoomControl: false,
     zoomControlOptions: ZOOM_CONTRAL_OPTIONS,
     minZoom: 6,
     zoom: 13
