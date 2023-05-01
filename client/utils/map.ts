@@ -39,6 +39,8 @@ const useMapOptions = () => {
 
   const isError = ref<boolean>(false)
 
+  const loadedPosition = ref<boolean>(false)
+
   const ZOOM_CONTRAL_OPTIONS: ZoomControlOptions = {
     style: zoomControlStyleMap.SMALL,
     position: zoomControlPositionMap.TOP_RIGHT,
@@ -68,7 +70,7 @@ const useMapOptions = () => {
     },
   }
 
-  const loadLocation = () => {
+  const loadLocation = () => {    
     navigator
       .geolocation
       .getCurrentPosition(   
@@ -76,10 +78,12 @@ const useMapOptions = () => {
           const { coords: { latitude, longitude } } = success
           currentPosition.latitude = latitude ?? 0
           currentPosition.longitude = longitude ?? 0
+          loadedPosition.value = true
         },
         (error: GeolocationPositionError) => {
           console.log(error)
           isError.value = true
+          loadedPosition.value = false
         }
       )
   }
@@ -90,7 +94,8 @@ const useMapOptions = () => {
     DEFAULT_MARKER_SIZE,
     DEFAULT_WINDOWINFO_OPTIONS,
     currentPosition,
-    loadLocation
+    loadedPosition,
+    loadLocation,
   }
 }
 

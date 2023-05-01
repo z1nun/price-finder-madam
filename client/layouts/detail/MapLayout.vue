@@ -2,12 +2,12 @@
   <section class="NaverMap">
     <NaverMap 
       id="map" 
+      v-if="loadedPosition"
       :mapOptions="mapOptions"
       :initLayers="initLayers"
       @onLoad="onLoadMap"
     >
-      <NaverMarker 
-        v-if="visibleMarker"
+      <NaverMarker        
         class="marker"        
         v-bind="currentPosition"
         @onLoad="onLoadMarker"
@@ -30,7 +30,7 @@
           인포
         </div>
       </NaverInfoWindow>
-    </NaverMap>  
+    </NaverMap>
   </section>
 </template>
 
@@ -49,6 +49,7 @@ const {
   DEFAULT_ZOOM_OPTIONS,
   DEFAULT_WINDOWINFO_OPTIONS,
   currentPosition,
+  loadedPosition,
   loadLocation
 } = useMapOptions()
 
