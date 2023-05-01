@@ -9,8 +9,6 @@
 <script setup lang="ts">
 import { ZoomType } from '~/utils/map';
 
-
-
 const emit = defineEmits<{(e: 'zoom', value: ZoomType): void }>()
 
 </script>
