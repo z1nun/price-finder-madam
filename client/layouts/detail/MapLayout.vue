@@ -39,15 +39,15 @@
 
 <script setup lang="ts">
 import { onMounted, ref, computed, onUpdated } from 'vue';
-import { NaverInfoWindow, NaverMap, NaverMarker } from 'vue3-naver-maps';
-import useMapOptions, { ZoomType } from '~/utils/map'
+import { MapOptions, NaverInfoWindow, NaverMap, NaverMarker } from 'vue3-naver-maps';
+import useMapOptions, { 
+  InfoWindow, 
+  InfoWindowOptions,
+  Marker, 
+  ZoomType,
+  Map
+} from '~/utils/map'
 import CustomZoom from '~/components/detail/map/CustomZoom.vue'
-
-type Map = naver.maps.Map
-type Marker = naver.maps.Marker
-type MapOptions = naver.maps.MapOptions
-type InfoWindowOptions = naver.maps.InfoWindowOptions
-type InfoWindow = naver.maps.InfoWindow
 
 const { 
   DEFAULT_ZOOM_OPTIONS,
@@ -114,7 +114,6 @@ const zoom = (e: ZoomType) => {
 
   target?.setZoom(target.getZoom() + (e === 'in' ? 1 : -1), true)  
 }
-
 
 
 onMounted(() => loadLocation())

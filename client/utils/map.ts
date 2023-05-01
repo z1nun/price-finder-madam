@@ -1,9 +1,13 @@
 import { reactive, ref } from "vue"
 
 export type ZoomType = 'in' | 'out'
-type MapOptions = naver.maps.MapOptions
+export type Map = naver.maps.Map
+export type Marker = naver.maps.Marker
+export type MapOptions = naver.maps.MapOptions
+export type InfoWindow = naver.maps.InfoWindow
+export type InfoWindowOptions = naver.maps.InfoWindowOptions
+
 type MarkerSize = naver.maps.Size | naver.maps.SizeLiteral
-type InfoWindowOptions = naver.maps.InfoWindowOptions
 type ZoomControlOptions = naver.maps.ZoomControlOptions
 type Location = {
   latitude: number
