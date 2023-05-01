@@ -3,6 +3,7 @@
     <DetailHeader/>
     <StoreCard/>
     <StoreInformCard/>
+    <StoreLocationCard/>
   </section>
 </template>
 
@@ -10,6 +11,7 @@
 import DetailHeader from "/components/detail/DetailHeader.vue";
 import StoreCard from "/components/detail/StoreCard.vue";
 import StoreInformCard from "/components/detail/StoreInformCard.vue"
+import StoreLocationCard from "/components/detail/StoreLocationCard.vue";
 
 
 
