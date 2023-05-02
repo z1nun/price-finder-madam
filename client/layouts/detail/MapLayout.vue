@@ -2,14 +2,14 @@
   <section class="NaverMap">
     <NaverMap 
       id="map" 
-      v-if="loadedPosition"
+      v-if="!currentPosition.loading"
       :mapOptions="mapOptions"
       :initLayers="initLayers"
       @onLoad="onLoadMap"
     >
       <NaverMarker        
         class="marker"        
-        v-bind="currentPosition"
+        v-bind="currentPosition.data"
         @onLoad="onLoadMarker"
         @click="isMarkerOpen = !isMarkerOpen"        
       >        
@@ -48,14 +48,14 @@ import useMapOptions, {
   Map
 } from '~/utils/map'
 import CustomZoom from '~/components/detail/map/CustomZoom.vue'
+import useStore from '~/store';
 
 const { 
   DEFAULT_ZOOM_OPTIONS,
-  DEFAULT_WINDOWINFO_OPTIONS,
-  currentPosition,
-  loadedPosition,
-  loadLocation
+  DEFAULT_WINDOWINFO_OPTIONS,  
 } = useMapOptions()
+
+const { asyncStates: { currentPosition }, loadLocation } = useStore()
 
 
 
@@ -66,11 +66,11 @@ const visibleMarker = ref<boolean>(false)
 
 const mapOptions = computed<MapOptions>(() => ({
   ...DEFAULT_ZOOM_OPTIONS,
-  ...currentPosition,    
+  ...currentPosition.data,
 }))
 
 const onLoadMap = (mapObject: Map) => {
-  const latLng = new window.naver.maps.LatLng(currentPosition.latitude, currentPosition.longitude)  
+  const latLng = new window.naver.maps.LatLng(currentPosition.data.latitude, currentPosition.data.longitude)  
   visibleMarker.value = true
   mapObject.setCenter(latLng)
   map.value = mapObject
@@ -95,8 +95,8 @@ const visibleInfo = ref<boolean>(false)
 const infoWindowOptions = computed<InfoWindowOptions>(() => ({
   ...DEFAULT_WINDOWINFO_OPTIONS,
   position: {
-    lat: currentPosition.latitude,
-    lng: currentPosition.longitude
+    lat: currentPosition.data.latitude,
+    lng: currentPosition.data.longitude
   },
   content: infoRef.value ?? ''
 }))
@@ -117,8 +117,6 @@ const zoom = (e: ZoomType) => {
 
 
 onMounted(() => loadLocation())
-
-onUpdated(() => Object.values(currentPosition).includes(0) && loadLocation())
 
 </script>
 
