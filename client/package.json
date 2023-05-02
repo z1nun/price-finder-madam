@@ -14,11 +14,13 @@
     "nuxt": "^3.4.2"
   },
   "dependencies": {
+    "@pinia/nuxt": "^0.4.9",
     "@types/navermaps": "^3.6.4",
     "bootstrap": "^5.2.3",
     "bootstrap-icons-vue": "^1.10.3",
     "bootstrap-vue": "^2.23.1",
     "node-sass": "^8.0.0",
+    "pinia": "^2.0.35",
     "sass": "^1.62.0",
     "sass-loader": "^13.2.2",
     "vue": "^3.2.47",
