@@ -38,7 +38,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, computed, onUpdated } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { MapOptions, NaverInfoWindow, NaverMap, NaverMarker } from 'vue3-naver-maps';
 import useMapOptions, { 
   InfoWindow, 
@@ -58,7 +58,6 @@ const {
 const { asyncStates: { currentPosition }, loadLocation } = useStore()
 
 
-
 // Map
 const map = ref<Map | null>()
 const initLayers = ['']
@@ -70,7 +69,11 @@ const mapOptions = computed<MapOptions>(() => ({
 }))
 
 const onLoadMap = (mapObject: Map) => {
-  const latLng = new window.naver.maps.LatLng(currentPosition.data.latitude, currentPosition.data.longitude)  
+  const latLng = new window.naver.maps.LatLng(
+    currentPosition.data.latitude, 
+    currentPosition.data.longitude
+  )  
+
   visibleMarker.value = true
   mapObject.setCenter(latLng)
   map.value = mapObject
@@ -83,7 +86,9 @@ const onLoadMap = (mapObject: Map) => {
 const marker = ref<Marker>()
 const isMarkerOpen = ref<boolean>(false)
 
-const onLoadMarker = (markerObject: Marker) => marker.value = markerObject   
+const onLoadMarker = (markerObject: Marker) => {
+  marker.value = markerObject
+}
 
 
 
@@ -94,11 +99,11 @@ const visibleInfo = ref<boolean>(false)
 
 const infoWindowOptions = computed<InfoWindowOptions>(() => ({
   ...DEFAULT_WINDOWINFO_OPTIONS,
+  content: infoRef.value ?? '',
   position: {
     lat: currentPosition.data.latitude,
     lng: currentPosition.data.longitude
-  },
-  content: infoRef.value ?? ''
+  }
 }))
 
 const onLoadedInfoWindow = (windowInfoObject: InfoWindow) => {

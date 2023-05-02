@@ -1,19 +1,9 @@
 import { defineStore } from "pinia";
-
-type Location = {
-  latitude: number
-  longitude: number
-}
-
-export type AsyncState<T = any, E = unknown> = {
-  data: T | null
-  loading: boolean
-  error: E
-}
+import { AsyncState, Location } from "./types";
 
 const asyncUtils = {
-  initial: (data?: any): AsyncState => ({
-    data: data || null,
+  initial: <T>(data?: T): AsyncState<T> => ({
+    data: data || {},
     loading: true,
     error: null
   }),
@@ -38,7 +28,7 @@ const useStore = defineStore('store', () => {
   const { initial, loading, fulfiled, error } = asyncUtils
   
   const asyncStates = reactive<Record<string, AsyncState>>({
-    currentPosition: initial({
+    currentPosition: initial<Location>({
       latitude: 0,
       longitude: 0
     })
