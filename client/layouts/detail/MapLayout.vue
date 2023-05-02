@@ -8,7 +8,8 @@
       @onLoad="onLoadMap"
     >
       <NaverMarker        
-        class="marker"        
+        class="marker"
+        v-if="visibleMarker"
         v-bind="currentPosition.data"
         @onLoad="onLoadMarker"
         @click="isMarkerOpen = !isMarkerOpen"        
