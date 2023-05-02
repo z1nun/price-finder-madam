@@ -1,5 +1,3 @@
-import { reactive, ref } from "vue"
-
 export type ZoomType = 'in' | 'out'
 export type Map = naver.maps.Map
 export type Marker = naver.maps.Marker
@@ -9,10 +7,7 @@ export type InfoWindowOptions = naver.maps.InfoWindowOptions
 
 type MarkerSize = naver.maps.Size | naver.maps.SizeLiteral
 type ZoomControlOptions = naver.maps.ZoomControlOptions
-type Location = {
-  latitude: number
-  longitude: number
-}
+
 
 const zoomControlStyleMap = Object.freeze({
   "SMALL": 2,
@@ -36,15 +31,6 @@ const zoomControlPositionMap = Object.freeze<Record<string, number>>({
 })
 
 const useMapOptions = () => {
-
-  const currentPosition = reactive<Location>({
-    latitude: 0,
-    longitude: 0
-  })
-
-  const isError = ref<boolean>(false)
-
-  const loadedPosition = ref<boolean>(false)
 
   const ZOOM_CONTRAL_OPTIONS: ZoomControlOptions = {
     style: zoomControlStyleMap.SMALL,
@@ -75,32 +61,10 @@ const useMapOptions = () => {
     },
   }
 
-  const loadLocation = () => {    
-    navigator
-      .geolocation
-      .getCurrentPosition(   
-        (success: GeolocationPosition) => {
-          const { coords: { latitude, longitude } } = success
-          currentPosition.latitude = latitude ?? 0
-          currentPosition.longitude = longitude ?? 0
-          loadedPosition.value = true
-        },
-        (error: GeolocationPositionError) => {
-          console.log(error)
-          isError.value = true
-          loadedPosition.value = false
-        }
-      )
-  }
-
-
   return {
     DEFAULT_ZOOM_OPTIONS,
     DEFAULT_MARKER_SIZE,
     DEFAULT_WINDOWINFO_OPTIONS,
-    currentPosition,
-    loadedPosition,
-    loadLocation,
   }
 }
 
