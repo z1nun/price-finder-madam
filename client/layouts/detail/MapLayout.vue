@@ -58,7 +58,6 @@ const {
 
 const { asyncStates: { currentPosition }, loadLocation } = useStore()
 
-
 // Map
 const map = ref<Map | null>()
 const initLayers = ['']

@@ -6,12 +6,18 @@ type Location = {
 type StateTypes = Location
 
 type AsyncState<T = StateTypes, E = unknown> = {
-  data: T | any
+  data: T
   loading: boolean
   error: E
 }
 
-export {
+type AsyncStates = {
+  currentPosition: AsyncState<Location>
+}
+
+export {  
   Location,
-  AsyncState
+  StateTypes,
+  AsyncState,
+  AsyncStates
 }
