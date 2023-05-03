@@ -1,4 +1,4 @@
-import { AsyncState, AsyncStates, Effect, StateTypes } from "./types"
+import { AsyncState, Effect, StateTypes } from "./types"
 
 
 /*
@@ -86,8 +86,4 @@ const createAsyncProcess = () => {
 export {
   asyncUtils,  
   createAsyncProcess
-}
-
-export {
-  Effect
 }

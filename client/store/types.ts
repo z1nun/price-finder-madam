@@ -41,7 +41,7 @@ type StateTypes = Location | DetailCard[] | StoreCard[]
 
 // 비동기 관련 타입
 
-type Effect<T> = {  
+export type Effect<T> = {  
   /**
    * 요청할 비동기 함수입니다.
    * @param arg 비동기 함수에 넣을 인자입니다.
@@ -81,5 +81,4 @@ export {
   StateTypes,
   AsyncState,
   AsyncStates,
-  Effect
 }
