@@ -51,32 +51,31 @@ const asyncUtils = {
 /*
   비동기 상태 흐름을 생성하는 함수 
 */
-const createAsyncProcess = (states: AsyncStates) => {
+const createAsyncProcess = () => {
   const { loading, fulfiled, error } = asyncUtils
 
-  type State = keyof AsyncStates
 
   /**
    * 비동기 흐름을 진행시킵니다.
    * @param state 변경시킬 상태입니다.
    * @param effect 콜백 함수입니다.   
    */
-  return <T extends StateTypes, E = unknown>(state: State, effect: Effect<T> | Effect<T>["callback"]) => {
+  return <T extends StateTypes, E = unknown>(state: AsyncState<StateTypes>, effect: Effect<T> | Effect<T>["callback"]) => {
     const { callback , onLoaded, onError } = typeof effect === 'function' ? { 
       callback: effect, 
       onLoaded: null,
       onError: (e: unknown) => console.log(e)
     } : effect
 
-    loading(states[state])
+    loading(state)
 
     callback()
       .then((result: T) => {
-        fulfiled(states[state], result)
+        fulfiled(state, result)
         onLoaded && onLoaded(result)
       })      
       .catch((e: E) => {
-        error(states[state], e)
+        error(state, e)
         onError && onError(e)
       })
   }  

@@ -18,7 +18,7 @@ const useStore = defineStore('store', () => {
   })
 
   
-  const asyncProcess = createAsyncProcess(asyncStates)
+  const asyncProcess = createAsyncProcess()
 
   
 
@@ -26,14 +26,14 @@ const useStore = defineStore('store', () => {
   /**
    * 간단 카드를 로드합니다.   
    */
-  const loadStoreCard = () => asyncProcess<StoreCard[]>('storeCards', async () => await []) 
+  const loadStoreCard = () => asyncProcess<StoreCard[]>(asyncStates.storeCards, async () => await []) 
 
 
   /**
    * 상세 카드를 로드합니다.
    * @param id 찾을 가게의 id
    */
-  const loadDetailCard = (id: string) => asyncProcess<DetailCard[]>('detailCards', async () => await [])
+  const loadDetailCard = (id: string) => asyncProcess<DetailCard[]>(asyncStates.storeCards, async () => await [])
 
 
   /**
