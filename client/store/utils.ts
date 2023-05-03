@@ -1,12 +1,4 @@
-import { AsyncState, AsyncStates, StateTypes } from "./types"
-
-
-                                                             
-//                             
-//  비동기 상태를 제어하는 코드를 모아놨습니다.   
-//                                            
-
-
+import { AsyncState, AsyncStates, Effect, StateTypes } from "./types"
 
 
 /*
@@ -56,29 +48,6 @@ const asyncUtils = {
 }
 
 
-
-type Effect = {  
-  /**
-   * 요청할 비동기 함수입니다.
-   * @param arg 비동기 함수에 넣을 인자입니다.
-   */
-  callback: (arg?: any) => Promise<any>
-
-  /**
-   * 요청된 결과를 통해 행할 추가 작업입니다.
-   * @param result callback 비동기함수에서 반환한 결과값입니다.
-   */
-  onLoaded?: (result: any) => void | null
-  
-  /**
-   * 에러 처리 리터럴입니다.
-   * @param error 
-   */
-  onError?: ((error: unknown | undefined) => void) | null
-}
-
-
-
 /*
   비동기 상태 흐름을 생성하는 함수 
 */
@@ -87,7 +56,12 @@ const createAsyncProcess = (states: AsyncStates) => {
 
   type State = keyof AsyncStates
 
-  return <T extends StateTypes>(state: State, effect: Effect | Effect["callback"]) => {
+  /**
+   * 비동기 흐름을 진행시킵니다.
+   * @param state 변경시킬 상태입니다.
+   * @param effect 콜백 함수입니다.   
+   */
+  return <T extends StateTypes, E = unknown>(state: State, effect: Effect<T> | Effect<T>["callback"]) => {
     const { callback , onLoaded, onError } = typeof effect === 'function' ? { 
       callback: effect, 
       onLoaded: null,
@@ -101,7 +75,7 @@ const createAsyncProcess = (states: AsyncStates) => {
         fulfiled(states[state], result)
         onLoaded && onLoaded(result)
       })      
-      .catch((e: unknown) => {
+      .catch((e: E) => {
         error(states[state], e)
         onError && onError(e)
       })
