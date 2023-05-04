@@ -1,8 +1,13 @@
-import { onMounted, reactive, ref, toRefs } from "vue"
+import { reactive, ref } from "vue"
 
-type MapOptions = naver.maps.MapOptions
+export type ZoomType = 'in' | 'out'
+export type Map = naver.maps.Map
+export type Marker = naver.maps.Marker
+export type MapOptions = naver.maps.MapOptions
+export type InfoWindow = naver.maps.InfoWindow
+export type InfoWindowOptions = naver.maps.InfoWindowOptions
+
 type MarkerSize = naver.maps.Size | naver.maps.SizeLiteral
-type InfoWindowOptions = naver.maps.InfoWindowOptions
 type ZoomControlOptions = naver.maps.ZoomControlOptions
 type Location = {
   latitude: number
@@ -39,6 +44,8 @@ const useMapOptions = () => {
 
   const isError = ref<boolean>(false)
 
+  const loadedPosition = ref<boolean>(false)
+
   const ZOOM_CONTRAL_OPTIONS: ZoomControlOptions = {
     style: zoomControlStyleMap.SMALL,
     position: zoomControlPositionMap.TOP_RIGHT,
@@ -48,7 +55,7 @@ const useMapOptions = () => {
     scaleControl: false,
     logoControl: false,
     mapDataControl: false,
-    zoomControl: true,
+    zoomControl: false,
     zoomControlOptions: ZOOM_CONTRAL_OPTIONS,
     minZoom: 6,
     zoom: 13
@@ -68,7 +75,7 @@ const useMapOptions = () => {
     },
   }
 
-  const loadLocation = () => {
+  const loadLocation = () => {    
     navigator
       .geolocation
       .getCurrentPosition(   
@@ -76,10 +83,12 @@ const useMapOptions = () => {
           const { coords: { latitude, longitude } } = success
           currentPosition.latitude = latitude ?? 0
           currentPosition.longitude = longitude ?? 0
+          loadedPosition.value = true
         },
         (error: GeolocationPositionError) => {
           console.log(error)
           isError.value = true
+          loadedPosition.value = false
         }
       )
   }
@@ -90,7 +99,8 @@ const useMapOptions = () => {
     DEFAULT_MARKER_SIZE,
     DEFAULT_WINDOWINFO_OPTIONS,
     currentPosition,
-    loadLocation
+    loadedPosition,
+    loadLocation,
   }
 }
 
