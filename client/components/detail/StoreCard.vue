@@ -1,57 +1,79 @@
 <template>
   <article>
-    <div><img src="~/assets/img/VerifiedCheck.svg"/>착한가게</div>
-    <ul>
-      <li>한식</li>
-      <li>저렴한 가격, 깨끗한 위생</li>
-    </ul>
+    <div class="container">
+      <div class="contentWrapper">
+        <div><img :src="props.image" />{{ props.title }}</div>
+        <ul>
+          <li v-for="(item, i) in props.content" :key="i">{{ item }}</li>
+        </ul>
+      </div>
+      <slot name="detail"></slot>
+    </div>
+    <slot name="components"></slot>
   </article>
 </template>
 
 <script setup lang="ts">
-
+interface Props {
+  image?: string
+  title: string
+  content: string[]
+}
+const props = defineProps<Props>()
 </script>
 
 <style lang="scss" scoped>
-
 article {
   width: 320px;
   height: fit-content;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  justify-content: space-between;
   padding: 16px 20px;
-  gap: 8px;
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 2px 3px 16px 1px rgba(221, 221, 221, 0.08), 2px 3px 6px 3px rgba(230, 230, 230, 0.16);
-
-  div {
-    height: fit-content;
-    display : flex;
-    align-items: flex-start;
-    gap : 4px;
-    color: #343E4C;
-    font-weight: 600;
-    font-size: 1rem;
-    line-height: 150%;
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .contentWrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      div {
+        height: fit-content;
+        display: flex;
+        align-items: flex-start;
+        gap: 4px;
+        color: #343e4c;
+        font-weight: 600;
+        font-size: 1rem;
+        line-height: 150%;
+      }
+    }
   }
-
   ul {
     display: flex;
     flex-direction: column;
-    gap : 8px;
+    gap: 8px;
     font-weight: 600;
     font-size: 1rem;
     line-height: 150%;
-    color: #343E4C;
+    color: #343e4c;
     margin: 0;
     padding-inline-start: 1.5rem;
 
     li {
-      width: 320px;
       height: fit-content;
     }
   }
 }
 
+.store-inform,
+.store-location {
+  ul {
+    font-weight: 400;
+    font-size: 0.875rem;
+  }
+}
 </style>

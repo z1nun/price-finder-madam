@@ -1,23 +1,19 @@
 <template>
   <header>
     <div class="ImgWrap">
-      <div><img src="~/assets/img/arrowLeft.svg"/></div>
-      <img src="~/assets/img/sampleImg.svg"/>
+      <div><img src="~/assets/img/arrowLeft.svg" /></div>
+      <img src="~/assets/img/sampleImg.svg" />
       <span>1 / 3</span>
     </div>
     <div class="TitleWrap">
       해피분식
-      <hr>
-      <div>
-        <img src="~/assets/img/defaultIcon.svg">개인 매장
-      </div>
+      <hr />
+      <div><img src="~/assets/img/defaultIcon.svg" />개인 매장</div>
     </div>
   </header>
 </template>
 
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <style lang="scss" scoped>
 header {
@@ -26,7 +22,7 @@ header {
 .ImgWrap {
   width: 360px;
   height: 180px;
-  background: linear-gradient(360deg, rgba(51, 51, 51, 8e-05) 58.22%, rgba(18, 18, 18, 0.8) 100%), url(.jpg);
+  background: linear-gradient(360deg, rgba(51, 51, 51, 8e-5) 58.22%, rgba(18, 18, 18, 0.8) 100%), url(.jpg);
   box-shadow: 2px 3px 16px 1px rgba(221, 221, 221, 0.08), 2px 3px 6px 3px rgba(230, 230, 230, 0.16);
   border-radius: 0px 0px 16px 16px;
 
@@ -55,7 +51,7 @@ header {
     justify-content: center;
     padding: 2px 8px;
     gap: 2px;
-    color : #C7C7C7;
+    color: #c7c7c7;
 
     position: absolute;
     width: 39px;
@@ -81,15 +77,16 @@ header {
   left: 20px;
   top: 134px;
 
-  background: #FFFFFF;
-  box-shadow: 1px 2px 8px rgba(51, 51, 51, 0.16), 2px 3px 16px 1px rgba(221, 221, 221, 0.08), 2px 3px 6px 3px rgba(230, 230, 230, 0.16);
+  background: #ffffff;
+  box-shadow: 1px 2px 8px rgba(51, 51, 51, 0.16), 2px 3px 16px 1px rgba(221, 221, 221, 0.08),
+    2px 3px 6px 3px rgba(230, 230, 230, 0.16);
   border-radius: 16px;
-  font-size : 1.25rem;
+  font-size: 1.25rem;
   font-weight: 700;
 
   hr {
     width: 280px;
-    border: 1px solid #C7C7C7;
+    border: 1px solid #c7c7c7;
   }
   div {
     display: flex;
@@ -99,10 +96,9 @@ header {
     font-size: 1rem;
     font-weight: 400;
     img {
-      width : 20px;
-      height : 20px;
+      width: 20px;
+      height: 20px;
     }
   }
 }
-
 </style>
