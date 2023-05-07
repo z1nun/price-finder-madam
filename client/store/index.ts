@@ -1,40 +1,45 @@
 import { defineStore } from "pinia";
-import { AsyncState, Location } from "./types";
-
-const asyncUtils = {
-  initial: <T>(data?: T): AsyncState<T> => ({
-    data: data || {},
-    loading: true,
-    error: null
-  }),
-
-  loading: (state: AsyncState) => {
-    state.loading = true    
-  },
-
-  fulfiled: (state: AsyncState, response: any) => {
-    state.data = response
-    state.loading = false    
-  },
-
-  error: (state: AsyncState, error: unknown) => {
-    state.data = null
-    state.loading = false
-    state.error = error
-  } 
-}
+import { AsyncStates, DetailCard, Location, StoreCard } from "./types";
+import { asyncUtils, createAsyncProcess } from "./utils";
 
 const useStore = defineStore('store', () => {  
   const { initial, loading, fulfiled, error } = asyncUtils
-  
-  const asyncStates = reactive<Record<string, AsyncState>>({
+
+  /**
+   * 비동기 상태들을 초기화합니다.
+   */
+  const asyncStates = reactive<AsyncStates>({
     currentPosition: initial<Location>({
       latitude: 0,
       longitude: 0
-    })
+    }),
+    storeCards: initial<StoreCard[]>([]),
+    detailCards: initial<DetailCard[]>([]),    
   })
+
   
-  const loadLocation = () => {     
+  const asyncProcess = createAsyncProcess()
+
+  
+
+
+  /**
+   * 간단 카드를 로드합니다.   
+   */
+  const loadStoreCard = () => asyncProcess<StoreCard[]>(asyncStates.storeCards, async () => await []) 
+
+
+  /**
+   * 상세 카드를 로드합니다.
+   * @param id 찾을 가게의 id
+   */
+  const loadDetailCard = (id: string) => asyncProcess<DetailCard[]>(asyncStates.storeCards, async () => await [])
+
+
+  /**
+   * 현재 위치를 로드합니다.
+   */
+  const loadLocation = () => {   
     const targetState = asyncStates.currentPosition
     loading(targetState)
     
@@ -48,6 +53,8 @@ const useStore = defineStore('store', () => {
 
   return {
     loadLocation,
+    loadDetailCard,
+    loadStoreCard,
     asyncStates
   }
 })
