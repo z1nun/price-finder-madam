@@ -4,36 +4,30 @@
       <div class="IconBox">
         <img src="~/assets/img/defaultIcon.svg" />
       </div>
-      <div class="PriceBox">
-        금액
-      </div>
+      <div class="PriceBox">금액</div>
     </div>
 
     <div class="bottom">
-      <div class="title">
-        착한 가격의 가게
-      </div>
+      <div class="title">착한 가격의 가게</div>
       <div class="address">
         {{ recommendCard.address }}
-      </div>        
+      </div>
     </div>
 
     <div class="check">
-      <img src="~/assets/img/check.svg">
-
+      <img src="~/assets/img/check.svg" />
     </div>
   </article>
 </template>
 
 <script setup lang="ts">
-import { IRecommendCard } from './RecommendCards.vue';
+import { IRecommendCard } from '~/components/index/search/RecommendCards.vue'
 
 interface RecommendCardProp {
   recommendCard: IRecommendCard
 }
 
 const { recommendCard } = defineProps<RecommendCardProp>()
-
 </script>
 
 <style lang="scss">
@@ -41,13 +35,13 @@ const { recommendCard } = defineProps<RecommendCardProp>()
   font-family: 'Pretendard';
   height: 200px;
   width: 328px;
-  height: 200px;  
+  height: 200px;
   position: relative;
 
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 16px;
 
-  transition: all .3s;
+  transition: all 0.3s;
   cursor: pointer;
 
   .top {
@@ -61,11 +55,11 @@ const { recommendCard } = defineProps<RecommendCardProp>()
       height: 80px;
       border-radius: 16px;
       display: flex;
-      background-color: #F7F7F7;
+      background-color: #f7f7f7;
       justify-content: center;
       align-items: center;
     }
-  
+
     .PriceBox {
       display: flex;
       justify-content: center;
@@ -74,14 +68,13 @@ const { recommendCard } = defineProps<RecommendCardProp>()
       width: 44px;
       font-weight: bold;
       padding: 8px;
-      background-color: #F7F7F7;
+      background-color: #f7f7f7;
       border-radius: 8px;
     }
   }
 
-
   .bottom {
-    margin-top: 24px; 
+    margin-top: 24px;
     padding-left: 20px;
     padding-right: 20px;
 
@@ -89,7 +82,7 @@ const { recommendCard } = defineProps<RecommendCardProp>()
       font-weight: 700;
       font-size: 18px;
     }
-    
+
     .address {
       margin-top: 8px;
       font-weight: 500;

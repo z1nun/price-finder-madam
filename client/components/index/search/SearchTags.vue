@@ -1,19 +1,19 @@
 <template>
   <article class="SearchTags">
-    <SearchTag 
-      v-for="tag in tags" 
+    <SearchTag
+      v-for="tag in tags"
       :key="tag.id"
       :tag="tag"
-      @click="activeId = tag.id"
       :class="[activeId === tag.id ? 'active' : '']"
+      @click="activeId = tag.id"
     />
   </article>
 </template>
 
 <script setup lang="ts">
-type TagId = 'all' | 'store' | 'thing'
-
 import SearchTag from './SearchTag.vue'
+
+type TagId = 'all' | 'store' | 'thing'
 
 export interface ITag {
   text: string
@@ -35,7 +35,7 @@ const tags = ref<ITag[]>([
   {
     text: '착한 물품',
     id: 'thing',
-  }
+  },
 ])
 </script>
 
