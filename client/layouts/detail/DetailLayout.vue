@@ -33,8 +33,8 @@
 <script setup lang="ts">
 import DetailHeader from '/components/detail/DetailHeader.vue'
 import StoreCard from '/components/detail/StoreCard.vue'
-import verifiedCheckImage from '~/assets/img/detail/VerifiedCheck.svg'
-import bagSmileImage from '~/assets/img/detail/bagSmile.svg'
+import verifiedCheckImage from '/assets/img/detail/VerifiedCheck.svg'
+import bagSmileImage from '/assets/img/detail/bagSmile.svg'
 </script>
 
 <style scoped lang="scss">
