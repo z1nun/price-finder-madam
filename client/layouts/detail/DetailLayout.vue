@@ -18,7 +18,7 @@
         <span>전체 <img src="~/assets/img/arrowRight.svg" /></span>
       </template>
       <template #components>
-        <div v-for="el in [1, 2, 3]" :key="el" class="item">
+        <div v-for="el in 3" :key="el" class="item">
           <img src="~/assets/img/product.svg" />
           <div class="text">
             <span>상품명</span>
@@ -33,8 +33,8 @@
 <script setup lang="ts">
 import DetailHeader from '/components/detail/DetailHeader.vue'
 import StoreCard from '/components/detail/StoreCard.vue'
-import verifiedCheckImage from '../../assets/img/VerifiedCheck.svg'
-import bagSmileImage from '../../assets/img/bagSmile.svg'
+import verifiedCheckImage from '~/assets/img/detail/VerifiedCheck.svg'
+import bagSmileImage from '~/assets/img/detail/bagSmile.svg'
 </script>
 
 <style scoped lang="scss">

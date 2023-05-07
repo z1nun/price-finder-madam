@@ -17,9 +17,19 @@
 interface Props {
   image?: string
   title: string
-  content: string[]
+  content: string[],
+  imgType: string
 }
 const props = defineProps<Props>()
+
+// const imgUrl = computed<string>(() => {
+//   switch (props.imgType) {
+//     case 'ckeck': return '~/assets/img/VerifiedCheck.svg'
+//     case 'ckeck': return '~/assets/img/VerifiedCheck.svg'
+//     default '.'    
+//   }
+// })
+
 </script>
 
 <style lang="scss" scoped>
@@ -37,7 +47,7 @@ article {
     justify-content: space-between;
     align-items: center;
     .contentWrapper {
-      display: flex;
+    display: flex;
       flex-direction: column;
       gap: 8px;
       div {
