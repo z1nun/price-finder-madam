@@ -1,6 +1,6 @@
 <template>
   <article>
-    <h3><img src="~/assets/img/detail/bagSmile.svg" />매장 정보</h3>
+    <h3>매장 정보</h3>
     <ul>
       <li v-for="(item, index) in inform" :key="index">{{ item }}</li>
     </ul>
