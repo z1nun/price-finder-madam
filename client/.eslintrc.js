@@ -7,11 +7,17 @@ module.exports = {
   parserOptions: {
     parser: '@typescript-eslint/parser',
   },
-  extends: ['eslint:recommended', 'plugin:vue/vue3-recommended', 'prettier'],
+  extends: [
+    'eslint:recommended',
+    'plugin:vue/vue3-essential',
+    '@vue/eslint-config-prettier',
+    'plugin:nuxt/recommended',
+    'plugin:vue/vue3-recommended',
+    'prettier',
+  ],
   plugins: ['prettier'],
   rules: {
     'prettier/prettier': ['error'],
-    'vue/require-default-prop': 0,
     'vue/html-indent': ['error', 2],
     'vue/singleline-html-element-content-newline': 0,
     'vue/component-name-in-template-casing': ['error', 'PascalCase'],
