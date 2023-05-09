@@ -17,7 +17,11 @@
 import SearchButton from "~/components/SearchButton.vue"
 
 const focus = () => {
-  console.log('focus')
+  const searchBar = document.getElementById("searchBar")
+  window.scrollTo({ top: 810, behavior: 'smooth' })
+  setTimeout(() => searchBar?.focus(), 500)
+  
+  // nextTick(() => searchBar?.focus())
 }
 </script>
 

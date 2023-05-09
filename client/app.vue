@@ -11,4 +11,8 @@ body {
   font-size: 14px;
   font-family: 'Pretendard';
 }
+
+html {
+  scroll-behavior: smooth;
+}
 </style>
