@@ -15,5 +15,6 @@ button {
   line-height: 48px;
   font-size: 1rem;
   border: 0;
+  cursor: pointer;
 }
 </style>

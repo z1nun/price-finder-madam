@@ -3,5 +3,10 @@ export default defineNuxtConfig({
   css: ['@/assets/fonts/main.css'],
   modules: [
     '@pinia/nuxt'
-  ]
+  ],  
+  app: {
+    head: {
+      title: ''
+    }
+  }
 })
