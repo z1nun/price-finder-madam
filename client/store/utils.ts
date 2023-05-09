@@ -60,7 +60,7 @@ const createAsyncProcess = () => {
    * @param state 변경시킬 상태입니다.
    * @param effect 콜백 함수입니다.   
    */
-  return <T extends StateTypes, E = unknown>(state: AsyncState<StateTypes>, effect: Effect<T> | Effect<T>["callback"]) => {
+  return async <T extends StateTypes, E = unknown>(state: AsyncState<StateTypes>, effect: Effect<T> | Effect<T>["callback"]) => {
     const { callback , onLoaded, onError } = typeof effect === 'function' ? { 
       callback: effect, 
       onLoaded: null,

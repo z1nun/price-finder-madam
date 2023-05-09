@@ -809,6 +809,7 @@ declare namespace naver.maps {
       layers: LayerRegistry;
       mapTypes: MapTypeRegistry;
       mapSystemProjection: MapSystemProjection;
+      mapPane: any
 
       constructor(mapDiv: string | HTMLElement, mapOptions?: MapOptions);
       addPane(name: string, elementOrIndex: HTMLElement | number): void;

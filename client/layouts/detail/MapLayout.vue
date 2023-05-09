@@ -6,6 +6,7 @@
       :mapOptions="mapOptions"
       :initLayers="initLayers"
       @onLoad="onLoadMap"
+      @drag="drag"
     >
       <NaverMarker        
         class="marker"
@@ -73,10 +74,19 @@ const onLoadMap = (mapObject: Map) => {
     currentPosition.data.latitude, 
     currentPosition.data.longitude
   )  
-
+  
   visibleMarker.value = true
   mapObject.setCenter(latLng)
+  console.log(mapObject)
   map.value = mapObject
+}
+
+const drag = () => {
+  const { model } = map.value?.mapPane
+  console.log('우측하단', model.projectionBottomRight)
+  console.log('좌측상단', model.projectionTopLeft)
+  console.log('중심', model.centerPoint)
+  console.log(model)
 }
 
 
