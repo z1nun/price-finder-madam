@@ -6,7 +6,7 @@
       :recommend-card="recommendCard"
     />
           
-    <RecommendMore />
+    <RecommendMore @click="router.push('/detail')"/>
   </article>
 </template>
 
@@ -26,6 +26,7 @@ export interface IRecommendCard {
 }
 
 const { divice } = useDisplay()
+const router = useRouter()
 
 const displayCount = computed<number>(() => {
   switch (divice.value) {
@@ -86,6 +87,8 @@ const recommendCards = ref<IRecommendCard[]>([
     address: '강남구 개포로22길 46 지하1층',
   },
 ])
+
+
 </script>
 
 <style scoped lang="scss">

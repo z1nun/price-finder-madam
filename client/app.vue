@@ -12,7 +12,4 @@ body {
   font-family: 'Pretendard';
 }
 
-html {
-  scroll-behavior: smooth;
-}
 </style>
