@@ -12,8 +12,6 @@
 
 <script setup lang="ts">
 import useDisplay from '~/utils/display'
-// import RecommendCard from '~/components/search/RecommendCard.vue'
-// import RecommendMore from '~/components/search/RecommendMore.vue'
 import RecommendCard from '~/components/index/search/RecommendCard.vue'
 import RecommendMore from '~/components/index/search/RecommendMore.vue'
 
