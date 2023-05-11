@@ -4,7 +4,7 @@
 
 <script setup lang="ts"></script>
 
-<style scoped>
+<style scoped lang="scss">
 button {
   width: 312px;
   height: 48px;
@@ -15,5 +15,13 @@ button {
   line-height: 48px;
   font-size: 1rem;
   border: 0;
+  cursor: pointer;
+  transition: all .1s;
+
+  &:hover {
+    opacity: .9;
+  }
+
+
 }
 </style>

@@ -4,7 +4,7 @@
       <div class="TextWrap">
         <h1>우리모두의<br>착한 소비를 위하여</h1>
         <p>우리모두의 합리적인 소비를 위한 가게정보를<br> 공공데이터를 이용해서 제공해 드립니다</p>
-        <SearchButton/>
+        <SearchButton @click="focus"/>
       </div>
       <div class="ImageWrap">
         <img src="~/assets/img/good_consumption.png" alt="sample">
@@ -15,6 +15,14 @@
 
 <script setup lang="ts">
 import SearchButton from "~/components/SearchButton.vue"
+
+const focus = () => {
+  const searchBar = document.getElementById("searchBar")
+  window.scrollTo({ top: 810, behavior: 'smooth' })
+  setTimeout(() => searchBar?.focus(), 500)
+  
+  // nextTick(() => searchBar?.focus())
+}
 </script>
 
 <style scoped lang="scss">

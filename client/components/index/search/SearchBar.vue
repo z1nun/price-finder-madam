@@ -1,6 +1,6 @@
 <template>
   <article class="SearchBar">
-    <input v-model="search" placeholder="EX) 합리적인 가격의 매장" type="text" @keyup.enter="onEnter" />
+    <input v-model="search" placeholder="EX) 합리적인 가격의 매장" type="text" @keyup.enter="onEnter" id="searchBar"/>
   </article>
 </template>
 
