@@ -5,3 +5,4 @@ export default defineNuxtConfig({
     '@pinia/nuxt'
   ],
   app: {head : {title:'가격찾아줌마'}}
+})
