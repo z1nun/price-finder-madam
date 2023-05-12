@@ -6,17 +6,21 @@
         <li>{{ location }}</li>
       </ul>
     </div>
-    <button @click="openModal">위치변경</button>
+    <button @click="openModal" v-if="isSeacrhPage">위치변경</button>
     <LocationSwitch v-if="modal === true" @click="target" />
   </article>
 </template>
 
 <script setup lang="ts">
 import LocationSwitch from '~/components/detail/LocationSwitch.vue'
-import { ref } from 'vue'
-
+import { ref, computed } from 'vue'
+import { useRoute } from 'vue-router'
+const route = useRoute()
+const currentPath = computed(() => route.path)
 const location: string = '서울특별시 광진구 자양번영로 13'
 const modal = ref(false)
+const isSeacrhPage = ref(false)
+console.log(currentPath.value)
 
 const openModal = () => {
   modal.value = true
@@ -25,6 +29,10 @@ const openModal = () => {
 const target = (e: Event) => {
   const target = e.target as Element
   target.className === 'container' ? (modal.value = false) : null
+}
+
+if (currentPath.value === '/search') {
+  isSeacrhPage.value = true
 }
 </script>
 
