@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import StoreProduct from '~/components/detail/StoreProduct.vue'
+import StoreProduct from '~/components/detail/detail/StoreProduct.vue'
 </script>
 
 <style lang="scss" scoped>
