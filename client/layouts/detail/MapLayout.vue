@@ -77,7 +77,6 @@ const drag = () => {
   console.log('중심', model.centerPoint)
   console.log(model)
 }
-
 // Marker
 const marker = ref<Marker>()
 const isMarkerOpen = ref<boolean>(false)
