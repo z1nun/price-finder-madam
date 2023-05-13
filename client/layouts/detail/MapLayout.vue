@@ -1,20 +1,20 @@
 <template>
   <section class="NaverMap">
-    <NaverMap 
-      id="map" 
+    <NaverMap
+      id="map"
       v-if="!currentPosition.loading"
       :mapOptions="mapOptions"
       :initLayers="initLayers"
       @onLoad="onLoadMap"
       @drag="drag"
     >
-      <NaverMarker        
+      <NaverMarker
         class="marker"
         v-if="visibleMarker"
         v-bind="currentPosition.data"
         @onLoad="onLoadMarker"
-        @click="isMarkerOpen = !isMarkerOpen"        
-      >        
+        @click="isMarkerOpen = !isMarkerOpen"
+      >
         <div id="innerMarker">
           <div class="icon"></div>
           <span> 마커 1 </span>
@@ -29,35 +29,27 @@
         @onLoaded="onLoadedInfoWindow($event)"
         :options="infoWindowOptions"
       >
-        <div ref="infoRef" class="windowInfo">
-          인포
-        </div>
+        <div ref="infoRef" class="windowInfo">인포</div>
       </NaverInfoWindow>
     </NaverMap>
-    
+
     <CustomZoom @zoom="zoom" />
-  </section> 
+  </section>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, computed } from 'vue';
-import { MapOptions, NaverInfoWindow, NaverMap, NaverMarker } from 'vue3-naver-maps';
-import useMapOptions, { 
-  InfoWindow, 
-  InfoWindowOptions,
-  Marker, 
-  ZoomType,
-  Map
-} from '~/utils/map'
+import { onMounted, ref, computed } from 'vue'
+import { MapOptions, NaverInfoWindow, NaverMap, NaverMarker } from 'vue3-naver-maps'
+import useMapOptions, { InfoWindow, InfoWindowOptions, Marker, ZoomType, Map } from '~/utils/map'
 import CustomZoom from '~/components/detail/map/CustomZoom.vue'
-import useStore from '~/store';
+import useStore from '~/store'
 
-const { 
-  DEFAULT_ZOOM_OPTIONS,
-  DEFAULT_WINDOWINFO_OPTIONS,  
-} = useMapOptions()
+const { DEFAULT_ZOOM_OPTIONS, DEFAULT_WINDOWINFO_OPTIONS } = useMapOptions()
 
-const { asyncStates: { currentPosition }, loadLocation } = useStore()
+const {
+  asyncStates: { currentPosition },
+  loadLocation,
+} = useStore()
 
 // Map
 const map = ref<Map | null>()
@@ -70,11 +62,8 @@ const mapOptions = computed<MapOptions>(() => ({
 }))
 
 const onLoadMap = (mapObject: Map) => {
-  const latLng = new window.naver.maps.LatLng(
-    currentPosition.data.latitude, 
-    currentPosition.data.longitude
-  )  
-  
+  const latLng = new window.naver.maps.LatLng(currentPosition.data.latitude, currentPosition.data.longitude)
+
   visibleMarker.value = true
   mapObject.setCenter(latLng)
   console.log(mapObject)
@@ -88,19 +77,13 @@ const drag = () => {
   console.log('중심', model.centerPoint)
   console.log(model)
 }
-
-
-
-
-// Marker 
+// Marker
 const marker = ref<Marker>()
 const isMarkerOpen = ref<boolean>(false)
 
 const onLoadMarker = (markerObject: Marker) => {
   marker.value = markerObject
 }
-
-
 
 // WindowInfo
 const infoWindow = ref<InfoWindow>()
@@ -112,57 +95,50 @@ const infoWindowOptions = computed<InfoWindowOptions>(() => ({
   content: infoRef.value ?? '',
   position: {
     lat: currentPosition.data.latitude,
-    lng: currentPosition.data.longitude
-  }
+    lng: currentPosition.data.longitude,
+  },
 }))
 
 const onLoadedInfoWindow = (windowInfoObject: InfoWindow) => {
   infoWindow.value = windowInfoObject
 }
 
-
-
-// Zoom 
+// Zoom
 const zoom = (e: ZoomType) => {
   const target = map.value
   if (!target) return
 
-  target?.setZoom(target.getZoom() + (e === 'in' ? 1 : -1), true)  
+  target?.setZoom(target.getZoom() + (e === 'in' ? 1 : -1), true)
 }
 
-
 onMounted(() => loadLocation())
-
 </script>
 
 <style scoped lang="scss">
 .NaverMap {
   display: flex;
   justify-content: center;
-  align-items: center;  
+  align-items: center;
 }
 
 #map {
   width: calc(1920px - 360px);
-  height: 937px;  
+  height: 937px;
 
   &:focus {
-    border: none !important;  
+    border: none !important;
     outline: none !important;
-  }    
-}  
+  }
+}
 
-img[alt="지도 확대"] {
+img[alt='지도 확대'] {
   display: none !important;
 }
 
-
-
-
 #innerMarker {
-  transition: all .1s ease-in-out;
+  transition: all 0.1s ease-in-out;
   background-color: rgba(233, 150, 122, 0.4);
-  padding: .25rem .5rem .25rem .5rem;
+  padding: 0.25rem 0.5rem 0.25rem 0.5rem;
   border-radius: 5px;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
@@ -170,14 +146,14 @@ img[alt="지도 확대"] {
   display: flex;
   align-items: center;
   transform: translateX(-80px);
-    
+
   .icon {
     background-color: white;
     padding: 5px;
     width: 10px;
     height: 10px;
     border-radius: 10px;
-    margin-right: .5rem;
+    margin-right: 0.5rem;
   }
 
   &:hover {
@@ -192,7 +168,4 @@ img[alt="지도 확대"] {
   justify-content: center;
   align-items: center;
 }
-
-
 </style>
-

@@ -1,13 +1,18 @@
 <template>
-  <button>지금 검색하기</button>
+  <button>{{ title }}</button>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const props = defineProps({
+  title: String,
+})
+const { title } = props
+</script>
 
 <style scoped lang="scss">
 button {
   width: 312px;
-  height: 48px;
+  height: fit-content;
   border-radius: 48px;
   color: white;
   background-color: #3366ff;
@@ -16,12 +21,10 @@ button {
   font-size: 1rem;
   border: 0;
   cursor: pointer;
-  transition: all .1s;
+  transition: all 0.1s;
 
   &:hover {
-    opacity: .9;
+    opacity: 0.9;
   }
-
-
 }
 </style>

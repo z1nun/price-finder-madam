@@ -1,22 +1,24 @@
 <template>
   <article class="RecommendCard">
-    <div class="top">
-      <div class="IconBox">
-        <img src="~/assets/img/defaultIcon.svg" />
+    <a>
+      <div class="top">
+        <div class="IconBox">
+          <img src="~/assets/img/defaultIcon.svg" />
+        </div>
+        <div class="PriceBox">금액</div>
       </div>
-      <div class="PriceBox">금액</div>
-    </div>
 
-    <div class="bottom">
-      <div class="title">착한 가격의 가게</div>
-      <div class="address">
-        {{ recommendCard.address }}
+      <div class="bottom">
+        <div class="title">착한 가격의 가게</div>
+        <div class="address">
+          {{ recommendCard.address }}
+        </div>
       </div>
-    </div>
 
-    <div class="check">
-      <img src="~/assets/img/check.svg" />
-    </div>
+      <div class="check">
+        <img src="~/assets/img/check.svg" />
+      </div>
+    </a>
   </article>
 </template>
 
@@ -35,11 +37,11 @@ const { recommendCard } = defineProps<RecommendCardProp>()
   font-family: 'Pretendard';
   height: 200px;
   width: 328px;
-  height: 200px;
   position: relative;
 
   background: #ffffff;
   border-radius: 16px;
+  box-shadow: 2px 3px 16px 1px rgba(221, 221, 221, 0.08), 2px 3px 6px 3px rgba(230, 230, 230, 0.16);
 
   transition: all 0.3s;
   cursor: pointer;
