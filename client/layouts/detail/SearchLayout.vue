@@ -1,7 +1,7 @@
 <template>
   <section>
     <SearchHeader />
-    <StoreLocation />
+    <StoreLocation isSearchButton />
     <SearchItem />
   </section>
 </template>
