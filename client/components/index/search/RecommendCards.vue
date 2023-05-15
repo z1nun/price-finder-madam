@@ -5,8 +5,8 @@
       :key="i"
       :recommend-card="recommendCard"
     />
-          
-    <RecommendMore @click="router.push('/detail')"/>
+
+    <RecommendMore @click="router.push('/search')" />
   </article>
 </template>
 
@@ -85,8 +85,6 @@ const recommendCards = ref<IRecommendCard[]>([
     address: '강남구 개포로22길 46 지하1층',
   },
 ])
-
-
 </script>
 
 <style scoped lang="scss">
