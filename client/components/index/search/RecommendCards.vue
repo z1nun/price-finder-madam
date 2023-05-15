@@ -4,6 +4,7 @@
       v-for="(recommendCard, i) in recommendCards.slice(0, displayCount)"
       :key="i"
       :recommend-card="recommendCard"
+      @click="router.push('/detail')"
     />
 
     <RecommendMore @click="router.push('/search')" />
