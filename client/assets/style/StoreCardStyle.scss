@@ -1,0 +1,35 @@
+article {
+  width: 320px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px 20px;
+  gap: 8px;
+  background: #ffffff;
+  box-shadow: 2px 3px 16px 1px rgba(221, 221, 221, 0.08), 2px 3px 6px 3px rgba(230, 230, 230, 0.16);
+
+  h3 {
+    height: fit-content;
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+    color: #343e4c;
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 150%;
+    margin: 0;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 150%;
+    color: #343e4c;
+    margin: 0;
+    padding-inline-start: 1.5rem;
+  }
+}

@@ -12,14 +12,7 @@
 
 <script setup lang="ts">
 import SearchTag from './SearchTag.vue'
-
-type TagId = 'all' | 'store' | 'thing'
-
-export interface ITag {
-  text: string
-  id: TagId
-  icon?: string
-}
+import { TagId, ITag } from '~/components/types'
 
 const activeId = ref<TagId>('all')
 
