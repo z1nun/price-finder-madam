@@ -29,8 +29,17 @@
       </NaverInfoWindow>
     </NaverMap>
 
-    <CustomZoom @zoom="zoom" />
-    <SearchCurrent @search-current="searchCurrent" />
+    <template v-if="!currentPosition.loading">
+      <CustomZoom @zoom="zoom" />
+  
+      <div class="search-current">
+        <button @click="searchCurrent" class="primary-button">
+          <span><img src="~/assets/img/detail/location.svg" /></span>
+          <span class="text">현위치에서 찾기</span>    
+        </button>
+      </div>
+    </template>
+
   </section>
 </template>
 
@@ -39,7 +48,6 @@ import { onMounted, ref, computed } from 'vue'
 import { MapOptions, NaverInfoWindow, NaverMap, NaverMarker } from 'vue3-naver-maps'
 import useMapOptions, { InfoWindow, InfoWindowOptions, Marker, ZoomType, Map, Bounds } from '~/utils/map'
 import CustomZoom from '~/components/detail/map/CustomZoom.vue'
-import SearchCurrent from '~/components/detail/map/SearchCurrent.vue'
 import useStore from '~/store'
 
 const { DEFAULT_ZOOM_OPTIONS, DEFAULT_WINDOWINFO_OPTIONS } = useMapOptions()
@@ -170,5 +178,16 @@ img[alt='지도 확대'] {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.search-current {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);   
+
+  img {
+    margin-top: 5px;
+  }
 }
 </style>

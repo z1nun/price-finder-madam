@@ -23,13 +23,14 @@
           <img src="~/assets/img/arrowDown.svg" />
         </div>
       </div>
-      <ClickButton class="clickButton" title="변경하기" />
+      <button class="primary-button">
+        변경하기
+      </button>
     </div>
   </article>
 </template>
 
 <script setup lang="ts">
-import ClickButton from '~/components/ClickButton.vue'
 import { ref } from 'vue'
 
 const modal = ref(false)
@@ -132,10 +133,6 @@ const openModal = () => {
     font-size: 0.875rem;
     line-height: 150%;
     color: #8c95a1;
-  }
-
-  .clickButton {
-    margin: 0 auto;
   }
 }
 </style>
