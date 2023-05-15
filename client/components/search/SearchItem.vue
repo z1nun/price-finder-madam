@@ -1,9 +1,7 @@
 <template>
   <article class="cardWrap">
     <h3>주변 착한가게</h3>
-    <div>
-      <RecommendCard v-for="(recommendCard, i) in recommendCards" :key="i" :recommend-card="recommendCard" />
-    </div>
+    <RecommendCard v-for="(recommendCard, i) in recommendCards" :key="i" :recommend-card="recommendCard" />
   </article>
 </template>
 
@@ -55,17 +53,13 @@ const recommendCards = ref<IRecommendCard[]>([
 .cardWrap {
   background-color: #ffffff;
   width: 320px;
-  height: fit-content;
+  max-height: 610px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 16px 20px;
   gap: 24px;
-
-  // ???????
-  div {
-    height: 100px;
-  }
+  overflow-y: auto;
 
   h3 {
     width: inherit;
