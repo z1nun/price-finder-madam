@@ -5,9 +5,7 @@
       v-if="!currentPosition.loading"
       :mapOptions="mapOptions"
       :initLayers="initLayers"
-      @onLoad="onLoadMap"
-      @drag="onBoundChange"
-      @zoom_changed="onBoundChange"
+      @onLoad="onLoadMap"      
     >
       <NaverMarker
         class="marker"
@@ -57,6 +55,13 @@ const {
   loadLocation,
 } = useStore()
 
+type BoundLatLng = {
+  _lat: number
+  _lng: number
+  x: number
+  y: number
+} & naver.maps.Point
+
 // Map
 const map = ref<Map | null>()
 const initLayers = ['']
@@ -76,19 +81,20 @@ const onLoadMap = (mapObject: Map) => {
   map.value = mapObject
 }
 
-const onBoundChange = (): void => {
-  
-}
 
 const searchCurrent = (): void => {
   const bounds = map.value?.getBounds()
-  const ne: any = bounds?.getMax()
-  const sw: any = bounds?.getMin()
+  if (!bounds) return
+  
+  const ne = bounds.getMax() as BoundLatLng
+  const sw = bounds.getMin() as BoundLatLng
   
   console.log('NE: ', ne._lat, ne._lng)
   console.log('SW: ', sw._lat, sw._lng)
   
 }
+
+
 
 // Marker
 const marker = ref<Marker>()
