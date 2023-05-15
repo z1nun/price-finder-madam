@@ -12,7 +12,7 @@ body {
   font-family: 'Pretendard';
 }
 
-.primary-button {
+button.primary-button  {
   font-family: 'Pretendard';
   display: flex;
   flex-direction: row;
@@ -39,5 +39,6 @@ body {
     opacity: .9;
   }
 }
+
 
 </style>
