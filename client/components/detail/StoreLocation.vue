@@ -23,7 +23,11 @@ const openModal = () => {
   modal.value = true
 }
 
-const props = withDefaults(defineProps<{ isSearchButton: boolean }>(), {
+interface StoreLocationProp {
+  isSearchButton?: boolean
+}
+
+const props = withDefaults(defineProps<StoreLocationProp>(), {
   isSearchButton: false,
 })
 

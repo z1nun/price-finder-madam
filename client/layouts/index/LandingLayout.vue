@@ -7,7 +7,9 @@
           우리모두의 합리적인 소비를 위한 가게정보를<br />
           공공데이터를 이용해서 제공해 드립니다
         </p>
-        <ClickButton @click="focus" title="지금 검색하기" />
+        <button @click="focus" class="primary-button">
+          지금 검색하기
+        </button>        
       </div>
       <div class="ImageWrap">
         <img src="~/assets/img/good_consumption.png" alt="sample" />
@@ -17,7 +19,6 @@
 </template>
 
 <script setup lang="ts">
-import ClickButton from '~/components/ClickButton.vue'
 
 const focus = () => {
   const searchBar = document.getElementById('searchBar')

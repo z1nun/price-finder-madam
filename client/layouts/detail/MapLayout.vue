@@ -5,8 +5,7 @@
       v-if="!currentPosition.loading"
       :mapOptions="mapOptions"
       :initLayers="initLayers"
-      @onLoad="onLoadMap"
-      @drag="drag"
+      @onLoad="onLoadMap"      
     >
       <NaverMarker
         class="marker"
@@ -14,12 +13,7 @@
         v-bind="currentPosition.data"
         @onLoad="onLoadMarker"
         @click="isMarkerOpen = !isMarkerOpen"
-      >
-        <div id="innerMarker">
-          <div class="icon"></div>
-          <span> 마커 1 </span>
-        </div>
-      </NaverMarker>
+      />
 
       <NaverInfoWindow
         v-show="visibleInfo"
@@ -33,14 +27,24 @@
       </NaverInfoWindow>
     </NaverMap>
 
-    <CustomZoom @zoom="zoom" />
+    <template v-if="!currentPosition.loading">
+      <CustomZoom @zoom="zoom" />
+  
+      <div class="search-current">
+        <button @click="searchCurrent" class="primary-button">
+          <span><img src="~/assets/img/detail/location.svg" /></span>
+          <span class="text">현위치에서 찾기</span>    
+        </button>
+      </div>
+    </template>
+
   </section>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref, computed } from 'vue'
 import { MapOptions, NaverInfoWindow, NaverMap, NaverMarker } from 'vue3-naver-maps'
-import useMapOptions, { InfoWindow, InfoWindowOptions, Marker, ZoomType, Map } from '~/utils/map'
+import useMapOptions, { InfoWindow, InfoWindowOptions, Marker, ZoomType, Map, Bounds } from '~/utils/map'
 import CustomZoom from '~/components/detail/map/CustomZoom.vue'
 import useStore from '~/store'
 
@@ -50,6 +54,13 @@ const {
   asyncStates: { currentPosition },
   loadLocation,
 } = useStore()
+
+type BoundLatLng = {
+  _lat: number
+  _lng: number
+  x: number
+  y: number
+} & naver.maps.Point
 
 // Map
 const map = ref<Map | null>()
@@ -70,13 +81,21 @@ const onLoadMap = (mapObject: Map) => {
   map.value = mapObject
 }
 
-const drag = () => {
-  const { model } = map.value?.mapPane
-  console.log('우측하단', model.projectionBottomRight)
-  console.log('좌측상단', model.projectionTopLeft)
-  console.log('중심', model.centerPoint)
-  console.log(model)
+
+const searchCurrent = (): void => {
+  const bounds = map.value?.getBounds()
+  if (!bounds) return
+  
+  const ne = bounds.getMax() as BoundLatLng
+  const sw = bounds.getMin() as BoundLatLng
+  
+  console.log('NE: ', ne._lat, ne._lng)
+  console.log('SW: ', sw._lat, sw._lng)
+  
 }
+
+
+
 // Marker
 const marker = ref<Marker>()
 const isMarkerOpen = ref<boolean>(false)
@@ -115,15 +134,13 @@ onMounted(() => loadLocation())
 </script>
 
 <style scoped lang="scss">
-.NaverMap {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.NaverMap {  
+  position: relative;
 }
 
 #map {
   width: calc(1920px - 360px);
-  height: 937px;
+  height: 937px;  
 
   &:focus {
     border: none !important;
@@ -167,5 +184,16 @@ img[alt='지도 확대'] {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.search-current {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);   
+
+  img {
+    margin-top: 5px;
+  }
 }
 </style>
