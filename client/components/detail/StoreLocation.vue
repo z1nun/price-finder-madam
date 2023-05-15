@@ -6,35 +6,31 @@
         <li>{{ location }}</li>
       </ul>
     </div>
-    <button @click="openModal" v-if="isSeacrhPage">위치변경</button>
-    <LocationSwitch v-if="modal === true" @click="closeModal" />
+    <button @click="openModal" v-if="props.isSearchButton">위치변경</button>
+    <LocationModal v-if="modal === true" @click="closeModal" />
   </article>
 </template>
 
 <script setup lang="ts">
-import LocationSwitch from '~/components/detail/LocationSwitch.vue'
+import LocationModal from '~/components/detail/LocationModal.vue'
 import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 const location: string = '서울특별시 광진구 자양번영로 13'
 
 //위치변경 버튼 클릭시 모달 오픈
-const modal = ref(false)
+const modal = ref<boolean>(false)
 const openModal = () => {
   modal.value = true
 }
+
+const props = withDefaults(defineProps<{ isSearchButton: boolean }>(), {
+  isSearchButton: false,
+})
 
 //모달 외부 클릭시 모달 창 닫히게 하기
 const closeModal = (e: Event) => {
   const target = e.target as Element
   target.className === 'container' ? (modal.value = false) : null
-}
-
-//search 페이지에서만 위치변경 버튼이 보이게 하기
-const isSeacrhPage = ref(false)
-const route = useRoute()
-const currentPath = computed(() => route.path)
-if (currentPath.value === '/search') {
-  isSeacrhPage.value = true
 }
 </script>
 
