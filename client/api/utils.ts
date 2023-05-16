@@ -7,7 +7,7 @@ import { DEFAULT_HEADERS } from "."
  * @returns POST 요청 함수
  */
 const createPostRequest = <RES, REQ>(url: string) => (requestBody: REQ, headers?: AxiosHeaders): () => Promise<AxiosResponse<RES>> => {
-  return async () => await axios.post<RES>(url, requestBody, headers ?? DEFAULT_HEADERS)
+  return () => axios.post<RES>(url, requestBody, headers ?? DEFAULT_HEADERS)
 }
 
 export {

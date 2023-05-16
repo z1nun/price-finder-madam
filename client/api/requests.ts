@@ -19,7 +19,7 @@ import { LatLng } from "~/types/base"
 // 업소 자세한 정보 요청 api
 const requestStoreDetail = (storeId: number) => {
   const url = createStoreDetailUrl(storeId)
-  return async () => await axios.get<StoreDetailResponse>(url, DEFAULT_HEADERS)
+  return () => axios.get<StoreDetailResponse>(url, DEFAULT_HEADERS)
 }
 
 // 매장명 또는 상품 검색 요청
@@ -37,7 +37,7 @@ const requestCategorySearch = createPostRequest<CategorySearchResponse, Category
 // 위도 경도를 주소로 변환
 const requestGeocodeReverse = (latlng: LatLng) => {
   const url = createGecodingReverseUrl(latlng)  
-  return async () => await axios.get<GeocodeReverseResponse>(url, GEOCODE_HEADERS)
+  return () => axios.get<GeocodeReverseResponse>(url, GEOCODE_HEADERS)
 }
 
 export {
