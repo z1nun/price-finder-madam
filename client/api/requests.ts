@@ -8,15 +8,17 @@ import {
   CurrentPlaceStoreResponse,
   CurrentPlaceStoreRequestBody, 
   CategorySearchResponse,
-  CategorySearchRequestBody 
+  CategorySearchRequestBody, 
+  GeocodeReverseResponse
 } from "~/types/api"
 import { createPostRequest } from "./utils"
-import { categorySearchUrl, currentPlaceStoreUrl, neighborhoodsStoreUrl, storeDetailUrl, storeSearchUrl } from "./urls"
+import { categorySearchUrl, currentPlaceStoreUrl, createGecodingReverseUrl, neighborhoodsStoreUrl, createStoreDetailUrl, storeSearchUrl } from "./urls"
 import { DEFAULT_HEADERS } from "."
+import { LatLng } from "~/types/base"
 
 // 업소 자세한 정보 요청 api
 const requestStoreDetail = (storeId: number) => {
-  const url = storeDetailUrl(storeId)
+  const url = createStoreDetailUrl(storeId)
   return async () => await axios.get<StoreDetailResponse>(url, DEFAULT_HEADERS)
 }
 
@@ -32,10 +34,18 @@ const requestCurrentPlaceStore = createPostRequest<CurrentPlaceStoreResponse, Cu
 // 검색 페이지에서 카테고리 선택
 const requestCategorySearch = createPostRequest<CategorySearchResponse, CategorySearchRequestBody>(categorySearchUrl)
 
+// 위도 경도를 주소로 변환
+const requestGeocodeReverse = (latlng: LatLng) => {
+  const url = createGecodingReverseUrl(latlng)
+  return async () => axios.get<GeocodeReverseResponse>(url, DEFAULT_HEADERS)
+}
+
 export {
   requestStoreSearch,
   requestNeighborhoodsStore,
   requestCurrentPlaceStore,
   requestCategorySearch,
-  requestStoreDetail
+  requestStoreDetail,
+  requestGeocodeReverse
+
 }

@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { AsyncStates, StoreCard } from "./types";
 import { asyncUtils, createAsyncProcess } from "./utils";
-import { requestCategorySearch, requestCurrentPlaceStore, requestNeighborhoodsStore, requestStoreDetail } from "~/api";
+import { requestCategorySearch, requestCurrentPlaceStore, requestGeocodeReverse, requestNeighborhoodsStore, requestStoreDetail } from "~/api";
 import { LatLng, StoreDetail } from "~/types/base";
 import { CategorySearchRequestBody, CurrentPlaceStoreRequestBody, NeighborhoodsStoreRequestBody } from "~/types/api";
 
@@ -13,6 +13,7 @@ const useStore = defineStore('store', () => {
     currentPosition: initial<LatLng>({ latitude: 0, longitude: 0 }),
     storeCards: initial<StoreCard[]>([]),
     detailCard: initial<StoreDetail>({} as any),
+    currentDoro: initial<string>('')
   })
 
   // 스토어가 관리하는 상태
@@ -22,7 +23,7 @@ const useStore = defineStore('store', () => {
   
   // 비동기 동작 생성
   const asyncProcess = createAsyncProcess()
-  const { detailCard, storeCards } = asyncStates
+  const { detailCard, storeCards, currentDoro } = asyncStates
 
   // 업소 자세한 정보 비동기 동작
   const loadStoreDetail = (storeId: number) => asyncProcess<StoreDetail>(detailCard, requestStoreDetail(storeId))
@@ -35,6 +36,9 @@ const useStore = defineStore('store', () => {
 
   // 검색 페이지에서 카테고리 선택
   const loadCategorySearch = (body: CategorySearchRequestBody) => asyncProcess<StoreCard[]>(storeCards, requestCategorySearch(body))
+
+  // 현재 위도 경도를 도로명으로 변경
+  const loadGeocodingReverse = (latlng: LatLng) => asyncProcess<string>(currentDoro, requestGeocodeReverse(latlng))
  
   // 현재 위치 로드
   const loadLocation = () => {   

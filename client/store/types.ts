@@ -31,7 +31,7 @@ type AsyncState<T = any, E = unknown> = {
   error: E
 }
 
-type StateTypes = LatLng | StoreCard[] | StoreDetail
+type StateTypes = LatLng | StoreCard[] | StoreDetail | string
 
 
 // 비동기 상태들
@@ -39,6 +39,7 @@ type AsyncStates = {
   currentPosition: AsyncState<LatLng>,  // 현재 위치
   storeCards: AsyncState<StoreCard[]>,  // 업소 목록
   detailCard: AsyncState<StoreDetail>   // 업종 상세
+  currentDoro: AsyncState<string>    // 현재 주솟값(도로명)
 }
 
 export {  

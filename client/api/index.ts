@@ -1,5 +1,4 @@
 export * from './requests'
 
-export const DEFAULT_HEADERS = {
-
+export const DEFAULT_HEADERS = {  
 }
