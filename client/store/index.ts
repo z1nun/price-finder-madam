@@ -2,37 +2,30 @@ import { defineStore } from "pinia";
 import { AsyncStates, StoreCard } from "./types";
 import { asyncUtils, createAsyncProcess } from "./utils";
 import { requestCategorySearch, requestCurrentPlaceStore, requestNeighborhoodsStore, requestStoreDetail } from "~/api";
-import { LatLng } from "~/types/base";
+import { LatLng, StoreDetail } from "~/types/base";
 import { CategorySearchRequestBody, CurrentPlaceStoreRequestBody, NeighborhoodsStoreRequestBody } from "~/types/api";
 
 const useStore = defineStore('store', () => {  
   const { initial, loading, fulfiled, error } = asyncUtils
 
-  /**
-   * 비동기 상태들을 초기화합니다.
-   */
+  // 스토어가 관리하는 비동기 상태
   const asyncStates = reactive<AsyncStates>({
-    currentPosition: initial<LatLng>({
-      latitude: 0,
-      longitude: 0
-    }),
+    currentPosition: initial<LatLng>({ latitude: 0, longitude: 0 }),
     storeCards: initial<StoreCard[]>([]),
-    detailCards: initial<StoreCard[]>([]),
+    detailCard: initial<StoreDetail>({} as any),
   })
 
-  const { detailCards, storeCards } = asyncStates
+  // 스토어가 관리하는 상태
+  const states = reactive({
 
-
+  })
+  
   // 비동기 동작 생성
   const asyncProcess = createAsyncProcess()
-
-    
-  const loadStoreCard = () => asyncProcess<StoreCard[]>(storeCards, async () => await []) 
-
-
+  const { detailCard, storeCards } = asyncStates
 
   // 업소 자세한 정보 비동기 동작
-  const loadStoreDetail = (storeId: number) => asyncProcess<StoreCard[]>(detailCards, requestStoreDetail(storeId))
+  const loadStoreDetail = (storeId: number) => asyncProcess<StoreDetail>(detailCard, requestStoreDetail(storeId))
 
   // 홈에서 더보기 비동기 동작
   const loadNeighborhoodsStore = (body: NeighborhoodsStoreRequestBody) => asyncProcess<StoreCard[]>(storeCards, requestNeighborhoodsStore(body))
@@ -43,10 +36,6 @@ const useStore = defineStore('store', () => {
   // 검색 페이지에서 카테고리 선택
   const loadCategorySearch = (body: CategorySearchRequestBody) => asyncProcess<StoreCard[]>(storeCards, requestCategorySearch(body))
  
-  
-
-  
-
   // 현재 위치 로드
   const loadLocation = () => {   
     const targetState = asyncStates.currentPosition
@@ -62,7 +51,6 @@ const useStore = defineStore('store', () => {
 
   return {
     loadLocation,
-    loadStoreCard,
     asyncStates
   }
 })

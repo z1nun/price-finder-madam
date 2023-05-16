@@ -2,7 +2,7 @@
 
 // 비동기 관련 타입
 
-import { LatLng, StoreCard } from "~/types/base"
+import { LatLng, StoreCard, StoreDetail } from "~/types/base"
 
 export type Effect<T = any> = {  
   /**
@@ -31,14 +31,15 @@ type AsyncState<T = any, E = unknown> = {
   error: E
 }
 
-type StateTypes = LatLng | StoreCard[]
+type StateTypes = LatLng | StoreCard[] | StoreDetail
 
+
+// 비동기 상태들
 type AsyncStates = {
-  currentPosition: AsyncState<LatLng>,
-  storeCards: AsyncState<StoreCard[]>,
-  detailCards: AsyncState<StoreCard[]>  
+  currentPosition: AsyncState<LatLng>,  // 현재 위치
+  storeCards: AsyncState<StoreCard[]>,  // 업소 목록
+  detailCard: AsyncState<StoreDetail>   // 업종 상세
 }
-
 
 export {  
   StoreCard,  

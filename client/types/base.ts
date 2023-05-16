@@ -14,7 +14,7 @@ type LatLng = {
   longitude: number
 }
 
-
+// 업소 목록
 type StoreCard = {
   storeId: number
   storeName: string
@@ -24,8 +24,13 @@ type StoreCard = {
   place: LatLng 
 }
 
+type StoreDetail = {
+
+} & StoreCard
+
 export type {
   Product,
   LatLng,
-  StoreCard
+  StoreCard,
+  StoreDetail
 }
