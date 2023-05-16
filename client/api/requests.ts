@@ -37,7 +37,7 @@ const requestCategorySearch = createPostRequest<CategorySearchResponse, Category
 // 위도 경도를 주소로 변환
 const requestGeocodeReverse = (latlng: LatLng) => {
   const url = createGecodingReverseUrl(latlng)  
-  return async () => axios.get<GeocodeReverseResponse>(url, GEOCODE_HEADERS)
+  return async () => await axios.get<GeocodeReverseResponse>(url, GEOCODE_HEADERS)
 }
 
 export {
