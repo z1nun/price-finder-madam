@@ -48,19 +48,29 @@ export type CategorySearchRequestBody = {
 
 // 네이버 geocoding 
 export interface GeocodeReverseResponse {
-  addresses: Address[]
+  results: Address[]
   errorMessage: string
   meta: Meta
   status: string
 }
 
 interface Address {
-  addressElements: AddressElement[]
-  roadAddress: string
-  jibunAddress: string
-  englishAddress: string
-  x: string
-  y: string
+  name: string
+  code: any
+  region: Region
+}
+
+interface Region {
+  area0: Area
+  area1: Area
+  area2: Area
+  area3: Area
+}
+
+interface Area {
+  name: string
+  coords: any
+  alias?: string
 }
 
 interface Meta {
@@ -75,4 +85,3 @@ interface AddressElement {
   shortName: string
   code: string  
 }
-

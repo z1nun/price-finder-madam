@@ -13,7 +13,7 @@ import {
 } from "~/types/api"
 import { createPostRequest } from "./utils"
 import { categorySearchUrl, currentPlaceStoreUrl, createGecodingReverseUrl, neighborhoodsStoreUrl, createStoreDetailUrl, storeSearchUrl } from "./urls"
-import { DEFAULT_HEADERS } from "."
+import { DEFAULT_HEADERS, GEOCODE_HEADERS } from "."
 import { LatLng } from "~/types/base"
 
 // 업소 자세한 정보 요청 api
@@ -36,8 +36,8 @@ const requestCategorySearch = createPostRequest<CategorySearchResponse, Category
 
 // 위도 경도를 주소로 변환
 const requestGeocodeReverse = (latlng: LatLng) => {
-  const url = createGecodingReverseUrl(latlng)
-  return async () => axios.get<GeocodeReverseResponse>(url, DEFAULT_HEADERS)
+  const url = createGecodingReverseUrl(latlng)  
+  return async () => axios.get<GeocodeReverseResponse>(url, GEOCODE_HEADERS)
 }
 
 export {

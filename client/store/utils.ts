@@ -1,3 +1,4 @@
+import { AxiosResponse } from "axios"
 import { AsyncState, Effect, StateTypes } from "./types"
 
 
@@ -31,8 +32,8 @@ const asyncUtils = {
    * @param response 요청 응답값
    */
   fulfiled: (state: AsyncState, response: StateTypes) => {
-    state.data = response
     state.loading = false    
+    state.data = response
   },
 
 
@@ -70,13 +71,14 @@ const createAsyncProcess = () => {
     loading(state)
 
     callback()
-      .then((result: T) => {
-        fulfiled(state, result)
+      .then((result: AxiosResponse<T>) => {
+        fulfiled(state, result.data)
         onLoaded && onLoaded(result)
       })      
       .catch((e: E) => {
-        error(state, e)
+        error(state, e)        
         onError && onError(e)
+        throw e
       })
   }  
 }

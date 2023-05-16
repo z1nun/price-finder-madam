@@ -33,7 +33,7 @@
       <div class="search-current">
         <button @click="searchCurrent" class="primary-button">
           <span><img src="~/assets/img/detail/location.svg" /></span>
-          <span class="text">현위치에서 찾기</span>    
+          <span class="text">현 위치에서 찾기</span>    
         </button>
       </div>
     </template>
