@@ -10,14 +10,14 @@ import {
   CategorySearchResponse,
   CategorySearchRequestBody 
 } from "~/types/api"
-import { DEFAULT_HEADERS } from "."
 import { createPostRequest } from "./utils"
 import { categorySearchUrl, currentPlaceStoreUrl, neighborhoodsStoreUrl, storeDetailUrl, storeSearchUrl } from "./urls"
+import { DEFAULT_HEADERS } from "."
 
 // 업소 자세한 정보 요청 api
 const requestStoreDetail = (storeId: number) => {
   const url = storeDetailUrl(storeId)
-  return axios.get<StoreDetailResponse>(url, DEFAULT_HEADERS)
+  return async () => await axios.get<StoreDetailResponse>(url, DEFAULT_HEADERS)
 }
 
 // 매장명 또는 상품 검색 요청
