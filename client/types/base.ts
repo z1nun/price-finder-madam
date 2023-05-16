@@ -1,5 +1,3 @@
-import { axios } from 'axios';
-
 // 기본 타입 //
 
 
