@@ -35,7 +35,7 @@ const closeModal = (e: Event) => {
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/style/StoreCardStyle.scss';
+@import '~/assets/style/StoreCard.scss';
 
 .container {
   display: flex;
