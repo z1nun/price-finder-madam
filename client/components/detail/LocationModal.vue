@@ -1,42 +1,72 @@
 <template>
   <article class="container">
-    <div class="locationWrap">
+    <section class="locationWrap">
       <h3>위치정보 수정</h3>
       <div class="inputWrap">
-        <input placeholder="주소를 입력해주세요." />
+        <input placeholder="서울시" />
         <img src="~/assets/img/search.svg" />
       </div>
 
       <div>
-        <h6>시도</h6>
+        <h6>구</h6>
         <div class="inputWrap">
-          <input placeholder="시도 명칭" />
-          <img src="~/assets/img/arrowDown.svg" @click="openModal" />
-          <LocationSort v-if="modal === true" />
+          <input placeholder="구 명칭" v-model="selectedGu" />
+          <img src="~/assets/img/arrowDown.svg" @click="openModalGu" />
         </div>
+        <DropMenuGu v-if="modalGu === true" v-model="selectedGu" @UpdateSelectedGu="UpdateSelectedGu" />
       </div>
 
       <div>
-        <h6>동읍면</h6>
+        <h6>동</h6>
         <div class="inputWrap">
-          <input placeholder="동읍면 명칭" />
-          <img src="~/assets/img/arrowDown.svg" />
+          <input placeholder="동 명칭" v-model="selectedDong" />
+          <img src="~/assets/img/arrowDown.svg" @click="openModalDong" />
         </div>
+        <DropMenuDong
+          v-if="modalDong === true"
+          :Gu="selectedGu"
+          v-model="selectedDong"
+          @updateSelectedDong="updateSelectedDong"
+        />
       </div>
       <ClickButton class="clickButton" title="변경하기" />
-    </div>
+    </section>
   </article>
 </template>
 
 <script setup lang="ts">
 import ClickButton from '~/components/ClickButton.vue'
+import DropMenuGu from '~/components/search/DropMenuGu.vue'
+import DropMenuDong from '~/components/search/DropMenuDong.vue'
 import { ref } from 'vue'
 
-const modal = ref(false)
-
-const openModal = () => {
-  modal.value = true
+//모달 열고 닫기
+const modalGu = ref(false)
+const modalDong = ref(false)
+const openModalGu = () => {
+  modalGu.value = !modalGu.value
 }
+const openModalDong = () => {
+  modalDong.value = !modalDong.value
+}
+
+//하위 컴포넌트에서 전달받은 '구' 와 '동'
+let selectedGu = ref('')
+let selectedDong = ref('')
+
+//값 변경
+const UpdateSelectedGu = (data: string) => {
+  selectedGu.value = data
+}
+const updateSelectedDong = (data: string) => {
+  selectedDong.value = data
+}
+
+//구 바뀌면 동 초기화
+const changeValue = () => {
+  selectedDong.value = ''
+}
+watch(selectedGu, changeValue)
 </script>
 
 <style lang="scss" scoped>
@@ -64,7 +94,7 @@ const openModal = () => {
   gap: 24px;
 
   width: 320px;
-  height: 321px;
+  height: fit-content;
 
   background: #ffffff;
   border-radius: 16px;
@@ -122,6 +152,7 @@ const openModal = () => {
     img {
       width: 20px;
       height: 20px;
+      cursor: pointer;
     }
   }
 
