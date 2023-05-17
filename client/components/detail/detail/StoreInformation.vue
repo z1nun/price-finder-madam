@@ -12,5 +12,5 @@ const inform: string[] = ['영업시간 :07:30~20:00 휴무 :수', '남성역 1�
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/style/StoreCardStyle.scss';
+@import '~/assets/style/StoreCard.scss';
 </style>
