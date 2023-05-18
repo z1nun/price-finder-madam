@@ -20,7 +20,7 @@ const storeCards = <IStoreCard>{
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/style/StoreCardStyle.scss';
+@import '~/assets/style/StoreCard.scss';
 
 li {
   font-size: 1rem;

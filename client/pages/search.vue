@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import SearchLayout from '~/layouts/detail/SearchLayout.vue'
+import SearchLayout from '~/layouts/search/SearchLayout.vue'
 import MapLayout from '~/layouts/detail/MapLayout.vue'
 </script>
 

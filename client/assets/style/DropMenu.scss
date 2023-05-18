@@ -1,0 +1,62 @@
+div {
+  overflow-y: auto;
+  width: 320px;
+  height: 200px;
+  margin: 10px 0;
+  ul {
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px;
+    gap: 24px;
+    li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 150%;
+      color: #343e4c;
+    }
+  }
+}
+
+//체크박스 스타일링
+input[type='radio'] {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  position: relative;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  outline: none !important;
+  border: 1.7px solid #c7c7c7;
+  border-radius: 4px;
+  background: #fbfbfb;
+  margin: 0;
+}
+
+input[type='radio']::before {
+  content: '\2713';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  overflow: hidden;
+  transform: scale(0) translate(-50%, -50%);
+  line-height: 1;
+}
+
+input[type='radio']:hover {
+  border-color: rgba(170, 170, 170, 0.5);
+}
+
+input[type='radio']:checked {
+  background-color: #3366ff;
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+input[type='radio']:checked::before {
+  border-radius: 2px;
+  transform: scale(1) translate(-50%, -50%);
+}
