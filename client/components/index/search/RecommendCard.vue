@@ -1,24 +1,22 @@
 <template>
   <article class="RecommendCard">
-    <a>
-      <div class="top">
-        <div class="IconBox">
-          <img src="~/assets/img/defaultIcon.svg" />
-        </div>
-        <div class="PriceBox">금액</div>
+    <div class="top">
+      <div class="IconBox">
+        <img src="~/assets/img/defaultIcon.svg" />
       </div>
+      <div class="PriceBox">금액</div>
+    </div>
 
-      <div class="bottom">
-        <div class="title">착한 가격의 가게</div>
-        <div class="address">
-          {{ recommendCard.address }}
-        </div>
+    <div class="bottom">
+      <div class="title">착한 가격의 가게</div>
+      <div class="address">
+        {{ recommendCard.address }}
       </div>
+    </div>
 
-      <div class="check">
-        <img src="~/assets/img/check.svg" />
-      </div>
-    </a>
+    <div class="check">
+      <img src="~/assets/img/check.svg" />
+    </div>
   </article>
 </template>
 

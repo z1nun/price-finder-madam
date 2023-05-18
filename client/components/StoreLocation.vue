@@ -1,6 +1,6 @@
 <template>
-  <article class="container">    
-    <div v-if="!currentDoro.loading">
+  <article class="container">
+    <div>
       <h3>위치정보</h3>
       <ul>
         <li>{{ location }}</li>
@@ -12,11 +12,13 @@
 </template>
 
 <script setup lang="ts">
-import LocationModal from '~/components/detail/LocationModal.vue'
+import LocationModal from '~/components/LocationModal.vue'
 import { ref, computed } from 'vue'
 import { useStore } from '~/store'
 
-const { asyncStates: { currentDoro } } = useStore()
+const {
+  asyncStates: { currentDoro },
+} = useStore()
 
 const location = computed<string>(() => {
   if (!currentDoro.data) return '주소를 찾을 수 없습니다.'
@@ -31,11 +33,7 @@ const openModal = () => {
   modal.value = true
 }
 
-interface StoreLocationProp {
-  isSearchButton?: boolean
-}
-
-const props = withDefaults(defineProps<StoreLocationProp>(), {
+const props = withDefaults(defineProps<{ isSearchButton: boolean }>(), {
   isSearchButton: false,
 })
 
@@ -47,7 +45,7 @@ const closeModal = (e: Event) => {
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/style/StoreCardStyle.scss';
+@import '~/assets/style/StoreCard.scss';
 
 .container {
   display: flex;

@@ -7,9 +7,9 @@
 </template>
 
 <script setup lang="ts">
-import SearchHeader from '~/components/detail/search/SearchHeader.vue'
-import StoreLocation from '~/components/detail/StoreLocation.vue'
-import SearchItem from '~/components/detail/search/SearchItem.vue'
+import SearchHeader from '~/components/search/SearchHeader.vue'
+import StoreLocation from '~/components/StoreLocation.vue'
+import SearchItem from '~/components/search/SearchItem.vue'
 </script>
 
 <style lang="scss" scoped>
