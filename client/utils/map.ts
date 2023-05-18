@@ -5,6 +5,20 @@ export type MapOptions = naver.maps.MapOptions
 export type InfoWindow = naver.maps.InfoWindow
 export type InfoWindowOptions = naver.maps.InfoWindowOptions
 
+export interface LatLng {
+  x: number
+  y: number
+  _lat: number
+  _lng: number
+}
+
+export interface Bounds {
+  _max: LatLng
+  _min: LatLng
+  _ne: LatLng
+  _sw: LatLng
+}
+
 type MarkerSize = naver.maps.Size | naver.maps.SizeLiteral
 type ZoomControlOptions = naver.maps.ZoomControlOptions
 
@@ -38,7 +52,7 @@ const useMapOptions = () => {
   }
 
   const DEFAULT_ZOOM_OPTIONS: MapOptions = {
-    scaleControl: false,
+    scaleControl: true,
     logoControl: false,
     mapDataControl: false,
     zoomControl: false,

@@ -12,8 +12,9 @@
 </template>
 
 <script setup lang="ts">
-import LocationModal from '~/components/LocationModal.vue'
-import { ref } from 'vue'
+import LocationModal from '~/components/detail/LocationModal.vue'
+import { ref, computed } from 'vue'
+import { useRoute } from 'vue-router'
 const location: string = '서울특별시 광진구 자양번영로 13'
 
 //위치변경 버튼 클릭시 모달 오픈
@@ -34,7 +35,7 @@ const closeModal = (e: Event) => {
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/style/StoreCard.scss';
+@import '~/assets/style/StoreCardStyle.scss';
 
 .container {
   display: flex;

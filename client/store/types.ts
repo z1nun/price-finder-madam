@@ -1,47 +1,11 @@
 
-//
-// !!! interface와 type 명확한 구분 필요 !!!
-//
-
-
-// 데이터 타입
-
-interface Location {
-  latitude: number
-  longitude: number
-}
-
-type CateGory = 'cafe' | 'korean' | 'japanese' | 'other-food' | 'alcoholic' | 'snack' | 'western' | 'chinese'
-
-type Item = {
-  title: string
-  price: number | string
-}
-
-type StoreCard = {
-  id: number
-  category: CateGory
-  title: string
-  address: string 
-}
-
-type DetailCard = Partial<{
-  img: Blob | string
-  feature: string[]
-  opening: string
-  contact: string
-  item: Item[]
-}> & StoreCard
-
-type StateTypes = Location | DetailCard[] | StoreCard[]
-
-
-
-
 
 // 비동기 관련 타입
 
-export type Effect<T> = {  
+import { GeocodeReverseResponse } from "~/types/api"
+import { LatLng, StoreCard, StoreDetail } from "~/types/base"
+
+export type Effect<T = any> = {  
   /**
    * 요청할 비동기 함수입니다.
    * @param arg 비동기 함수에 넣을 인자입니다.
@@ -62,23 +26,26 @@ export type Effect<T> = {
 }
 
 
-type AsyncState<T = StateTypes, E = unknown> = {
+type AsyncState<T = any, E = unknown> = {
   data: T
   loading: boolean
   error: E
 }
 
+type StateTypes = LatLng | StoreCard[] | StoreDetail | string | GeocodeReverseResponse
+
+
+// 비동기 상태들
 type AsyncStates = {
-  currentPosition: AsyncState<Location>,
-  storeCards: AsyncState<StoreCard[]>,
-  detailCards: AsyncState<DetailCard[]>  
+  currentPosition: AsyncState<LatLng>,  // 현재 위치
+  storeCards: AsyncState<StoreCard[]>,  // 업소 목록
+  detailCard: AsyncState<StoreDetail>   // 업종 상세
+  currentDoro: AsyncState<GeocodeReverseResponse>    // 현재 주솟값(도로명)
 }
 
 export {  
-  Location,
-  StoreCard,
-  DetailCard,
-  StateTypes,
+  StoreCard,  
   AsyncState,
   AsyncStates,
+  StateTypes
 }
