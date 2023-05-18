@@ -4,14 +4,14 @@
       <h3>위치정보 수정</h3>
       <div class="inputWrap">
         <input placeholder="서울시" />
-        <img src="~/assets/img/search.svg" />
       </div>
 
       <div>
         <h6>구</h6>
         <div class="inputWrap">
           <input placeholder="구 명칭" v-model="selectedGu" />
-          <img src="~/assets/img/arrowDown.svg" @click="openModalGu" />
+          <img v-if="modalGu === false" src="~/assets/img/arrowDown.svg" @click="openModalGu" />
+          <img v-if="modalGu === true" src="~/assets/img/arrowUp.svg" @click="openModalGu" />
         </div>
         <DropMenuGu v-if="modalGu === true" v-model="selectedGu" @UpdateSelectedGu="UpdateSelectedGu" />
       </div>
@@ -20,7 +20,8 @@
         <h6>동</h6>
         <div class="inputWrap">
           <input placeholder="동 명칭" v-model="selectedDong" />
-          <img src="~/assets/img/arrowDown.svg" @click="openModalDong" />
+          <img v-if="modalDong === false" src="~/assets/img/arrowDown.svg" @click="openModalDong" />
+          <img v-if="modalDong === true" src="~/assets/img/arrowUp.svg" @click="openModalDong" />
         </div>
         <DropMenuDong
           v-if="modalDong === true"
@@ -90,7 +91,7 @@ watch(selectedGu, changeValue)
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 21px 20px;
+  padding: 20px;
   gap: 24px;
 
   width: 320px;
