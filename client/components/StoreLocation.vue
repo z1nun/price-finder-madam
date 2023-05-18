@@ -14,7 +14,16 @@
 <script setup lang="ts">
 import LocationModal from '~/components/LocationModal.vue'
 import { ref, computed } from 'vue'
-const location: string = '서울특별시 광진구 자양번영로 13'
+import { useStore } from '~/store'
+
+const {
+  asyncStates: { currentDoro },
+} = useStore()
+
+const location = computed<string>(() => {
+  const { area1, area2, area3 } = currentDoro.data.results[0].region
+  return `${area1.name} ${area2.name} ${area3.name}`
+})
 
 //위치변경 버튼 클릭시 모달 오픈
 const modal = ref<boolean>(false)
