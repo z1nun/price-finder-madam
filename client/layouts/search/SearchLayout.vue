@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import SearchHeader from '~/components/search/SearchHeader.vue'
-import StoreLocation from '~/components/detail/StoreLocation.vue'
+import StoreLocation from '~/components/StoreLocation.vue'
 import SearchItem from '~/components/search/SearchItem.vue'
 </script>
 

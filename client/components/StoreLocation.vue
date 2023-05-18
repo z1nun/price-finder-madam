@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import LocationModal from '~/components/detail/LocationModal.vue'
+import LocationModal from '~/components/LocationModal.vue'
 import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 const location: string = '서울특별시 광진구 자양번영로 13'
