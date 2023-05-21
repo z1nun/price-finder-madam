@@ -26,6 +26,7 @@ export interface IRecommendCard {
   price: number | string
   checked: boolean
   address: string
+  pride: string
 }
 
 const displayCount = computed<number>(() => {
@@ -49,42 +50,49 @@ const recommendCards = ref<IRecommendCard[]>([
     price: '금액',
     checked: false,
     address: '강남구 개포로22길 46 지하1층',
+    pride: '매장 자랑거리'
   },
   {
     title: '착한 가격의 가게',
     price: '금액',
     checked: false,
     address: '강남구 개포로22길 46 지하1층',
+    pride: '매장 자랑거리'
   },
   {
     title: '착한 가격의 가게',
     price: '금액',
     checked: false,
     address: '강남구 개포로22길 46 지하1층',
+    pride: '매장 자랑거리'
   },
   {
     title: '착한 가격의 가게',
     price: '금액',
     checked: false,
     address: '강남구 개포로22길 46 지하1층',
+    pride: '매장 자랑거리'
   },
   {
     title: '착한 가격의 가게',
     price: '금액',
     checked: false,
     address: '강남구 개포로22길 46 지하1층',
+    pride: '매장 자랑거리'
   },
   {
     title: '착한 가격의 가게',
     price: '금액',
     checked: false,
     address: '강남구 개포로22길 46 지하1층',
+    pride: '매장 자랑거리'
   },
   {
     title: '착한 가격의 가게',
     price: '금액',
     checked: false,
     address: '강남구 개포로22길 46 지하1층',
+    pride: '매장 자랑거리'
   },
 ])
 
@@ -93,10 +101,13 @@ const recommendCards = ref<IRecommendCard[]>([
 <style scoped lang="scss">
 .SearchArticles {    
   margin-top: 40px;
-  max-width: 1456px;
-  gap: 40px;
+  max-width: 1456px;  
+
+  gap: 40px 48px; 
+  
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
+  
 }
 </style>

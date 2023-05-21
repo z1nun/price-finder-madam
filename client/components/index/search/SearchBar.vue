@@ -50,7 +50,15 @@ const onEnter = () => {
   }
 
   @media (max-width: 414px) {
-    width: 320px;
+    max-width: 320px;    
+  }
+
+  @media (max-width: 1440px) {
+    max-width: 1080px;
+  }
+
+  @media (max-width: 1024px) {
+    max-width: 944px;
   }
 }
 </style>
