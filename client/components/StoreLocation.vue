@@ -21,6 +21,8 @@ const {
 } = useStore()
 
 const location = computed<string>(() => {
+  if (!currentDoro.data) return '주소를 찾을 수 없습니다.'
+  
   const { area1, area2, area3 } = currentDoro.data.results[0].region
   return `${area1.name} ${area2.name} ${area3.name}`
 })
