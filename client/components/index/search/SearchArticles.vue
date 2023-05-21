@@ -1,12 +1,10 @@
 <template>
   <article class="SearchArticles">
-    <SearchTags />    
     <RecommendCards />
   </article>
 </template>
 
 <script setup lang="ts">
-import SearchTags from './SearchTags.vue'
 import RecommendCards from './RecommendCards.vue'
 </script>
 

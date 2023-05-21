@@ -39,6 +39,4 @@ button.primary-button  {
     opacity: .9;
   }
 }
-
-
 </style>
