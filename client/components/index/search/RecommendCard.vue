@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { IRecommendCard } from '~/components/index/search/RecommendCards.vue'
+import { IRecommendCard } from '~/components/index/search/SearchArticles.vue'
 
 interface RecommendCardProp {
   recommendCard: IRecommendCard
@@ -33,7 +33,7 @@ const { recommendCard } = defineProps<RecommendCardProp>()
 <style lang="scss">
 .RecommendCard {
   font-family: 'Pretendard';
-  height: 200px;
+  height: 232px;
   width: 328px;
   position: relative;
 

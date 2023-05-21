@@ -21,7 +21,7 @@ $borderTest: 1px solid black;
   flex-direction: column;
   align-items: center;
 
-  min-height: 994px;
+  min-height: 847px;
   padding-bottom: 80px;
 
   background-color: #f9fafb;
