@@ -29,7 +29,7 @@ $borderTest: 1px solid black;
 
   background-color: #f9fafb;
 
-  .Title {
+.Title {
     margin-top: 80px;
     font-size: 28px;
     font-weight: 700;
