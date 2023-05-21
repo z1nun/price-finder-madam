@@ -23,7 +23,7 @@ const onEnter = () => {
     height: 64px;
 
     margin-top: 40px;
-    border-radius: 80px;
+    border-radius: 8px;
     outline: none;
     font-size: 20px;
 
