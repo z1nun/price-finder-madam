@@ -4,13 +4,18 @@
       <div class="IconBox">
         <img src="~/assets/img/defaultIcon.svg" />
       </div>
-      <div class="PriceBox">금액</div>
+      <div class="Category">업종명</div>
     </div>
 
     <div class="bottom">
-      <div class="title">착한 가격의 가게</div>
+      <div class="title">
+        착한 가격의 가게
+      </div>
       <div class="address">
         {{ recommendCard.address }}
+      </div>
+      <div class="pride">
+        {{ recommendCard.pride }}
       </div>
     </div>
 
@@ -21,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { IRecommendCard } from '~/components/index/search/RecommendCards.vue'
+import { IRecommendCard } from '~/components/index/search/SearchArticles.vue'
 
 interface RecommendCardProp {
   recommendCard: IRecommendCard
@@ -32,10 +37,11 @@ const { recommendCard } = defineProps<RecommendCardProp>()
 
 <style lang="scss">
 .RecommendCard {
-  font-family: 'Pretendard';
-  height: 200px;
+  max-height: 232px;
   width: 328px;
   position: relative;
+  box-sizing: border-box;
+  padding: 20px;
 
   background: #ffffff;
   border-radius: 16px;
@@ -48,7 +54,6 @@ const { recommendCard } = defineProps<RecommendCardProp>()
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin: 20px;
 
     .IconBox {
       width: 80px;
@@ -60,7 +65,7 @@ const { recommendCard } = defineProps<RecommendCardProp>()
       align-items: center;
     }
 
-    .PriceBox {
+    .Category {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -74,19 +79,17 @@ const { recommendCard } = defineProps<RecommendCardProp>()
   }
 
   .bottom {
+    display: flex; 
+    flex-direction: column;
+    gap: 8px;
+    font-weight: 500;    
     margin-top: 24px;
-    padding-left: 20px;
-    padding-right: 20px;
 
     .title {
       font-weight: 700;
       font-size: 18px;
-    }
-
-    .address {
-      margin-top: 8px;
-      font-weight: 500;
-    }
+    }    
+        
   }
 
   .check {

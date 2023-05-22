@@ -1,19 +1,113 @@
 <template>
   <article class="SearchArticles">
-    <SearchTags />    
-    <RecommendCards />
+    <!-- <RecommendCards /> -->
+    <RecommendCard
+      v-for="(recommendCard, i) in recommendCards.slice(0, displayCount)"
+      :key="i"
+      :recommend-card="recommendCard"
+      @click="router.push('/detail')"
+    />
+
+    <RecommendMore @click="router.push('/search')" />
   </article>
 </template>
 
 <script setup lang="ts">
-import SearchTags from './SearchTags.vue'
-import RecommendCards from './RecommendCards.vue'
+import useDisplay from '~/utils/display'
+import RecommendMore from '~/components/index/search/RecommendMore.vue'
+import RecommendCard from '~/components/index/search/RecommendCard.vue'
+
+const router = useRouter()
+const { divice } = useDisplay()
+
+export interface IRecommendCard {
+  img?: string
+  title: string
+  price: number | string
+  checked: boolean
+  address: string
+  pride: string
+}
+
+const displayCount = computed<number>(() => {
+  switch (divice.value) {
+    case 'xl':
+      return 7
+    case 'lg':
+      return 7
+    case 'md':
+      return 5
+    case 'sm':
+      return 3
+    case 'xs':
+      return 4
+  }
+})
+
+const recommendCards = ref<IRecommendCard[]>([
+  {
+    title: '착한 가격의 가게',
+    price: '금액',
+    checked: false,
+    address: '강남구 개포로22길 46 지하1층',
+    pride: '매장 자랑거리'
+  },
+  {
+    title: '착한 가격의 가게',
+    price: '금액',
+    checked: false,
+    address: '강남구 개포로22길 46 지하1층',
+    pride: '매장 자랑거리'
+  },
+  {
+    title: '착한 가격의 가게',
+    price: '금액',
+    checked: false,
+    address: '강남구 개포로22길 46 지하1층',
+    pride: '매장 자랑거리'
+  },
+  {
+    title: '착한 가격의 가게',
+    price: '금액',
+    checked: false,
+    address: '강남구 개포로22길 46 지하1층',
+    pride: '매장 자랑거리'
+  },
+  {
+    title: '착한 가격의 가게',
+    price: '금액',
+    checked: false,
+    address: '강남구 개포로22길 46 지하1층',
+    pride: '매장 자랑거리'
+  },
+  {
+    title: '착한 가격의 가게',
+    price: '금액',
+    checked: false,
+    address: '강남구 개포로22길 46 지하1층',
+    pride: '매장 자랑거리'
+  },
+  {
+    title: '착한 가격의 가게',
+    price: '금액',
+    checked: false,
+    address: '강남구 개포로22길 46 지하1층',
+    pride: '매장 자랑거리'
+  },
+])
+
 </script>
 
 <style scoped lang="scss">
-.SearchArticles {
+.SearchArticles {    
   margin-top: 40px;
-  width: 100%;
-  max-width: 1456px;
+  max-width: 1456px;  
+
+  gap: 40px 48px; 
+  
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  
 }
 </style>

@@ -19,14 +19,17 @@ $borderTest: 1px solid black;
   font-family: 'Pretendard';
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center;  
 
-  min-height: 994px;
+  min-height: 847px;  
+  padding: 20px;
+  box-sizing: border-box;
   padding-bottom: 80px;
+
 
   background-color: #f9fafb;
 
-  .Title {
+.Title {
     margin-top: 80px;
     font-size: 28px;
     font-weight: 700;
