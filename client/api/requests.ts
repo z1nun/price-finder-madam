@@ -17,7 +17,7 @@ import { DEFAULT_HEADERS, GEOCODE_HEADERS } from "."
 import { LatLng } from "~/types/base"
 
 // 업소 자세한 정보 요청 api
-const requestStoreDetail = (storeId: number) => {
+const requestStoreDetail = (storeId: string) => {
   const url = createStoreDetailUrl(storeId)
   return () => axios.get<StoreDetailResponse>(url, DEFAULT_HEADERS)
 }

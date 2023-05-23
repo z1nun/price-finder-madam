@@ -17,7 +17,12 @@ export default defineNuxtConfig({
         target: 'https://naveropenapi.apigw.ntruss.com',
 				rewrite: (path: string) => path.replace(/^\/geocoding/, ''),
 				...defaultProxyOption
+      },
+      '/api': {
+        target: 'http://3.34.124.58:8080',
+        rewrite: (path: string) => path.replace(/^\/api/, ''),
+				...defaultProxyOption
       }
     }
-  }
+  },  
 })

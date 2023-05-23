@@ -6,7 +6,6 @@ type BaseResponse<T> = {
   data: T
 }
 
-
 // 업소 자세한 정보 요청
 export type StoreDetailResponse = BaseResponse<{
   storeInfo: string
