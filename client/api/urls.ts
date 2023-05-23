@@ -3,7 +3,7 @@ import { LatLng } from "~/types/base"
 const END_POINT: string = 'http://3.34.124.58:8080'
 const BASE_URL = process.env.NODE_ENV === 'development' ? '/api' : END_POINT
 
-const GEOCODING_REVERSE_BASE_URL = 'https://naveropenapi.apigw.ntruss.com/geocoding/map-reversegeocode/v2/gc'
+const GEOCODING_REVERSE_BASE_URL = process.env.NODE_ENV === 'development' ? '/geocoding/map-reversegeocode/v2/gc' : 'https://naveropenapi.apigw.ntruss.com/geocoding/map-reversegeocode/v2/gc'
 
 const storeSearchUrl = `${END_POINT}/word/stores`
 const createStoreDetailUrl = (storeId: string) => `${BASE_URL}/stores/${storeId}`
