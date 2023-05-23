@@ -1,8 +1,10 @@
 import { LatLng } from "~/types/base"
 
+const MODE = process.env.NODE_ENV
+
 const END_POINT = ''
 const NAVER_END_POINT = ''
-const GEOCODING_REVERSE_BASE_URL = '/geocoding/map-reversegeocode/v2/gc'
+const GEOCODING_REVERSE_BASE_URL = 'https://naveropenapi.apigw.ntruss.com/geocoding/map-reversegeocode/v2/gc'
 
 const storeSearchUrl = `${END_POINT}/word/stores`
 const createStoreDetailUrl = (storeId: number) => `${END_POINT}/store/${storeId}`
