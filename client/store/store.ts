@@ -12,7 +12,7 @@ const useStore = defineStore('store', () => {
   const asyncStates = reactive<AsyncStates>({
     currentPosition: initial<LatLng>({ latitude: 0, longitude: 0 }),
     storeCards: initial<StoreCard[]>([]),
-    detailCard: initial<StoreDetail>({} as any),
+    storeDetail: initial<StoreDetail>({} as any),
     currentDoro: initial<GeocodeReverseResponse>({} as any)
   })
 
@@ -23,10 +23,9 @@ const useStore = defineStore('store', () => {
   
   // 비동기 동작 생성
   const asyncProcess = createAsyncProcess()
-  const { detailCard, storeCards, currentDoro } = asyncStates
 
   // 업소 자세한 정보 비동기 동작
-  const loadStoreDetail = (storeId: string) => asyncProcess<StoreDetail>(asyncStates.detailCard, {
+  const loadStoreDetail = (storeId: string) => asyncProcess<StoreDetail>(asyncStates.storeDetail, {
     callback: requestStoreDetail(storeId),
     onError: (e: unknown) => console.log('업소를 불러올 수 없습니다. :', e)
   })
