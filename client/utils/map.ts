@@ -68,6 +68,7 @@ const useMapOptions = () => {
 
   const DEFAULT_WINDOWINFO_OPTIONS: Omit<InfoWindowOptions, 'position' | 'content'> = {
     borderWidth: 0,
+    backgroundColor: '',
     disableAnchor: false,
     anchorSize: {
       width: 0,

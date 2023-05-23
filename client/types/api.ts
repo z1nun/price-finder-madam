@@ -1,16 +1,22 @@
 import { LatLng, Product, StoreCard } from "./base"
 
+type BaseResponse<T> = {
+  status: string
+  message: string 
+  data: T
+}
+
 // 업소 자세한 정보 요청
-export type StoreDetailResponse = {
+export type StoreDetailResponse = BaseResponse<{
   storeInfo: string
   storeNumber: string
   storeWayToCome: string
   storeUrl: string
   products: Product[]
-}
+}>
 
 // 매장명 또는 상품 검색 요청
-export type StoreSearchResponse = StoreCard[]
+export type StoreSearchResponse = BaseResponse<StoreCard[]>
 export type StoreSearchRequestBody = {
   searchInput: string
   address: string
@@ -18,7 +24,7 @@ export type StoreSearchRequestBody = {
 }
 
 // 홈에서 더보기 요청
-export type NeighborhoodsStoreResponse = StoreCard[]
+export type NeighborhoodsStoreResponse = BaseResponse<StoreCard[]>
 export type NeighborhoodsStoreRequestBody = {
   userPlace: LatLng
   address: string
@@ -26,7 +32,7 @@ export type NeighborhoodsStoreRequestBody = {
 }
 
 // 지도에서 현 위치 찾기
-export type CurrentPlaceStoreResponse = StoreCard[]
+export type CurrentPlaceStoreResponse = BaseResponse<StoreCard[]>
 export type CurrentPlaceStoreRequestBody = {
   leftUpPlace: LatLng
   rightDownPlace: LatLng
@@ -38,7 +44,7 @@ export type CurrentPlaceStoreRequestBody = {
 
 
 // 검색 페이지에서 카테고리 선택
-export type CategorySearchResponse = StoreCard[]
+export type CategorySearchResponse = BaseResponse<StoreCard[]>
 export type CategorySearchRequestBody = {
   storeType: number
   address: string

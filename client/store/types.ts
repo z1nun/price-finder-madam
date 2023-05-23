@@ -39,7 +39,7 @@ type StateTypes = LatLng | StoreCard[] | StoreDetail | string | GeocodeReverseRe
 type AsyncStates = {
   currentPosition: AsyncState<LatLng>,  // 현재 위치
   storeCards: AsyncState<StoreCard[]>,  // 업소 목록
-  detailCard: AsyncState<StoreDetail>   // 업종 상세
+  storeDetail: AsyncState<StoreDetail>   // 업종 상세
   currentDoro: AsyncState<GeocodeReverseResponse>    // 현재 주솟값(도로명)
 }
 

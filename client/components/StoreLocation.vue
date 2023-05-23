@@ -1,8 +1,8 @@
 <template>
-  <article class="container" v-if="!currentDoro.loading">
+  <article class="container">
     <div>
       <h3>위치정보</h3>
-      <ul>
+      <ul v-if="!currentDoro.loading">
         <li>{{ location }}</li>
       </ul>
     </div>
@@ -21,7 +21,7 @@ const {
 } = useStore()
 
 const location = computed<string>(() => {  
-  if (!currentDoro.data) return '주소를 찾을 수 없습니다.'
+  if (!currentDoro.data.results) return '주소를 찾을 수 없습니다.'
   
   const { area1, area2, area3 } = currentDoro.data?.results[0].region
   return `${area1.name} ${area2.name} ${area3.name}`

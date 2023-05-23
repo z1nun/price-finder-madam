@@ -72,7 +72,7 @@ const createAsyncProcess = () => {
 
     callback()
       .then((result: AxiosResponse<T>) => {
-        fulfiled(state, result.data)
+        fulfiled(state, result.data)        
         onLoaded && onLoaded(result)
       })      
       .catch((e: E) => {

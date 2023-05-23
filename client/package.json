@@ -36,5 +36,6 @@
     "vue": "^3.2.47",
     "vue-router": "^4.2.0",
     "vue3-naver-maps": "^4.1.0"
-  }
+  },
+  "proxy": "https://naveropenapi.apigw.ntruss.com"
 }
