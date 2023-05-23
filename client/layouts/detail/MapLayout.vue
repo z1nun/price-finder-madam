@@ -7,13 +7,26 @@
       :initLayers="initLayers"
       @onLoad="onLoadMap"      
     >
+      <!-- 중심 마커 -->
       <NaverMarker
         class="marker"
         v-if="visibleMarker"
         v-bind="currentPosition.data"
         @onLoad="onLoadMarker"
         @click="isMarkerOpen = !isMarkerOpen"
-      />
+      >
+        <img src="~/assets/img/detail/center.svg" class="center-marker"/>
+      
+      </NaverMarker>
+
+      <!-- 주변 마커 -->
+      <!-- <NaverMarker
+        class="marker"
+        v-if="visibleMarker"
+        v-bind="currentPosition.data"
+        @onLoad="onLoadMarker"
+        @click="isMarkerOpen = !isMarkerOpen"
+      /> -->
 
       <NaverInfoWindow
         v-show="visibleInfo"
@@ -23,8 +36,9 @@
         @onLoaded="onLoadedInfoWindow($event)"
         :options="infoWindowOptions"
       >
-        <div ref="infoRef" class="windowInfo">인포</div>
+        <div ref="infoRef" class="center-info">현 위치</div>
       </NaverInfoWindow>
+
     </NaverMap>
 
     <template v-if="!currentPosition.loading">
@@ -152,39 +166,18 @@ img[alt='지도 확대'] {
   display: none !important;
 }
 
-#innerMarker {
-  transition: all 0.1s ease-in-out;
-  background-color: rgba(233, 150, 122, 0.4);
-  padding: 0.25rem 0.5rem 0.25rem 0.5rem;
-  border-radius: 5px;
-  border-top-right-radius: 30px;
-  border-bottom-right-radius: 30px;
-  box-sizing: content-box;
-  display: flex;
-  align-items: center;
-  transform: translateX(-80px);
-
-  .icon {
-    background-color: white;
-    padding: 5px;
-    width: 10px;
-    height: 10px;
-    border-radius: 10px;
-    margin-right: 0.5rem;
-  }
-
-  &:hover {
-    outline: 1px solid black;
-  }
+.center-info {
+  position: absolute;  
+  text-align: center;  
+  width: 100px;
+  border-radius: 10px;
+  left: 25px;  
+  box-sizing: border-box;
+  padding: .5rem 1rem;
+  background-color: #f9fafb;    
+  z-index: 1;
 }
 
-.windowInfo {
-  width: 400px;
-  height: 200px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 .search-current {
   position: absolute;
