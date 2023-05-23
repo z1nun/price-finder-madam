@@ -25,10 +25,7 @@ const useStore = defineStore('store', () => {
   const asyncProcess = createAsyncProcess()
 
   // 업소 자세한 정보 비동기 동작
-  const loadStoreDetail = (storeId: string) => asyncProcess<StoreDetail>(asyncStates.storeDetail, {
-    callback: requestStoreDetail(storeId),
-    onError: (e: unknown) => console.log('업소를 불러올 수 없습니다. :', e)
-  })
+  const loadStoreDetail = (storeId: string) => asyncProcess<StoreDetail>(asyncStates.storeDetail, requestStoreDetail(storeId))
 
   // 홈에서 더보기 비동기 동작
   const loadNeighborhoodsStore = (body: NeighborhoodsStoreRequestBody) => asyncProcess<StoreCard[]>(asyncStates.storeCards, requestNeighborhoodsStore(body))
