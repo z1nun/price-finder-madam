@@ -1,8 +1,8 @@
 <template>
-  <article class="container" v-if="!currentDoro.loading">
+  <article class="container">
     <div>
       <h3>위치정보</h3>
-      <ul>
+      <ul v-if="!currentDoro.loading">
         <li>{{ location }}</li>
       </ul>
     </div>

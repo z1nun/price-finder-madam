@@ -20,7 +20,6 @@ onMounted(() => {
   loadStoreDetail(id)
 })
 
-
 </script>
 
 <style scoped lang="scss">
