@@ -25,8 +25,12 @@ type StoreCard = {
 }
 
 type StoreDetail = {
-
-} & StoreCard
+  storeInfo: string
+  storeNumber: string
+  storeWayToCome: string
+  storeUrl: string
+  products: Product[]
+}
 
 export type {
   Product,

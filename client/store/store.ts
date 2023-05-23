@@ -52,7 +52,10 @@ const useStore = defineStore('store', () => {
       .getCurrentPosition(   
         (success: GeolocationPosition) => { 
           if (Object.keys(asyncStates.currentDoro.data).length === 0) loadGeocodingReverse(success.coords)       
-          fulfiled(targetState, success.coords)
+          fulfiled(targetState, {
+            latitude: success.coords.latitude,
+            longitude: success.coords.longitude
+          })
         },
         (e: GeolocationPositionError) => { error(targetState, e) }
       )
@@ -66,6 +69,7 @@ const useStore = defineStore('store', () => {
   return {
     loadLocation,
     loadStoreDetail,
+    loadCurrentPlaceStore,
     asyncStates
   }
 })

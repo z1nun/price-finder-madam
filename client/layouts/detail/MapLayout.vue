@@ -47,7 +47,7 @@
       <div class="search-current">
         <button @click="searchCurrent" class="primary-button">
           <span><img src="~/assets/img/detail/location.svg" /></span>
-          <span class="text">현 위치에서 찾기</span>    
+          <span class="text">현 위치에서 찾기</span>              
         </button>
       </div>
     </template>
@@ -65,8 +65,9 @@ import { useStore } from '~/store'
 const { DEFAULT_ZOOM_OPTIONS, DEFAULT_WINDOWINFO_OPTIONS } = useMapOptions()
 
 const {
-  asyncStates: { currentPosition },
+  asyncStates: { currentPosition, storeCards },
   loadLocation,
+  loadCurrentPlaceStore
 } = useStore()
 
 type BoundLatLng = {
@@ -91,7 +92,6 @@ const onLoadMap = (mapObject: Map) => {
 
   visibleMarker.value = true
   mapObject.setCenter(latLng)
-  console.log(mapObject)
   map.value = mapObject
 }
 
@@ -102,10 +102,22 @@ const searchCurrent = (): void => {
   
   const ne = bounds.getMax() as BoundLatLng
   const sw = bounds.getMin() as BoundLatLng
-  
-  console.log('NE: ', ne._lat, ne._lng)
-  console.log('SW: ', sw._lat, sw._lng)
-  
+
+  const body = {
+    leftUpPlace: {
+      latitude: ne._lat,
+      longitude: ne._lng
+    },
+    rightDownPlace: {
+      latitude: sw._lat,
+      longitude: sw._lng
+    },
+    userPlace: currentPosition.data,
+    storeType: 0,
+    page: 0
+  }
+
+  loadCurrentPlaceStore(body)      
 }
 
 

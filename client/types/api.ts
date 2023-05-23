@@ -37,7 +37,7 @@ export type CurrentPlaceStoreRequestBody = {
   leftUpPlace: LatLng
   rightDownPlace: LatLng
   userPlace: LatLng
-  storeName: string | null
+  storeName?: string | null
   storeType: number | null
   page: number
 }
