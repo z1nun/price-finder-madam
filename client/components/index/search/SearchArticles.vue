@@ -1,14 +1,15 @@
 <template>
   <article class="SearchArticles">
     <!-- <RecommendCards /> -->
-    <RecommendCard
-      v-for="(recommendCard, i) in recommendCards.slice(0, displayCount)"
-      :key="i"
-      :recommend-card="recommendCard"
-      @click="router.push('/detail')"
-    />
-
-    <RecommendMore @click="router.push('/search')" />
+    <template v-if="!storeCards.loading">      
+      <RecommendCard
+        v-for="(recommendCard, i) in recommendCards.slice(0, displayCount)"
+        :key="i"
+        :recommend-card="recommendCard"
+        @click="router.push('/detail')"
+      />  
+      <RecommendMore @click="router.push('/search')" />
+    </template>
   </article>
 </template>
 
@@ -16,18 +17,12 @@
 import useDisplay from '~/utils/display'
 import RecommendMore from '~/components/index/search/RecommendMore.vue'
 import RecommendCard from '~/components/index/search/RecommendCard.vue'
+import { useStore } from '~/store'
+import { StoreCard } from '~/types/baseTypes'
 
 const router = useRouter()
 const { divice } = useDisplay()
-
-export interface IRecommendCard {
-  img?: string
-  title: string
-  price: number | string
-  checked: boolean
-  address: string
-  pride: string
-}
+const { asyncStates: { storeCards }} = useStore()
 
 const displayCount = computed<number>(() => {
   switch (divice.value) {
@@ -44,57 +39,7 @@ const displayCount = computed<number>(() => {
   }
 })
 
-const recommendCards = ref<IRecommendCard[]>([
-  {
-    title: '착한 가격의 가게',
-    price: '금액',
-    checked: false,
-    address: '강남구 개포로22길 46 지하1층',
-    pride: '매장 자랑거리'
-  },
-  {
-    title: '착한 가격의 가게',
-    price: '금액',
-    checked: false,
-    address: '강남구 개포로22길 46 지하1층',
-    pride: '매장 자랑거리'
-  },
-  {
-    title: '착한 가격의 가게',
-    price: '금액',
-    checked: false,
-    address: '강남구 개포로22길 46 지하1층',
-    pride: '매장 자랑거리'
-  },
-  {
-    title: '착한 가격의 가게',
-    price: '금액',
-    checked: false,
-    address: '강남구 개포로22길 46 지하1층',
-    pride: '매장 자랑거리'
-  },
-  {
-    title: '착한 가격의 가게',
-    price: '금액',
-    checked: false,
-    address: '강남구 개포로22길 46 지하1층',
-    pride: '매장 자랑거리'
-  },
-  {
-    title: '착한 가격의 가게',
-    price: '금액',
-    checked: false,
-    address: '강남구 개포로22길 46 지하1층',
-    pride: '매장 자랑거리'
-  },
-  {
-    title: '착한 가격의 가게',
-    price: '금액',
-    checked: false,
-    address: '강남구 개포로22길 46 지하1층',
-    pride: '매장 자랑거리'
-  },
-])
+const recommendCards = computed<StoreCard[]>(() => storeCards.data?.slice(0, displayCount.value))
 
 </script>
 

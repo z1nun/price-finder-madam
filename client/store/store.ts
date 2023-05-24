@@ -1,9 +1,9 @@
 import { defineStore } from "pinia";
 import { AsyncStates, } from "../types/storeTypes";
 import { asyncUtils, createAsyncProcess } from "./utils";
-import { requestCategorySearch, requestCurrentPlaceStore, requestGeocodeReverse, requestNeighborhoodsStore, requestStoreDetail } from "~/api";
+import { requestCategorySearch, requestCurrentPlaceStore, requestGeocodeReverse, requestHome, requestNeighborhoodsStore, requestStoreDetail } from "~/api";
 import { LatLng, StoreDetail, StoreCard } from "~/types/baseTypes";
-import { CategorySearchRequestBody, CurrentPlaceStoreRequestBody, GeocodeReverseResponse, NeighborhoodsStoreRequestBody } from "~/types/apiTypes";
+import { CategorySearchRequestBody, CurrentPlaceStoreRequestBody, GeocodeReverseResponse, HomeRequestBody, NeighborhoodsStoreRequestBody } from "~/types/apiTypes";
 
 const useStore = defineStore('store', () => {  
   const { initial, loading, fulfiled, error } = asyncUtils
@@ -22,7 +22,10 @@ const useStore = defineStore('store', () => {
   })
   
   // 비동기 동작 생성
-  const asyncProcess = createAsyncProcess()
+  const asyncProcess = createAsyncProcess(asyncStates)
+
+  // 홈 카드 요청
+  const loadHome = (body: HomeRequestBody) => asyncProcess<StoreCard[]>(asyncStates.storeCards, requestHome(body))
 
   // 업소 자세한 정보 비동기 동작
   const loadStoreDetail = (storeId: string) => asyncProcess<StoreDetail>(asyncStates.storeDetail, requestStoreDetail(storeId))
@@ -40,25 +43,32 @@ const useStore = defineStore('store', () => {
   const loadGeocodingReverse = (latlng: LatLng) => asyncProcess<GeocodeReverseResponse>(asyncStates.currentDoro, requestGeocodeReverse(latlng))
  
   // 현재 위치 로드
-  const loadLocation = () => {   
+  const loadLocation = async (): Promise<LatLng> => {   
     const targetState = asyncStates.currentPosition
     loading(targetState)
-    
-    navigator
-      .geolocation
-      .getCurrentPosition(   
-        (success: GeolocationPosition) => { 
-          if (Object.keys(asyncStates.currentDoro.data).length === 0) loadGeocodingReverse(success.coords)       
-          fulfiled(targetState, {
-            latitude: success.coords.latitude,
-            longitude: success.coords.longitude
-          })
-        },
-        (e: GeolocationPositionError) => { error(targetState, e) }
-      )
+
+    return new Promise((resolve, reject) => {
+      navigator
+        .geolocation
+        .getCurrentPosition(   
+          (success: GeolocationPosition) => { 
+            if (Object.keys(asyncStates.currentDoro.data).length === 0) loadGeocodingReverse(success.coords)       
+            fulfiled(targetState, {
+              latitude: success.coords.latitude,
+              longitude: success.coords.longitude
+            })
+            resolve({
+              latitude: success.coords.latitude,
+              longitude: success.coords.longitude
+            })              
+          },
+          (e: GeolocationPositionError) => {
+            error(targetState, e)
+            reject(e)
+          }
+        )
+    })
   }
-
-
   // 현재 동을 반환합니다.
   const getCurrnetDong = computed<string>(() => asyncStates.currentDoro.data?.results[0].region.area3.name)
 
@@ -67,6 +77,7 @@ const useStore = defineStore('store', () => {
     loadLocation,
     loadStoreDetail,
     loadCurrentPlaceStore,
+    loadHome,
     asyncStates
   }
 })

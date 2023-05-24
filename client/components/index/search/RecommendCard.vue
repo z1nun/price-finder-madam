@@ -4,18 +4,20 @@
       <div class="IconBox">
         <img src="~/assets/img/defaultIcon.svg" />
       </div>
-      <div class="Category">업종명</div>
+      <div class="Category">
+        {{ recommendCard.storeType }}
+      </div>
     </div>
 
     <div class="bottom">
       <div class="title">
-        착한 가격의 가게
+        {{ recommendCard.storeName }}
       </div>
       <div class="address">
-        {{ recommendCard.address }}
+        {{ recommendCard.storeAddress }}
       </div>
       <div class="pride">
-        {{ recommendCard.pride }}
+        {{ recommendCard.storePride }}
       </div>
     </div>
 
@@ -26,10 +28,11 @@
 </template>
 
 <script setup lang="ts">
-import { IRecommendCard } from '~/components/index/search/SearchArticles.vue'
+import { StoreCard } from '~/types/baseTypes';
+
 
 interface RecommendCardProp {
-  recommendCard: IRecommendCard
+  recommendCard: StoreCard
 }
 
 const { recommendCard } = defineProps<RecommendCardProp>()
@@ -83,13 +86,20 @@ const { recommendCard } = defineProps<RecommendCardProp>()
     flex-direction: column;
     gap: 8px;
     font-weight: 500;    
-    margin-top: 24px;
+    margin-top: 24px;    
 
     .title {
       font-weight: 700;
       font-size: 18px;
-    }    
-        
+    }
+
+    .pride {      
+      max-width: 200px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  
   }
 
   .check {

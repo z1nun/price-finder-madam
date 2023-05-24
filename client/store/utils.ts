@@ -53,7 +53,7 @@ const asyncUtils = {
 /*
   비동기 상태 흐름을 생성하는 함수 
 */
-const createAsyncProcess = () => {
+const createAsyncProcess = (states: any) => {
   const { loading, fulfiled, error } = asyncUtils
 
 
@@ -65,14 +65,16 @@ const createAsyncProcess = () => {
   return <T extends StateTypes, E = unknown>(state: AsyncState<StateTypes>, effect: Effect | Effect["callback"]) => {
     const { callback , onLoaded, onError } = typeof effect === 'function' ? { 
       callback: effect, 
-      onLoaded: null,
+      onLoaded: (result: any) => {
+        console.log(result.data)
+      },
       onError: (e: unknown) => console.log(e)
     } : effect
 
     loading(state)
 
     callback()
-      .then((result: AxiosResponse<T> | AxiosResponse<BaseResponse<T>>) => {        
+      .then((result: AxiosResponse<T> | AxiosResponse<BaseResponse<T>>) => {
         Object.keys(result.data).includes('data') 
           ? fulfiled(state, (result.data as BaseResponse<T>).data)
           : fulfiled(state, result.data)

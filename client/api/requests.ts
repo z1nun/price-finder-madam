@@ -32,8 +32,8 @@ const requestStoreDetail = (storeId: string) => {
   return () => axios.get<StoreDetailResponse>(url, DEFAULT_HEADERS)
 }
 
-// 홈화면 카드 요청
-const requestHome = () => createPostRequest<HomeResponse, HomeRequestBody>(homeUrl)
+// 홈 카드 요청
+const requestHome = createPostRequest<HomeResponse, HomeRequestBody>(homeUrl)
 
 // 매장명 또는 상품 검색 요청
 const requestStoreSearch = createPostRequest<StoreSearchResponse, StoreSearchRequestBody>(storeSearchUrl)
