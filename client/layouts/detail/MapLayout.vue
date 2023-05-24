@@ -177,7 +177,6 @@ const zoom = (e: ZoomType) => {
   target?.setZoom(target.getZoom() + (e === 'in' ? 1 : -1), true)
 }
 
-onMounted(() => loadLocation())
 </script>
 
 <style scoped lang="scss">

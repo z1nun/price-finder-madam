@@ -4,6 +4,15 @@
   </NuxtLayout>
 </template>
 
+<script setup lang="ts">
+import { useStore } from './store';
+
+const { loadLocation } = useStore()
+
+onMounted(() => loadLocation())
+</script>
+
+
 <style lang="scss">
 body {
   margin: 0px;
