@@ -1,8 +1,12 @@
 <template>
   <article>
-    <img src="~/assets/img/detail/in.svg" @click="emit('zoom', 'in')">
+    <button @click="emit('zoom', 'in')">
+      <img src="~/assets/img/detail/in.svg">
+    </button>
     <div class="divider"></div>
-    <img src="~/assets/img/detail/out.svg" @click="emit('zoom', 'out')">
+    <button @click="emit('zoom', 'out')">
+      <img src="~/assets/img/detail/out.svg">
+    </button>
   </article>
 </template>
 
@@ -22,7 +26,7 @@ article {
   z-index: 0;
   margin-right: 2.5rem;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
-  background-color: white;
+  background-color: $light-lighten-1;
   border-radius: 8px;
   width: 48px;
   height: 96px;
@@ -41,6 +45,18 @@ article {
     height: 0px;
     border: 1px solid #AFB7C0;
     transform: rotate(180deg);        
+  }
+
+  button {
+    border: none;    
+    background-color: $light-lighten-2;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+
+    &:active {
+      background-color: $light;
+    }
   }
 
   img {

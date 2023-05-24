@@ -1,6 +1,8 @@
 <template>
   <article>
-    <img src="~/assets/img/detail/target.svg" @click="emit('focusCenter')"/>
+    <button @click="emit('focusCenter')">
+      <img src="~/assets/img/detail/target.svg" />
+    </button>
   </article>
 </template>
 
@@ -33,10 +35,21 @@ article {
   -ms-user-select: none;
   user-select: none;
 
+  button {
+    border: none;    
+    background-color: $light-lighten-2;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    
+    &:active {
+      background-color: $light;
+    }
+  }
+
   img {
     width: 24px;
-    height: 24px;
-    cursor: pointer;    
+    height: 24px;    
   }
 }
 </style>
