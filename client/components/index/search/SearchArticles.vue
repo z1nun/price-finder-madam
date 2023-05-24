@@ -3,7 +3,7 @@
     <!-- <RecommendCards /> -->
     <template v-if="!storeCards.loading">      
       <RecommendCard
-        v-for="(recommendCard, i) in recommendCards.slice(0, displayCount)"
+        v-for="(recommendCard, i) in recommendCards"
         :key="i"
         :recommend-card="recommendCard"
         @click="router.push('/detail')"
