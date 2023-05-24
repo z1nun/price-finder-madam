@@ -1,5 +1,31 @@
 // 기본 타입
 
+type StoreType = 
+  '한식' |
+  '중식' |
+  '경양식,일식' |
+  '기타외식업(다방,패스트푸드)' |
+  '이 미용업' |
+  '목욕업' |
+  '세탁업' |
+  '숙박업' |
+  '기타 서비스업종'
+
+const storeTypeMap: Record<number, StoreType> = {
+  1: '한식',
+  2: '중식',
+  3: '경양식,일식',
+  4: '기타외식업(다방,패스트푸드)',
+  5: '이 미용업',
+  6: '목욕업',
+  7: '세탁업',
+  8: '숙박업',
+  13: '기타 서비스업종'
+}
+
+storeTypeMap[0]
+
+
 // 물품 타입
 type Product = {
   productName: string
@@ -36,4 +62,8 @@ export type {
   LatLng,
   StoreCard,
   StoreDetail
+}
+
+export {
+  storeTypeMap
 }
