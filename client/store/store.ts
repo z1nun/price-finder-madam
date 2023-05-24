@@ -1,9 +1,9 @@
 import { defineStore } from "pinia";
-import { AsyncStates, StoreCard } from "./types";
+import { AsyncStates, } from "../types/storeTypes";
 import { asyncUtils, createAsyncProcess } from "./utils";
 import { requestCategorySearch, requestCurrentPlaceStore, requestGeocodeReverse, requestNeighborhoodsStore, requestStoreDetail } from "~/api";
-import { LatLng, StoreDetail } from "~/types/base";
-import { CategorySearchRequestBody, CurrentPlaceStoreRequestBody, GeocodeReverseResponse, NeighborhoodsStoreRequestBody } from "~/types/api";
+import { LatLng, StoreDetail, StoreCard } from "~/types/baseTypes";
+import { CategorySearchRequestBody, CurrentPlaceStoreRequestBody, GeocodeReverseResponse, NeighborhoodsStoreRequestBody } from "~/types/apiTypes";
 
 const useStore = defineStore('store', () => {  
   const { initial, loading, fulfiled, error } = asyncUtils

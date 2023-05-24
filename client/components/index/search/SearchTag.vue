@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { ITag } from '~/components/types'
+import { ITag } from '~/types/componentTypes';
 
 interface SearchTagProp {
   tag: ITag

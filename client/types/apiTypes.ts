@@ -1,19 +1,15 @@
-import { LatLng, Product, StoreCard } from "./base"
+// API 요청값과 반환값에 대한 타입
 
-type BaseResponse<T> = {
+import { LatLng, StoreCard, StoreDetail } from "./baseTypes"
+
+export type BaseResponse<T> = {
   status: string
   message: string 
   data: T
 }
 
 // 업소 자세한 정보 요청
-export type StoreDetailResponse = BaseResponse<{
-  storeInfo: string
-  storeNumber: string
-  storeWayToCome: string
-  storeUrl: string
-  products: Product[]
-}>
+export type StoreDetailResponse = BaseResponse<StoreDetail>
 
 // 매장명 또는 상품 검색 요청
 export type StoreSearchResponse = BaseResponse<StoreCard[]>
@@ -83,11 +79,4 @@ interface Meta {
   totalCount: number
   page: number
   count: number
-}
-
-interface AddressElement {
-  types: string[]
-  longName: string
-  shortName: string
-  code: string  
 }

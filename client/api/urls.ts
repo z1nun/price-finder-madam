@@ -1,4 +1,4 @@
-import { LatLng } from "~/types/base"
+import { LatLng } from "~/types/baseTypes"
 
 const END_POINT: string = 'http://3.34.124.58:8080'
 const BASE_URL = process.env.NODE_ENV === 'development' ? '/api' : END_POINT

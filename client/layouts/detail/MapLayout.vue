@@ -105,17 +105,27 @@ const searchCurrent = (): void => {
 
   const body = {
     leftUpPlace: {
-      latitude: ne._lat,
-      longitude: ne._lng
+      latitude: ne._lng,
+      longitude: ne._lat
     },
     rightDownPlace: {
-      latitude: sw._lat,
-      longitude: sw._lng
+      latitude: sw._lng,
+      longitude: sw._lat
     },
-    userPlace: currentPosition.data,
-    storeType: 0,
+    userPlace: {
+      latitude: currentPosition.data.longitude,
+      longitude: currentPosition.data.latitude
+    },
+    storeName: null,
+    storeType: null,
     page: 0
   }
+
+  // 카테고리 - 한식 눌렀을때 검색어에 한식이 올라간 상태에서
+
+  // 둘다 null 이거나 한쪽만 null 이여야한다.
+  // 찾기 버튼을 눌럿다. -> storeType이 한식에 맞는 number 채워지고, storename은 null
+  // 반대로 돈까스 검색했으면 storeType null, storeaName이 돈까스
 
   loadCurrentPlaceStore(body)      
 }
@@ -125,6 +135,7 @@ const searchCurrent = (): void => {
 // Marker
 const marker = ref<Marker>()
 const isMarkerOpen = ref<boolean>(false)
+
 
 const onLoadMarker = (markerObject: Marker) => {
   marker.value = markerObject

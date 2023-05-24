@@ -1,5 +1,4 @@
-// 기본 타입 //
-
+// 기본 타입
 
 // 물품 타입
 type Product = {
@@ -7,14 +6,13 @@ type Product = {
   price: number
 }
 
-
 // 위도 경도 타입
 type LatLng = {
   latitude: number
   longitude: number
 }
 
-// 업소 목록
+// 가게 목록
 type StoreCard = {
   storeId: number
   storeName: string
@@ -24,13 +22,14 @@ type StoreCard = {
   place: LatLng 
 }
 
+// 가게 상세
 type StoreDetail = {
   storeInfo: string
   storeNumber: string
   storeWayToCome: string
   storeUrl: string
   products: Product[]
-}
+} & StoreCard
 
 export type {
   Product,
