@@ -25,7 +25,11 @@ const useStore = defineStore('store', () => {
   const asyncProcess = createAsyncProcess(asyncStates)
 
   // 홈 카드 요청
-  const loadHome = (body: HomeRequestBody) => asyncProcess<StoreCard[]>(asyncStates.storeCards, requestHome(body))
+  const loadHome = (body: HomeRequestBody) => asyncProcess<StoreCard[]>(asyncStates.storeCards, {
+    callback: requestHome(body),
+    onLoaded: (result: any) => console.log('홈 카드 요청에 성공했습니다.', result.data.data),
+    onError: (e: unknown) => console.log('홈 카드 요청에 실패했습니다.', e)
+  })
 
   // 업소 자세한 정보 비동기 동작
   const loadStoreDetail = (storeId: string) => asyncProcess<StoreDetail>(asyncStates.storeDetail, requestStoreDetail(storeId))
