@@ -45,7 +45,7 @@
 
     <template v-if="!currentPosition.loading">
       <CustomZoom @zoom="zoom" />
-      <CenterButton />
+      <CenterButton @focus-center="focusCenter"/>
   
       <div class="search-current">
         <button @click="searchCurrent" class="primary-button">
@@ -85,6 +85,7 @@ type BoundLatLng = {
 const map = ref<Map | null>()
 const initLayers = ['']
 const visibleMarker = ref<boolean>(false)
+const centerLatLng = ref<naver.maps.LatLng>()
 
 const mapOptions = computed<MapOptions>(() => ({
   ...DEFAULT_ZOOM_OPTIONS,
@@ -93,7 +94,7 @@ const mapOptions = computed<MapOptions>(() => ({
 
 const onLoadMap = (mapObject: Map) => {
   const latLng = new window.naver.maps.LatLng(currentPosition.data.latitude, currentPosition.data.longitude)
-
+  centerLatLng.value = latLng
   visibleMarker.value = true
   mapObject.setCenter(latLng)
   map.value = mapObject
@@ -177,6 +178,12 @@ const zoom = (e: ZoomType) => {
   if (!target) return
 
   target?.setZoom(target.getZoom() + (e === 'in' ? 1 : -1), true)
+}
+
+// 지도를 초기 상태로 되돌립니다.
+const focusCenter = () => {
+  map.value?.setCenter(centerLatLng.value!)
+  map.value?.setZoom(13)
 }
 
 </script>
