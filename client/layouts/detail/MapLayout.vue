@@ -13,10 +13,12 @@
         v-if="visibleMarker"
         v-bind="currentPosition.data"
         @onLoad="onLoadMarker"
+        :htmlIcon="htmlIcon"
         @click="isMarkerOpen = !isMarkerOpen"
       >
-        <img src="~/assets/img/detail/center.svg" class="center-marker"/>
-      
+        <div ref="innerMarkerRef">  
+          <img src="~/assets/img/detail/center.svg" class="center-marker"/>
+        </div>      
       </NaverMarker>
 
       <!-- 주변 마커 -->
@@ -135,6 +137,14 @@ const searchCurrent = (): void => {
 // Marker
 const marker = ref<Marker>()
 const isMarkerOpen = ref<boolean>(false)
+const innerMarkerRef = ref<HTMLElement | null>(null)
+const htmlIcon = computed(() => ({  
+  size: {
+    width: 0,
+    height: 0
+  },
+  anchor: new naver.maps.Point(40, 40)
+}))
 
 
 const onLoadMarker = (markerObject: Marker) => {
@@ -187,6 +197,11 @@ onMounted(() => loadLocation())
 
 img[alt='지도 확대'] {
   display: none !important;
+}
+
+.center-marker {
+  width: 60px;
+  height: 60px;
 }
 
 .center-info {
