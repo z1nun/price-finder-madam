@@ -198,8 +198,8 @@ const focusCenter = () => {
 }
 
 #map {
-  width: calc(1920px - 360px);
-  height: 937px;  
+  width: calc(100vw - 360px);
+  height: 100vh;
 
   &:focus {
     border: none !important;
