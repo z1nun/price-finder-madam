@@ -17,8 +17,8 @@ const emit = defineEmits<{(e: 'zoom', value: ZoomType): void }>()
 article {
   position: absolute;
   right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 30%;
+  transform: translateY(-30%);
   z-index: 0;
   margin-right: 2.5rem;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
