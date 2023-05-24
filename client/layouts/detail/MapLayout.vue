@@ -66,7 +66,11 @@ import CustomZoom from '~/components/detail/map/CustomZoom.vue'
 import CenterButton from '~/components/detail/map/CenterButton.vue'
 import { useStore } from '~/store'
 
-const { DEFAULT_ZOOM_OPTIONS, DEFAULT_WINDOWINFO_OPTIONS } = useMapOptions()
+const { 
+  DEFAULT_ZOOM_OPTIONS, 
+  DEFAULT_WINDOWINFO_OPTIONS, 
+  DEFAULT_ZOOM_LEVEL 
+} = useMapOptions()
 
 const {
   asyncStates: { currentPosition, storeCards },
@@ -183,7 +187,7 @@ const zoom = (e: ZoomType) => {
 // 지도를 초기 상태로 되돌립니다.
 const focusCenter = () => {
   map.value?.setCenter(centerLatLng.value!)
-  map.value?.setZoom(13)
+  map.value?.setZoom(DEFAULT_ZOOM_LEVEL)
 }
 
 </script>
