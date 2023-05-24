@@ -1,4 +1,5 @@
 import axios from "axios"
+import { createPostRequest } from "./utils"
 import { 
   StoreDetailResponse,
   StoreSearchResponse, 
@@ -10,11 +11,17 @@ import {
   CategorySearchResponse,
   CategorySearchRequestBody, 
   GeocodeReverseResponse
-} from "~/types/api"
-import { createPostRequest } from "./utils"
-import { categorySearchUrl, currentPlaceStoreUrl, createGecodingReverseUrl, neighborhoodsStoreUrl, createStoreDetailUrl, storeSearchUrl } from "./urls"
+} from "~/types/apiTypes"
+import { 
+  categorySearchUrl, 
+  currentPlaceStoreUrl, 
+  createGecodingReverseUrl,
+  neighborhoodsStoreUrl, 
+  createStoreDetailUrl, 
+  storeSearchUrl 
+} from "./urls"
 import { DEFAULT_HEADERS, GEOCODE_HEADERS } from "."
-import { LatLng } from "~/types/base"
+import { LatLng } from "~/types/baseTypes"
 
 // 업소 자세한 정보 요청 api
 const requestStoreDetail = (storeId: string) => {

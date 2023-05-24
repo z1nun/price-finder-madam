@@ -13,10 +13,12 @@
         v-if="visibleMarker"
         v-bind="currentPosition.data"
         @onLoad="onLoadMarker"
+        :htmlIcon="htmlIcon"
         @click="isMarkerOpen = !isMarkerOpen"
       >
-        <img src="~/assets/img/detail/center.svg" class="center-marker"/>
-      
+        <div ref="innerMarkerRef">  
+          <img src="~/assets/img/detail/center.svg" class="center-marker"/>
+        </div>      
       </NaverMarker>
 
       <!-- 주변 마커 -->
@@ -47,7 +49,7 @@
       <div class="search-current">
         <button @click="searchCurrent" class="primary-button">
           <span><img src="~/assets/img/detail/location.svg" /></span>
-          <span class="text">현 위치에서 찾기</span>    
+          <span class="text">현 위치에서 찾기</span>              
         </button>
       </div>
     </template>
@@ -65,8 +67,9 @@ import { useStore } from '~/store'
 const { DEFAULT_ZOOM_OPTIONS, DEFAULT_WINDOWINFO_OPTIONS } = useMapOptions()
 
 const {
-  asyncStates: { currentPosition },
+  asyncStates: { currentPosition, storeCards },
   loadLocation,
+  loadCurrentPlaceStore
 } = useStore()
 
 type BoundLatLng = {
@@ -91,7 +94,6 @@ const onLoadMap = (mapObject: Map) => {
 
   visibleMarker.value = true
   mapObject.setCenter(latLng)
-  console.log(mapObject)
   map.value = mapObject
 }
 
@@ -102,10 +104,32 @@ const searchCurrent = (): void => {
   
   const ne = bounds.getMax() as BoundLatLng
   const sw = bounds.getMin() as BoundLatLng
-  
-  console.log('NE: ', ne._lat, ne._lng)
-  console.log('SW: ', sw._lat, sw._lng)
-  
+
+  const body = {
+    leftUpPlace: {
+      latitude: ne._lng,
+      longitude: ne._lat
+    },
+    rightDownPlace: {
+      latitude: sw._lng,
+      longitude: sw._lat
+    },
+    userPlace: {
+      latitude: currentPosition.data.longitude,
+      longitude: currentPosition.data.latitude
+    },
+    storeName: null,
+    storeType: null,
+    page: 0
+  }
+
+  // 카테고리 - 한식 눌렀을때 검색어에 한식이 올라간 상태에서
+
+  // 둘다 null 이거나 한쪽만 null 이여야한다.
+  // 찾기 버튼을 눌럿다. -> storeType이 한식에 맞는 number 채워지고, storename은 null
+  // 반대로 돈까스 검색했으면 storeType null, storeaName이 돈까스
+
+  loadCurrentPlaceStore(body)      
 }
 
 
@@ -113,6 +137,15 @@ const searchCurrent = (): void => {
 // Marker
 const marker = ref<Marker>()
 const isMarkerOpen = ref<boolean>(false)
+const innerMarkerRef = ref<HTMLElement | null>(null)
+const htmlIcon = computed(() => ({  
+  size: {
+    width: 0,
+    height: 0
+  },
+  anchor: new naver.maps.Point(40, 40)
+}))
+
 
 const onLoadMarker = (markerObject: Marker) => {
   marker.value = markerObject
@@ -164,6 +197,11 @@ onMounted(() => loadLocation())
 
 img[alt='지도 확대'] {
   display: none !important;
+}
+
+.center-marker {
+  width: 60px;
+  height: 60px;
 }
 
 .center-info {

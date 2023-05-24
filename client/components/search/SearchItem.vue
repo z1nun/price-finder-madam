@@ -8,6 +8,9 @@
 <script setup lang="ts">
 import RecommendCard from '~/components/index/search/RecommendCard.vue'
 import { IRecommendCard } from '~/components/index/search/SearchArticles.vue'
+import { useStore } from '~/store';
+
+const { asyncStates: { storeCards }} = useStore()
 
 const recommendCards = ref<IRecommendCard[]>([
   {

@@ -1,9 +1,7 @@
+// 스토어 타입
 
-
-// 비동기 관련 타입
-
-import { GeocodeReverseResponse } from "~/types/api"
-import { LatLng, StoreCard, StoreDetail } from "~/types/base"
+import { GeocodeReverseResponse } from "~/types/apiTypes"
+import { LatLng, StoreCard, StoreDetail } from "~/types/baseTypes"
 
 export type Effect<T = any> = {  
   /**
@@ -44,7 +42,6 @@ type AsyncStates = {
 }
 
 export {  
-  StoreCard,  
   AsyncState,
   AsyncStates,
   StateTypes

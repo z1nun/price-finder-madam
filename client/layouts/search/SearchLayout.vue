@@ -10,6 +10,8 @@
 import SearchHeader from '~/components/search/SearchHeader.vue'
 import StoreLocation from '~/components/StoreLocation.vue'
 import SearchItem from '~/components/search/SearchItem.vue'
+import { useStore } from '~/store';
+const { asyncStates: { storeCards } } = useStore()
 </script>
 
 <style lang="scss" scoped>

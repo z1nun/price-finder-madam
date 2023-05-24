@@ -1,9 +1,9 @@
 import { defineStore } from "pinia";
-import { AsyncStates, StoreCard } from "./types";
+import { AsyncStates, } from "../types/storeTypes";
 import { asyncUtils, createAsyncProcess } from "./utils";
 import { requestCategorySearch, requestCurrentPlaceStore, requestGeocodeReverse, requestNeighborhoodsStore, requestStoreDetail } from "~/api";
-import { LatLng, StoreDetail } from "~/types/base";
-import { CategorySearchRequestBody, CurrentPlaceStoreRequestBody, GeocodeReverseResponse, NeighborhoodsStoreRequestBody } from "~/types/api";
+import { LatLng, StoreDetail, StoreCard } from "~/types/baseTypes";
+import { CategorySearchRequestBody, CurrentPlaceStoreRequestBody, GeocodeReverseResponse, NeighborhoodsStoreRequestBody } from "~/types/apiTypes";
 
 const useStore = defineStore('store', () => {  
   const { initial, loading, fulfiled, error } = asyncUtils
@@ -25,10 +25,7 @@ const useStore = defineStore('store', () => {
   const asyncProcess = createAsyncProcess()
 
   // 업소 자세한 정보 비동기 동작
-  const loadStoreDetail = (storeId: string) => asyncProcess<StoreDetail>(asyncStates.storeDetail, {
-    callback: requestStoreDetail(storeId),
-    onError: (e: unknown) => console.log('업소를 불러올 수 없습니다. :', e)
-  })
+  const loadStoreDetail = (storeId: string) => asyncProcess<StoreDetail>(asyncStates.storeDetail, requestStoreDetail(storeId))
 
   // 홈에서 더보기 비동기 동작
   const loadNeighborhoodsStore = (body: NeighborhoodsStoreRequestBody) => asyncProcess<StoreCard[]>(asyncStates.storeCards, requestNeighborhoodsStore(body))
@@ -52,7 +49,10 @@ const useStore = defineStore('store', () => {
       .getCurrentPosition(   
         (success: GeolocationPosition) => { 
           if (Object.keys(asyncStates.currentDoro.data).length === 0) loadGeocodingReverse(success.coords)       
-          fulfiled(targetState, success.coords)
+          fulfiled(targetState, {
+            latitude: success.coords.latitude,
+            longitude: success.coords.longitude
+          })
         },
         (e: GeolocationPositionError) => { error(targetState, e) }
       )
@@ -66,6 +66,7 @@ const useStore = defineStore('store', () => {
   return {
     loadLocation,
     loadStoreDetail,
+    loadCurrentPlaceStore,
     asyncStates
   }
 })

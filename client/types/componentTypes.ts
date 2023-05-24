@@ -1,3 +1,4 @@
+// 컴포넌트에서 사용되는 타입
 
 type TagId = 'all' | 'store' | 'thing'
 

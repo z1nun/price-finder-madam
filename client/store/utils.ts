@@ -1,5 +1,6 @@
 import { AxiosResponse } from "axios"
-import { AsyncState, Effect, StateTypes } from "./types"
+import { AsyncState, Effect, StateTypes } from "../types/storeTypes"
+import { BaseResponse } from "~/types/apiTypes"
 
 
 /*
@@ -31,7 +32,7 @@ const asyncUtils = {
    * @param state 변경할 상태
    * @param response 요청 응답값
    */
-  fulfiled: (state: AsyncState, response: StateTypes) => {
+  fulfiled: (state: AsyncState, response: StateTypes | BaseResponse<StateTypes>) => {
     state.loading = false    
     state.data = response
   },
@@ -71,14 +72,15 @@ const createAsyncProcess = () => {
     loading(state)
 
     callback()
-      .then((result: AxiosResponse<T>) => {
-        fulfiled(state, result.data)        
+      .then((result: AxiosResponse<T> | AxiosResponse<BaseResponse<T>>) => {        
+        Object.keys(result.data).includes('data') 
+          ? fulfiled(state, (result.data as BaseResponse<T>).data)
+          : fulfiled(state, result.data)
         onLoaded && onLoaded(result)
       })      
       .catch((e: E) => {
         error(state, e)        
-        onError && onError(e)
-        throw e
+        onError && onError(e)        
       })
   }  
 }
