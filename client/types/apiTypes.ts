@@ -8,6 +8,11 @@ export type BaseResponse<T> = {
   data: T
 }
 
+// 홈 카드 요청
+export type HomeResponse = BaseResponse<StoreCard[]>
+export type HomeRequestBody = LatLng
+
+
 // 업소 자세한 정보 요청
 export type StoreDetailResponse = BaseResponse<StoreDetail>
 

@@ -10,7 +10,9 @@ import {
   CurrentPlaceStoreRequestBody, 
   CategorySearchResponse,
   CategorySearchRequestBody, 
-  GeocodeReverseResponse
+  GeocodeReverseResponse,  
+  HomeRequestBody,
+  HomeResponse
 } from "~/types/apiTypes"
 import { 
   categorySearchUrl, 
@@ -18,7 +20,8 @@ import {
   createGecodingReverseUrl,
   neighborhoodsStoreUrl, 
   createStoreDetailUrl, 
-  storeSearchUrl 
+  storeSearchUrl, 
+  homeUrl
 } from "./urls"
 import { DEFAULT_HEADERS, GEOCODE_HEADERS } from "."
 import { LatLng } from "~/types/baseTypes"
@@ -28,6 +31,9 @@ const requestStoreDetail = (storeId: string) => {
   const url = createStoreDetailUrl(storeId)
   return () => axios.get<StoreDetailResponse>(url, DEFAULT_HEADERS)
 }
+
+// 홈 카드 요청
+const requestHome = createPostRequest<HomeResponse, HomeRequestBody>(homeUrl)
 
 // 매장명 또는 상품 검색 요청
 const requestStoreSearch = createPostRequest<StoreSearchResponse, StoreSearchRequestBody>(storeSearchUrl)
@@ -48,6 +54,7 @@ const requestGeocodeReverse = (latlng: LatLng) => {
 }
 
 export {
+  requestHome,
   requestStoreSearch,
   requestNeighborhoodsStore,
   requestCurrentPlaceStore,
