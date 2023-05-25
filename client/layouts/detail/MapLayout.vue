@@ -114,16 +114,16 @@ const searchCurrent = (): void => {
 
   const body = {
     leftUpPlace: {
-      latitude: ne._lng,
-      longitude: ne._lat
+      latitude: ne._lat,
+      longitude: ne._lng
     },
     rightDownPlace: {
-      latitude: sw._lng,
-      longitude: sw._lat
+      latitude: sw._lat,
+      longitude: sw._lng
     },
     userPlace: {
-      latitude: currentPosition.data.longitude,
-      longitude: currentPosition.data.latitude
+      latitude: currentPosition.data.latitude,
+      longitude: currentPosition.data.longitude
     },
     storeName: null,
     storeType: null,

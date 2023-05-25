@@ -12,6 +12,7 @@ const useStore = defineStore('store', () => {
   const asyncStates = reactive<AsyncStates>({
     currentPosition: initial<LatLng>({ latitude: 0, longitude: 0 }),
     storeCards: initial<StoreCard[]>([]),
+    indexCards: initial<StoreCard[]>([]),
     storeDetail: initial<StoreDetail>({} as any),
     currentDoro: initial<GeocodeReverseResponse>({} as any)
   })
@@ -25,7 +26,7 @@ const useStore = defineStore('store', () => {
   const asyncProcess = createAsyncProcess(asyncStates)
 
   // 홈 카드 요청
-  const loadHome = (body: HomeRequestBody) => asyncProcess<StoreCard[]>(asyncStates.storeCards, {
+  const loadHome = (body: HomeRequestBody) => asyncProcess<StoreCard[]>(asyncStates.indexCards, {
     callback: requestHome(body),
     onLoaded: (result: any) => console.log('홈 카드 요청에 성공했습니다.', result.data.data),
     onError: (e: unknown) => console.log('홈 카드 요청에 실패했습니다.', e)
@@ -38,7 +39,11 @@ const useStore = defineStore('store', () => {
   const loadNeighborhoodsStore = (body: NeighborhoodsStoreRequestBody) => asyncProcess<StoreCard[]>(asyncStates.storeCards, requestNeighborhoodsStore(body))
 
   // 지도에서 현 위치 찾기 api 
-  const loadCurrentPlaceStore = (body: CurrentPlaceStoreRequestBody) => asyncProcess<StoreCard[]>(asyncStates.storeCards, requestCurrentPlaceStore(body))
+  const loadCurrentPlaceStore = (body: CurrentPlaceStoreRequestBody) => asyncProcess<StoreCard[]>(asyncStates.storeCards, {
+    callback: requestCurrentPlaceStore(body),
+    onLoaded: (result: any) => console.log('현 위치에서 찾기 요청에 성공했습니다.', result.data.data),
+    onError: (e: unknown) => console.log('현 위치에서 찾기 요청에 실패했습니다.', e)
+  })
 
   // 검색 페이지에서 카테고리 선택
   const loadCategorySearch = (body: CategorySearchRequestBody) => asyncProcess<StoreCard[]>(asyncStates.storeCards, requestCategorySearch(body))

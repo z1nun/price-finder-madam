@@ -1,7 +1,7 @@
 <template>
   <article class="SearchArticles">
     <!-- <RecommendCards /> -->
-    <template v-if="!storeCards.loading">      
+    <template v-if="!indexCards.loading">      
       <RecommendCard
         v-for="(recommendCard, i) in recommendCards"
         :key="i"
@@ -22,7 +22,7 @@ import { StoreCard } from '~/types/baseTypes'
 
 const router = useRouter()
 const { divice } = useDisplay()
-const { asyncStates: { storeCards }} = useStore()
+const { asyncStates: { indexCards }} = useStore()
 
 const displayCount = computed<number>(() => {
   switch (divice.value) {
@@ -39,7 +39,7 @@ const displayCount = computed<number>(() => {
   }
 })
 
-const recommendCards = computed<StoreCard[]>(() => storeCards.data?.slice(0, displayCount.value))
+const recommendCards = computed<StoreCard[]>(() => indexCards.data?.slice(0, displayCount.value))
 
 </script>
 
