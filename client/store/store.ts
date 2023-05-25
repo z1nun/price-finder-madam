@@ -28,7 +28,10 @@ const useStore = defineStore('store', () => {
   // 홈 카드 요청
   const loadHome = (body: HomeRequestBody) => asyncProcess<StoreCard[]>(asyncStates.indexCards, {
     callback: requestHome(body),
-    onLoaded: (result: any) => console.log('홈 카드 요청에 성공했습니다.', result.data.data),
+    onLoaded: (result: any) => {
+      console.log('홈 카드 요청에 성공했습니다.', result.data.data)
+      asyncStates.storeCards.data = result.data.data
+    },
     onError: (e: unknown) => console.log('홈 카드 요청에 실패했습니다.', e)
   })
 
