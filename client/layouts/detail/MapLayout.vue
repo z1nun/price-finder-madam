@@ -154,7 +154,7 @@ const HTMLICON = computed(() => ({
     width: 0,
     height: 0
   },
-  anchor: new naver.maps.Point(40, 40)
+  anchor: [40, 40]
 }))
 
 
@@ -262,7 +262,9 @@ img[alt='지도 확대'] {
   font-family: 'Pretendard';  
   border-radius: 23px;    
   font-size: 16px;
-  height: 40px;
+  white-space: nowrap;
+  height: 40px;  
+  max-height: 40px;
   padding-left: 40px;
   padding-right: 10px;
   cursor: pointer;
