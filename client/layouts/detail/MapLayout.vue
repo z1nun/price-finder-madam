@@ -8,27 +8,31 @@
       @onLoad="onLoadMap"      
     >
       <!-- 중심 마커 -->
-      <NaverMarker
-        class="marker"
+      <NaverMarker        
         v-if="visibleMarker"
         v-bind="currentPosition.data"
         @onLoad="onLoadMarker"
-        :htmlIcon="htmlIcon"
+        :htmlIcon="HTMLICON"
         @click="isMarkerOpen = !isMarkerOpen"
       >
-        <div ref="innerMarkerRef">  
+        <directivesPlugin>  
           <img src="~/assets/img/detail/center.svg" class="center-marker"/>
-        </div>      
+        </directivesPlugin>      
       </NaverMarker>
 
-      <!-- 주변 마커 -->
-      <!-- <NaverMarker
-        class="marker"
-        v-if="visibleMarker"
-        v-bind="currentPosition.data"
-        @onLoad="onLoadMarker"
-        @click="isMarkerOpen = !isMarkerOpen"
-      /> -->
+      <template v-if="storeCards.data.length > 0">
+        <NaverMarker 
+          v-for="(marker, i) in markerDatas"
+          :key="i"
+          v-bind="marker.position"
+          :htmlIcon="marker.htmlIcon"
+        >
+          <button class="card-marker">
+            <img src="~/assets/img/detail/place.svg" class="innerIcon" />
+            {{ marker.storeName }}
+          </button>
+        </NaverMarker>
+      </template>
 
       <NaverInfoWindow
         v-show="visibleInfo"
@@ -65,6 +69,7 @@ import useMapOptions, { InfoWindow, InfoWindowOptions, Marker, ZoomType, Map, Bo
 import CustomZoom from '~/components/detail/map/CustomZoom.vue'
 import CenterButton from '~/components/detail/map/CenterButton.vue'
 import { useStore } from '~/store'
+import { StoreCard } from '~/types/baseTypes'
 
 const { 
   DEFAULT_ZOOM_OPTIONS, 
@@ -144,8 +149,7 @@ const searchCurrent = (): void => {
 // Marker
 const marker = ref<Marker>()
 const isMarkerOpen = ref<boolean>(false)
-const innerMarkerRef = ref<HTMLElement | null>(null)
-const htmlIcon = computed(() => ({  
+const HTMLICON = computed(() => ({
   size: {
     width: 0,
     height: 0
@@ -154,9 +158,23 @@ const htmlIcon = computed(() => ({
 }))
 
 
+
 const onLoadMarker = (markerObject: Marker) => {
   marker.value = markerObject
 }
+
+const markerDatas = computed(() => {
+  return storeCards.data
+    .map((card: StoreCard) => ({ 
+      htmlIcon: HTMLICON.value, 
+      position: {
+        latitude: card.place.latitude,
+        longitude: card.place.longitude
+      },
+      ...card
+    }))
+})
+
 
 // WindowInfo
 const infoWindow = ref<InfoWindow>()
@@ -237,6 +255,44 @@ img[alt='지도 확대'] {
 
   img {
     margin-top: 5px;
+  }
+}
+
+.card-marker {
+  font-family: 'Pretendard';  
+  border-radius: 23px;    
+  font-size: 16px;
+  height: 40px;
+  padding-left: 40px;
+  padding-right: 10px;
+  cursor: pointer;
+  background: $primary;
+  border: none;
+  color: white;
+  position: relative;
+
+  .innerIcon {
+    height: 30px;
+    width: 30px;
+    border-radius: 20px;
+    position: absolute;
+    background-color: white;
+    top: 50%;
+    left: 20px;
+    transform: translate(-50%, -50%);
+  }
+
+  &::after {
+    content: '';
+    width: 0px; 
+    height: 0px;
+    border-bottom: 10px solid transparent;
+    border-top: 10px solid $primary;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    position: absolute;    
+    bottom: -15px;
+    left: 13px;
   }
 }
 </style>
