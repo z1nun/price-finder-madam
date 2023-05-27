@@ -10,8 +10,7 @@
       <!-- 중심 마커 -->
       <NaverMarker        
         v-if="visibleMarker"
-        v-bind="currentPosition.data"
-        @onLoad="onLoadMarker"
+        v-bind="currentPosition.data"        
         :htmlIcon="HTMLICON"
         @click="isMarkerOpen = !isMarkerOpen"
       >
@@ -20,7 +19,8 @@
         </directivesPlugin>      
       </NaverMarker>
 
-      <template v-if="storeCards.data.length > 0 && !storeCards.loading">
+      <!-- 가게 마커 -->
+      <template v-if="markerDatas.length > 0 && !storeCards.loading">
         <NaverMarker 
           v-for="(marker, i) in markerDatas"
           :key="i"
@@ -33,30 +33,16 @@
           </button>
         </NaverMarker>
       </template>
-
-      <NaverInfoWindow
-        v-show="visibleInfo"
-        id="windowInfo"
-        :marker="marker"
-        :open="isMarkerOpen"
-        @onLoaded="onLoadedInfoWindow($event)"
-        :options="infoWindowOptions"
-      >
-        <div ref="infoRef" class="center-info">현 위치</div>
-      </NaverInfoWindow>
-
     </NaverMap>
 
     <template v-if="!currentPosition.loading">
       <CustomZoom @zoom="zoom" />
       <CenterButton @focus-center="focusCenter"/>
   
-      <div class="search-current">
-        <button @click="searchCurrent" class="primary-button">
-          <span><img src="~/assets/img/detail/location.svg" /></span>
-          <span class="text">현 위치에서 찾기</span>              
-        </button>
-      </div>
+      <button @click="searchCurrent" class="primary-button search-current">
+        <span><img src="~/assets/img/detail/location.svg" /></span>
+        <span class="text">현 위치에서 찾기</span>              
+      </button>
     </template>
 
   </section>
@@ -64,8 +50,8 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { MapOptions, NaverInfoWindow, NaverMap, NaverMarker } from 'vue3-naver-maps'
-import useMapOptions, { InfoWindow, InfoWindowOptions, Marker, ZoomType, Map, Bounds } from '~/utils/map'
+import { MapOptions, NaverMap, NaverMarker } from 'vue3-naver-maps'
+import useMapOptions, { ZoomType, Map } from '~/utils/map'
 import CustomZoom from '~/components/detail/map/CustomZoom.vue'
 import CenterButton from '~/components/detail/map/CenterButton.vue'
 import { useStore } from '~/store'
@@ -73,13 +59,11 @@ import { LatLng, StoreCard } from '~/types/baseTypes'
 
 const { 
   DEFAULT_ZOOM_OPTIONS, 
-  DEFAULT_WINDOWINFO_OPTIONS, 
   DEFAULT_ZOOM_LEVEL 
 } = useMapOptions()
 
 const {
   asyncStates: { currentPosition, storeCards },
-  loadLocation,
   loadCurrentPlaceStore
 } = useStore()
 
@@ -89,6 +73,7 @@ type BoundLatLng = {
   x: number
   y: number
 } & naver.maps.Point
+
 
 // Map
 const map = ref<Map | null>()
@@ -102,13 +87,15 @@ const mapOptions = computed<MapOptions>(() => ({
 }))
 
 const onLoadMap = (mapObject: Map) => {
-  const latLng = new window.naver.maps.LatLng(currentPosition.data.latitude, currentPosition.data.longitude)
-  centerLatLng.value = latLng
+  const center = storeCards.data.length > 0 
+    ? createCenter(storeCards.data)
+    : new window.naver.maps.LatLng(currentPosition.data.latitude, currentPosition.data.longitude)
+  
+  centerLatLng.value = center
   visibleMarker.value = true
-  mapObject.setCenter(latLng)
+  mapObject.setCenter(center)
   map.value = mapObject
 }
-
 
 const searchCurrent = (): void => {
   const bounds = map.value?.getBounds()
@@ -147,35 +134,24 @@ const searchCurrent = (): void => {
 
 
 // Marker
-const marker = ref<Marker>()
-const isMarkerOpen = ref<boolean>(false)
-const selectedMarker = ref<HTMLButtonElement | null>(null)
-const HTMLICON = computed(() => ({
-  size: {
-    width: 0,
-    height: 0
-  },
-  anchor: [40, 40]
-}))
-
-// const onMarkerButtonClick = (marker) => {
-
-// }
-
-
-
-const onLoadMarker = (markerObject: Marker) => {
-  marker.value = markerObject
-}
-
 type MarkerData = {
   htmlIcon: any, 
   position: LatLng
 } & StoreCard
 
+const isMarkerOpen = ref<boolean>(false)
+const selectedMarker = ref<HTMLButtonElement | null>(null)
+const HTMLICON = {
+  size: {
+    width: 0,
+    height: 0
+  },
+  anchor: [40, 40]
+}
+
 const markerDatas = computed<MarkerData[]>(() => {
   return storeCards.data.map((card: StoreCard) => ({ 
-      htmlIcon: HTMLICON.value, 
+      htmlIcon: HTMLICON, 
       position: {
         latitude: card.place.latitude,
         longitude: card.place.longitude
@@ -183,23 +159,6 @@ const markerDatas = computed<MarkerData[]>(() => {
       ...card
     }))
 })
-// WindowInfo
-const infoWindow = ref<InfoWindow>()
-const infoRef = ref<HTMLElement | null>(null)
-const visibleInfo = ref<boolean>(false)
-
-const infoWindowOptions = computed<InfoWindowOptions>(() => ({
-  ...DEFAULT_WINDOWINFO_OPTIONS,
-  content: infoRef.value ?? '',
-  position: {
-    lat: currentPosition.data.latitude,
-    lng: currentPosition.data.longitude,
-  },
-}))
-
-const onLoadedInfoWindow = (windowInfoObject: InfoWindow) => {
-  infoWindow.value = windowInfoObject
-}
 
 // Zoom
 const zoom = (e: ZoomType) => {
@@ -209,24 +168,30 @@ const zoom = (e: ZoomType) => {
 }
 
 watch(markerDatas, (markers: MarkerData[]) => {
-  const markerLength = markers.length
-
-  const { lat, lng } = markers.reduce((acc, cur) => ({
-      lat: acc.lat + cur.place.latitude,
-      lng: acc.lng + cur.place.longitude
-    }), {
-    lat: 0,
-    lng: 0
-  })
-  
-  const newCenter = new window.naver.maps.LatLng(
-    lat / markerLength,
-    lng / markerLength
-  )
+  const newCenter = createCenter(markers)
 
   map.value?.setCenter(newCenter)
   map.value?.setZoom(DEFAULT_ZOOM_LEVEL + 3)
 })
+
+const createCenter = (markers: (MarkerData | StoreCard)[]): naver.maps.LatLng => {
+  const markerLength = markers.length
+
+  const { totalLat, totalLng } = markers.reduce((acc, cur) => ({
+      totalLat: acc.totalLat + cur.place.latitude,
+      totalLng: acc.totalLng + cur.place.longitude
+    }), {
+    totalLat: 0,
+    totalLng: 0
+  })
+  
+  const newCenter = new window.naver.maps.LatLng(
+    totalLat / markerLength,
+    totalLng / markerLength
+  )
+
+  return newCenter
+}
 
 
 // 지도를 초기 상태로 되돌립니다.

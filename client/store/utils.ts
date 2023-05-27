@@ -15,7 +15,7 @@ const asyncUtils = {
    */
   initial: <T>(data: T): AsyncState<T> => ({
     data,
-    loading: true,
+    loading: false,
     error: null
   }),
 
