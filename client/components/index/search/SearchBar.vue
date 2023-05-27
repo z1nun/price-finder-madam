@@ -1,14 +1,35 @@
 <template>
   <article class="SearchBar">
-    <input v-model="search" placeholder="EX) 합리적인 가격의 매장" type="text" @keyup.enter="onEnter" id="searchBar"/>
+    <input 
+      v-model="searchText" 
+      placeholder="EX) 합리적인 가격의 매장" 
+      type="text" 
+      @keyup.enter="onEnter" 
+      id="searchBar"
+    />
   </article>
 </template>
 
 <script setup lang="ts">
-const search = ref<string>()
+import { useStore } from '~/store'
 
-const onEnter = () => {
-  search.value = ''
+
+const { loadStoreSearch } = useStore()
+const { push } = useRouter()
+
+const searchText = ref<string>('')
+
+// 동을 받아오는 api가 아직 없으니, 하드코딩
+const dong = '삼성동'
+
+const onEnter = () => {      
+  loadStoreSearch({
+    page: 0,
+    storeName: searchText.value,
+    address: dong
+  })
+  searchText.value = ''
+  push('/search')  
 }
 </script>
 

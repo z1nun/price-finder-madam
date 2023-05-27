@@ -21,13 +21,19 @@ const useStore = defineStore('store', () => {
   const states = reactive({
 
   })
+
   
   // 비동기 동작 생성
   const asyncProcess = createAsyncProcess(asyncStates)
 
 
   // 검색
-  const loadStoreSearch = (body: StoreSearchRequestBody) => asyncProcess<StoreCard[]>(asyncStates.storeCards, requestStoreSearch(body))
+  const loadStoreSearch = (body: StoreSearchRequestBody) => asyncProcess<StoreCard[]>(asyncStates.storeCards, {
+    callback: requestStoreSearch(body),
+    onLoaded: (result: any) => {
+      console.log(`${body.storeName}에 대해 검색 요청에 성공했습니다.`, result.data.data)      
+    }
+  })
 
   // 홈 카드 요청
   const loadHome = (body: HomeRequestBody) => asyncProcess<StoreCard[]>(asyncStates.indexCards, {

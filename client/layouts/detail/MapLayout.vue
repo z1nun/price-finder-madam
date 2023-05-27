@@ -20,7 +20,7 @@
         </directivesPlugin>      
       </NaverMarker>
 
-      <template v-if="storeCards.data.length > 0">
+      <template v-if="storeCards.data.length > 0 && !storeCards.loading">
         <NaverMarker 
           v-for="(marker, i) in markerDatas"
           :key="i"
@@ -63,7 +63,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, computed } from 'vue'
+import { ref, computed } from 'vue'
 import { MapOptions, NaverInfoWindow, NaverMap, NaverMarker } from 'vue3-naver-maps'
 import useMapOptions, { InfoWindow, InfoWindowOptions, Marker, ZoomType, Map, Bounds } from '~/utils/map'
 import CustomZoom from '~/components/detail/map/CustomZoom.vue'
@@ -141,7 +141,7 @@ const searchCurrent = (): void => {
   // 찾기 버튼을 눌럿다. -> storeType이 한식에 맞는 number 채워지고, storename은 null
   // 반대로 돈까스 검색했으면 storeType null, storeaName이 돈까스
 
-  loadCurrentPlaceStore(body)      
+  loadCurrentPlaceStore(body)
 }
 
 
@@ -205,15 +205,37 @@ const onLoadedInfoWindow = (windowInfoObject: InfoWindow) => {
 const zoom = (e: ZoomType) => {
   const target = map.value
   if (!target) return
-
   target?.setZoom(target.getZoom() + (e === 'in' ? 1 : -1), true)
 }
+
+watch(markerDatas, (markers: MarkerData[]) => {
+  const markerLength = markers.length
+
+  const { lat, lng } = markers.reduce((acc, cur) => ({
+      lat: acc.lat + cur.place.latitude,
+      lng: acc.lng + cur.place.longitude
+    }), {
+    lat: 0,
+    lng: 0
+  })
+  
+  const newCenter = new window.naver.maps.LatLng(
+    lat / markerLength,
+    lng / markerLength
+  )
+
+  map.value?.setCenter(newCenter)
+  map.value?.setZoom(DEFAULT_ZOOM_LEVEL + 3)
+})
+
 
 // 지도를 초기 상태로 되돌립니다.
 const focusCenter = () => {
   map.value?.setCenter(centerLatLng.value!)
   map.value?.setZoom(DEFAULT_ZOOM_LEVEL)
 }
+
+
 
 </script>
 
