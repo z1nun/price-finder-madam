@@ -1,9 +1,9 @@
 import { defineStore } from "pinia";
 import { AsyncStates, } from "../types/storeTypes";
 import { asyncUtils, createAsyncProcess } from "./utils";
-import { requestCategorySearch, requestCurrentPlaceStore, requestGeocodeReverse, requestHome, requestNeighborhoodsStore, requestStoreDetail } from "~/api";
+import { requestCategorySearch, requestCurrentPlaceStore, requestGeocodeReverse, requestHome, requestNeighborhoodsStore, requestStoreDetail, requestStoreSearch } from "~/api";
 import { LatLng, StoreDetail, StoreCard } from "~/types/baseTypes";
-import { CategorySearchRequestBody, CurrentPlaceStoreRequestBody, GeocodeReverseResponse, HomeRequestBody, NeighborhoodsStoreRequestBody } from "~/types/apiTypes";
+import { CategorySearchRequestBody, CurrentPlaceStoreRequestBody, GeocodeReverseResponse, HomeRequestBody, NeighborhoodsStoreRequestBody, StoreSearchRequestBody } from "~/types/apiTypes";
 
 const useStore = defineStore('store', () => {  
   const { initial, loading, fulfiled, error } = asyncUtils
@@ -24,6 +24,10 @@ const useStore = defineStore('store', () => {
   
   // 비동기 동작 생성
   const asyncProcess = createAsyncProcess(asyncStates)
+
+
+  // 검색
+  const loadStoreSearch = (body: StoreSearchRequestBody) => asyncProcess<StoreCard[]>(asyncStates.storeCards, requestStoreSearch(body))
 
   // 홈 카드 요청
   const loadHome = (body: HomeRequestBody) => asyncProcess<StoreCard[]>(asyncStates.indexCards, {
@@ -89,6 +93,7 @@ const useStore = defineStore('store', () => {
     loadLocation,
     loadStoreDetail,
     loadCurrentPlaceStore,
+    loadStoreSearch,
     loadHome,
     asyncStates
   }
