@@ -19,7 +19,7 @@ export type StoreDetailResponse = BaseResponse<StoreDetail>
 // 매장명 또는 상품 검색 요청
 export type StoreSearchResponse = BaseResponse<StoreCard[]>
 export type StoreSearchRequestBody = {
-  searchInput: string
+  storeName: string
   address: string
   page: number
 }
