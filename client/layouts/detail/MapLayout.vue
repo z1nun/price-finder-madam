@@ -3,16 +3,14 @@
     <NaverMap
       id="map"
       v-if="!currentPosition.loading"
-      :mapOptions="mapOptions"
-      :initLayers="initLayers"
+      :mapOptions="mapOptions"      
       @onLoad="onLoadMap"      
     >
       <!-- 중심 마커 -->
       <NaverMarker        
         v-if="visibleMarker"
         v-bind="currentPosition.data"        
-        :htmlIcon="HTMLICON"
-        @click="isMarkerOpen = !isMarkerOpen"
+        :htmlIcon="HTMLICON"        
       >
         <directivesPlugin>  
           <img src="~/assets/img/detail/center.svg" class="center-marker"/>
@@ -75,12 +73,9 @@ type BoundLatLng = {
 } & naver.maps.Point
 
 
-// Map
+// 맵
 const map = ref<Map | null>()
-const initLayers = ['']
-const visibleMarker = ref<boolean>(false)
 const centerLatLng = ref<naver.maps.LatLng>()
-
 const mapOptions = computed<MapOptions>(() => ({
   ...DEFAULT_ZOOM_OPTIONS,
   ...currentPosition.data,
@@ -97,7 +92,8 @@ const onLoadMap = (mapObject: Map) => {
   map.value = mapObject
 }
 
-const searchCurrent = (): void => {
+// 현 위치에서 찾기 버튼 
+const searchCurrent = () => {
   const bounds = map.value?.getBounds()
   if (!bounds) return
   
@@ -127,19 +123,17 @@ const searchCurrent = (): void => {
   // 둘다 null 이거나 한쪽만 null 이여야한다.
   // 찾기 버튼을 눌럿다. -> storeType이 한식에 맞는 number 채워지고, storename은 null
   // 반대로 돈까스 검색했으면 storeType null, storeaName이 돈까스
-
   loadCurrentPlaceStore(body)
 }
 
 
-
-// Marker
+// 마커
 type MarkerData = {
   htmlIcon: any, 
   position: LatLng
 } & StoreCard
 
-const isMarkerOpen = ref<boolean>(false)
+const visibleMarker = ref<boolean>(false)
 const selectedMarker = ref<HTMLButtonElement | null>(null)
 const HTMLICON = {
   size: {
@@ -149,6 +143,7 @@ const HTMLICON = {
   anchor: [40, 40]
 }
 
+// 마커 객체
 const markerDatas = computed<MarkerData[]>(() => {
   return storeCards.data.map((card: StoreCard) => ({ 
       htmlIcon: HTMLICON, 
@@ -160,13 +155,7 @@ const markerDatas = computed<MarkerData[]>(() => {
     }))
 })
 
-// Zoom
-const zoom = (e: ZoomType) => {
-  const target = map.value
-  if (!target) return
-  target?.setZoom(target.getZoom() + (e === 'in' ? 1 : -1), true)
-}
-
+// 마커 객체가 변할때마다 줌을 재설정 해줌 
 watch(markerDatas, (markers: MarkerData[]) => {
   const newCenter = createCenter(markers)
 
@@ -191,6 +180,14 @@ const createCenter = (markers: (MarkerData | StoreCard)[]): naver.maps.LatLng =>
   )
 
   return newCenter
+}
+
+
+// 줌
+const zoom = (e: ZoomType) => {
+  const target = map.value
+  if (!target) return
+  target?.setZoom(target.getZoom() + (e === 'in' ? 1 : -1), true)
 }
 
 
