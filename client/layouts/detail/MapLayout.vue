@@ -27,7 +27,7 @@
           v-bind="marker.position"
           :htmlIcon="marker.htmlIcon"
         >
-          <button class="card-marker">
+          <button class="card-marker">            
             <img src="~/assets/img/detail/place.svg" class="innerIcon" />
             {{ marker.storeName }}
           </button>
@@ -69,7 +69,7 @@ import useMapOptions, { InfoWindow, InfoWindowOptions, Marker, ZoomType, Map, Bo
 import CustomZoom from '~/components/detail/map/CustomZoom.vue'
 import CenterButton from '~/components/detail/map/CenterButton.vue'
 import { useStore } from '~/store'
-import { StoreCard } from '~/types/baseTypes'
+import { LatLng, StoreCard } from '~/types/baseTypes'
 
 const { 
   DEFAULT_ZOOM_OPTIONS, 
@@ -149,6 +149,7 @@ const searchCurrent = (): void => {
 // Marker
 const marker = ref<Marker>()
 const isMarkerOpen = ref<boolean>(false)
+const selectedMarker = ref<HTMLButtonElement | null>(null)
 const HTMLICON = computed(() => ({
   size: {
     width: 0,
@@ -157,15 +158,23 @@ const HTMLICON = computed(() => ({
   anchor: [40, 40]
 }))
 
+// const onMarkerButtonClick = (marker) => {
+
+// }
+
 
 
 const onLoadMarker = (markerObject: Marker) => {
   marker.value = markerObject
 }
 
-const markerDatas = computed(() => {
-  return storeCards.data
-    .map((card: StoreCard) => ({ 
+type MarkerData = {
+  htmlIcon: any, 
+  position: LatLng
+} & StoreCard
+
+const markerDatas = computed<MarkerData[]>(() => {
+  return storeCards.data.map((card: StoreCard) => ({ 
       htmlIcon: HTMLICON.value, 
       position: {
         latitude: card.place.latitude,
@@ -174,8 +183,6 @@ const markerDatas = computed(() => {
       ...card
     }))
 })
-
-
 // WindowInfo
 const infoWindow = ref<InfoWindow>()
 const infoRef = ref<HTMLElement | null>(null)
