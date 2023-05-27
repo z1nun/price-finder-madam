@@ -23,9 +23,19 @@ const useStore = defineStore('store', () => {
   })
 
   
-  // 비동기 동작 생성
+  // 비동기 프로세스 생성
   const asyncProcess = createAsyncProcess(asyncStates)
-
+    
+  /**
+    *  asyncProcss에 대하여..   
+    * 
+    *  asyncProcss는 첫번째 인자로 주어진 비동기 상태에 대해 *비동기 프로세스를 진행합니다.
+    *  두 번째 인자는 받아올 api 콜백함수 또는 callback, onLoaded, onError로 이루어진 객체를 넣어줍니다.
+    *  callback은 받아올 api 콜백함수, onLoaded는 요청 성공시 호출할 콜백, onError는 요청 실패시 호출할 콜백입니다.
+    * 
+    *  *비동기 프로세스: api의 응답값이 필요한 비동기 변수에 대해 자동으로 로딩 상태 관리, api의 응답값 할당, 
+    *   에러 처리를 실행하는 프로세스입니다.
+  */ 
 
   // 검색
   const loadStoreSearch = (body: StoreSearchRequestBody) => asyncProcess<StoreCard[]>(asyncStates.storeCards, {
