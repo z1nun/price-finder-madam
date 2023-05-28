@@ -2,10 +2,9 @@ import { AxiosRequestConfig } from 'axios'
 
 export * from './requests'
 
-export const DEFAULT_HEADERS: AxiosRequestConfig = {  
-  withCredentials: true,
+export const DEFAULT_HEADERS: AxiosRequestConfig = {    
   headers: {
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': '*',    
   }
 }
 
