@@ -5,7 +5,7 @@
         <img src="~/assets/img/defaultIcon.svg" />
       </div>
       <div class="Category">
-        {{ recommendCard.storeType }}
+        {{ storeTypeMap[recommendCard.storeType] }}
       </div>
     </div>
 
@@ -28,8 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import { StoreCard } from '~/types/baseTypes';
-
+import { StoreCard, storeTypeMap } from '~/types/baseTypes';
 
 interface RecommendCardProp {
   recommendCard: StoreCard

@@ -39,6 +39,7 @@ type AsyncStates = {
   storeCards: AsyncState<StoreCard[]>,  // 업소 목록
   storeDetail: AsyncState<StoreDetail>   // 업종 상세
   currentDoro: AsyncState<GeocodeReverseResponse>    // 현재 주솟값(도로명)
+  indexCards: AsyncState<StoreCard[]>
 }
 
 export {  

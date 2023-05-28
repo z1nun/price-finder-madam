@@ -1,19 +1,14 @@
 <template>
   <article>
-    <button @click="emit('zoom', 'in')">
-      <img src="~/assets/img/detail/in.svg">
-    </button>
-    <div class="divider"></div>
-    <button @click="emit('zoom', 'out')">
-      <img src="~/assets/img/detail/out.svg">
+    <button @click="emit('focusCenter')">
+      <img src="~/assets/img/detail/target.svg" />
     </button>
   </article>
 </template>
 
 <script setup lang="ts">
-import { ZoomType } from '~/utils/map';
 
-const emit = defineEmits<{(e: 'zoom', value: ZoomType): void }>()
+const emit = defineEmits<{ (e: 'focusCenter'): void }>()
 
 </script>
 
@@ -21,15 +16,15 @@ const emit = defineEmits<{(e: 'zoom', value: ZoomType): void }>()
 article {
   position: absolute;
   right: 0;
-  top: 30%;
-  transform: translateY(-30%);
+  top: 20%;
+  transform: translateY(-20%);
   z-index: 0;
   margin-right: 2.5rem;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
-  background-color: $light-lighten-1;
+  background-color: white;
   border-radius: 8px;
   width: 48px;
-  height: 96px;
+  height: 48px;  
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -39,13 +34,6 @@ article {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  .divider {
-    position: absolute;
-    width: 48px;
-    height: 0px;
-    border: 1px solid #AFB7C0;
-    transform: rotate(180deg);        
-  }
 
   button {
     border: none;    
@@ -53,7 +41,7 @@ article {
     width: 45px;
     height: 45px;
     cursor: pointer;
-
+    
     &:active {
       background-color: $light;
     }
@@ -61,10 +49,7 @@ article {
 
   img {
     width: 24px;
-    height: 24px;
-    transition: .2s all;
-    cursor: pointer;    
+    height: 24px;    
   }
-
 }
 </style>

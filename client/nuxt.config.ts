@@ -6,7 +6,16 @@ const defaultProxyOption = {
 }
 
 export default defineNuxtConfig({
-  css: ['@/assets/fonts/main.css'],
+  css: ['@/assets/fonts/main.css'],  
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: '@import "@/assets/style/variables.scss";'
+        }
+      }
+    }
+  },
   modules: [
     '@pinia/nuxt'
   ],

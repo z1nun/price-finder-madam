@@ -15,7 +15,7 @@ const asyncUtils = {
    */
   initial: <T>(data: T): AsyncState<T> => ({
     data,
-    loading: true,
+    loading: false,
     error: null
   }),
 
@@ -65,9 +65,7 @@ const createAsyncProcess = (states: any) => {
   return <T extends StateTypes, E = unknown>(state: AsyncState<StateTypes>, effect: Effect | Effect["callback"]) => {
     const { callback , onLoaded, onError } = typeof effect === 'function' ? { 
       callback: effect, 
-      onLoaded: (result: any) => {
-        console.log(result.data)
-      },
+      onLoaded: null,
       onError: (e: unknown) => console.log(e)
     } : effect
 

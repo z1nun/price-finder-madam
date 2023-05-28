@@ -51,6 +51,8 @@ const useMapOptions = () => {
     position: zoomControlPositionMap.TOP_RIGHT,
   }
 
+  const DEFAULT_ZOOM_LEVEL = 13
+
   const DEFAULT_ZOOM_OPTIONS: MapOptions = {
     scaleControl: true,
     logoControl: false,
@@ -58,7 +60,7 @@ const useMapOptions = () => {
     zoomControl: false,
     zoomControlOptions: ZOOM_CONTRAL_OPTIONS,
     minZoom: 6,
-    zoom: 13
+    zoom: DEFAULT_ZOOM_LEVEL
   }
 
   const DEFAULT_MARKER_SIZE: MarkerSize = {
@@ -80,6 +82,7 @@ const useMapOptions = () => {
     DEFAULT_ZOOM_OPTIONS,
     DEFAULT_MARKER_SIZE,
     DEFAULT_WINDOWINFO_OPTIONS,
+    DEFAULT_ZOOM_LEVEL    
   }
 }
 
