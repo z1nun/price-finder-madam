@@ -19,7 +19,17 @@ export default defineNuxtConfig({
   modules: [
     '@pinia/nuxt'
   ],
-  app: {head : {title:'가격찾아줌마'}},
+  app: {
+    head: {
+      title:'가격찾아줌마',
+      meta: [
+        {
+          'http-equiv': "Content-Security-Policy",
+          content: 'upgrade-insecure-requests'
+        }
+      ]
+    },    
+  },
   nitro: {
     devProxy: {
       "/geocoding": {

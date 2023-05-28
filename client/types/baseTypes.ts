@@ -4,27 +4,24 @@ type StoreType =
   '한식' |
   '중식' |
   '경양식,일식' |
-  '기타외식업(다방,패스트푸드)' |
-  '이 미용업' |
+  '기타외식업' |
+  '미용업' |
   '목욕업' |
   '세탁업' |
   '숙박업' |
-  '기타 서비스업종'
+  '서비스업종'
 
 const storeTypeMap: Record<number, StoreType> = {
   1: '한식',
   2: '중식',
   3: '경양식,일식',
-  4: '기타외식업(다방,패스트푸드)',
-  5: '이 미용업',
+  4: '기타외식업',
+  5: '미용업',
   6: '목욕업',
   7: '세탁업',
   8: '숙박업',
-  13: '기타 서비스업종'
+  13: '서비스업종'
 }
-
-storeTypeMap[0]
-
 
 // 물품 타입
 type Product = {
@@ -42,7 +39,7 @@ type LatLng = {
 type StoreCard = {
   storeId: number
   storeName: string
-  storeType: number
+  storeType: number | string
   storePride: string
   storeAddress: string
   place: LatLng 

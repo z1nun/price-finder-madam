@@ -12,9 +12,9 @@
         v-bind="currentPosition.data"        
         :htmlIcon="HTMLICON"        
       >
-        <directivesPlugin>  
+        <div>  
           <img src="~/assets/img/detail/center.svg" class="center-marker"/>
-        </directivesPlugin>      
+        </div>      
       </NaverMarker>
 
       <!-- 가게 마커 -->
@@ -27,7 +27,12 @@
         >
           <button class="card-marker">            
             <img src="~/assets/img/detail/place.svg" class="innerIcon" />
-            {{ marker.storeName }}
+            <div class="title">
+              {{ marker.storeName }}    
+            </div>
+            <div class="subtitle">
+              {{ marker.storeType }}        
+            </div>
           </button>
         </NaverMarker>
       </template>
@@ -53,7 +58,7 @@ import useMapOptions, { ZoomType, Map } from '~/utils/map'
 import CustomZoom from '~/components/detail/map/CustomZoom.vue'
 import CenterButton from '~/components/detail/map/CenterButton.vue'
 import { useStore } from '~/store'
-import { LatLng, StoreCard } from '~/types/baseTypes'
+import { LatLng, StoreCard, storeTypeMap } from '~/types/baseTypes'
 
 const { 
   DEFAULT_ZOOM_OPTIONS, 
@@ -151,7 +156,8 @@ const markerDatas = computed<MarkerData[]>(() => {
         latitude: card.place.latitude,
         longitude: card.place.longitude
       },
-      ...card
+      ...card,
+      storeType: storeTypeMap[card.storeType as number]
     }))
 })
 
@@ -193,7 +199,8 @@ const zoom = (e: ZoomType) => {
 
 // 지도를 초기 상태로 되돌립니다.
 const focusCenter = () => {
-  map.value?.setCenter(centerLatLng.value!)
+  const center = new window.naver.maps.LatLng(currentPosition.data.latitude, currentPosition.data.longitude)
+  map.value?.setCenter(center)
   map.value?.setZoom(DEFAULT_ZOOM_LEVEL)
 }
 
@@ -263,6 +270,12 @@ img[alt='지도 확대'] {
   border: none;
   color: white;
   position: relative;
+
+  &.active {
+    background-color: $blue-lighten-2;
+    color: white;
+    
+  }
 
   .innerIcon {
     height: 30px;
