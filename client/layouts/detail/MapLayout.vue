@@ -2,7 +2,7 @@
   <section class="NaverMap">
     <NaverMap
       id="map"
-      v-if="!currentPosition.loading"
+      v-if="!currentPosition.loading && flag"
       :mapOptions="mapOptions"      
       @onLoad="onLoadMap"      
     >
@@ -26,7 +26,7 @@
           :htmlIcon="marker.htmlIcon"
           @click="onMarkerClick(marker.storeId)"
         >
-          <button :class="['card-marker', (selectedMarker === marker.storeId) && 'active']">  
+          <button :class="['card-marker', (selectedMarker == marker.storeId) && 'active']">  
             <img 
               class="innerIcon" 
               :src="createMarkerIcon(marker.storeId)"
@@ -43,8 +43,7 @@
         </NaverMarker>
       </template>
     </NaverMap>
-
-    <template v-if="!currentPosition.loading">
+    <template v-if="!currentPosition.loading && flag">
       <CustomZoom @zoom="zoom" />
       <CenterButton @onCenterButtonClick="focus(
         currentPosition.data.latitude,
@@ -56,6 +55,7 @@
         <span class="text">현 위치에서 찾기</span>              
       </button>
     </template>
+
 
   </section>
 </template>
@@ -76,8 +76,12 @@ const {
 
 const {
   asyncStates: { currentPosition, storeCards },
-  loadCurrentPlaceStore
+  loadCurrentPlaceStore,
+  loadStoreDetail
 } = useStore()
+
+const { push } = useRouter()
+const route = useRoute()
 
 type BoundLatLng = {
   _lat: number
@@ -89,6 +93,7 @@ type BoundLatLng = {
 
 // 맵
 const map = ref<Map | null>()
+const flag = ref<boolean>(false)
 const centerLatLng = ref<naver.maps.LatLng>()
 const mapOptions = computed<MapOptions>(() => ({
   ...DEFAULT_ZOOM_OPTIONS,
@@ -149,7 +154,7 @@ type MarkerData = {
 } & StoreCard
 
 const visibleMarker = ref<boolean>(false)
-const selectedMarker = ref<number | null>(null)
+const selectedMarker = ref<number | null | string>(null)
 const HTMLICON = {
   size: {
     width: 0,
@@ -172,16 +177,15 @@ const markerDatas = computed<MarkerData[]>(() => {
     }))
 })
 
+const onMarkerClick = (markerId: number) => {  
+  // 디테일 api 요청
+  loadStoreDetail(String(markerId))
+  push(`/detail/${markerId}`)
 
-const onMarkerClick = (markerId: number) => {
-  selectedMarker.value = markerId  
-  const { latitude, longitude } = markerDatas.value.find(marker => marker.storeId === markerId)?.place!
-  const zoom = map.value?.getZoom()
-  focus(latitude, longitude, zoom)
 }
 
 const createMarkerIcon = (markerId: number) => {  
-  const prefix = selectedMarker.value === markerId ? '-active' : ''
+  const prefix = selectedMarker.value == markerId ? '-active' : ''
   return new URL(
     `../../assets/img/detail/marker-icon${prefix}.svg`,
     import.meta.url
@@ -229,6 +233,23 @@ const focus = (latitude: number, longitude: number, zoomLevel: number = DEFAULT_
   map.value?.setZoom(zoomLevel)
 }
 
+onBeforeMount(() => {
+  
+})
+
+onMounted(() => {
+  flag.value = true
+  const id = route.params.id
+  if(route.params.id) {
+    nextTick(() => {
+      selectedMarker.value = id as string
+      const { latitude, longitude } = markerDatas.value.find(marker => marker.storeId === selectedMarker.value)?.place!
+      const zoom = map.value?.getZoom()
+      focus(latitude, longitude, zoom)
+    })
+  }
+  
+})
 </script>
 
 <style scoped lang="scss">

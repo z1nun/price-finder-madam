@@ -56,7 +56,12 @@ const useStore = defineStore('store', () => {
   })
 
   // 업소 자세한 정보 비동기 동작
-  const loadStoreDetail = (storeId: string) => asyncProcess<StoreDetail>(asyncStates.storeDetail, requestStoreDetail(storeId))
+  const loadStoreDetail = (storeId: string) => asyncProcess<StoreDetail>(asyncStates.storeDetail, {
+    callback: requestStoreDetail(storeId),
+    onLoaded: (result: any) => {
+      console.log(result)
+    }
+  })
 
   // 홈에서 더보기 비동기 동작
   const loadNeighborhoodsStore = (body: NeighborhoodsStoreRequestBody) => asyncProcess<StoreCard[]>(asyncStates.storeCards, requestNeighborhoodsStore(body))
