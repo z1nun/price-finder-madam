@@ -1,17 +1,16 @@
 // API 요청값과 반환값에 대한 타입
 
-import { LatLng, StoreCard, StoreDetail } from "./baseTypes"
+import { LatLng, StoreCard, StoreDetail } from './baseTypes'
 
 export type BaseResponse<T> = {
   status: string
-  message: string 
+  message: string
   data: T
 }
 
 // 홈 카드 요청
 export type HomeResponse = BaseResponse<StoreCard[]>
 export type HomeRequestBody = LatLng
-
 
 // 업소 자세한 정보 요청
 export type StoreDetailResponse = BaseResponse<StoreDetail>
@@ -29,7 +28,7 @@ export type NeighborhoodsStoreResponse = BaseResponse<StoreCard[]>
 export type NeighborhoodsStoreRequestBody = {
   userPlace: LatLng
   address: string
-  page: number 
+  page: number
 }
 
 // 지도에서 현 위치 찾기
@@ -43,17 +42,15 @@ export type CurrentPlaceStoreRequestBody = {
   page: number
 }
 
-
 // 검색 페이지에서 카테고리 선택
 export type CategorySearchResponse = BaseResponse<StoreCard[]>
 export type CategorySearchRequestBody = {
-  storeType: number
+  storeType: string
   address: string
-  page: string
+  page: number
 }
 
-
-// 네이버 geocoding 
+// 네이버 geocoding
 export interface GeocodeReverseResponse {
   results: Address[]
   errorMessage: string
@@ -85,3 +82,5 @@ interface Meta {
   page: number
   count: number
 }
+
+export type LatlngToAddressResponse = BaseResponse<string>

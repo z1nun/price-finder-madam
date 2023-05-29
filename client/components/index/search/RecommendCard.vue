@@ -7,7 +7,6 @@
       <div class="Category">
         {{ storeTypeMap[recommendCard.storeType] }}
       </div>
-      <div>{{ recommendCard.storeId }}</div>
     </div>
 
     <div class="bottom">

@@ -30,6 +30,7 @@
     "bootstrap-icons-vue": "^1.10.3",
     "bootstrap-vue": "^2.23.1",
     "node-sass": "^8.0.0",
+    "nuxt-security": "^0.13.0",
     "pinia": "^2.0.35",
     "sass": "^1.62.0",
     "sass-loader": "^13.2.2",
