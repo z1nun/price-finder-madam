@@ -176,7 +176,8 @@ const markerDatas = computed<MarkerData[]>(() => {
 const onMarkerClick = (markerId: number) => {
   selectedMarker.value = markerId  
   const { latitude, longitude } = markerDatas.value.find(marker => marker.storeId === markerId)?.place!
-  focus(latitude, longitude)
+  const zoom = map.value?.getZoom()
+  focus(latitude, longitude, zoom)
 }
 
 const createMarkerIcon = (markerId: number) => {  
@@ -225,7 +226,7 @@ const zoom = (e: ZoomType) => {
 const focus = (latitude: number, longitude: number, zoomLevel: number = DEFAULT_ZOOM_LEVEL) => {
   const center = new window.naver.maps.LatLng(latitude, longitude)
   map.value?.setCenter(center)
-  map.value?.setZoom(DEFAULT_ZOOM_LEVEL)
+  map.value?.setZoom(zoomLevel)
 }
 
 </script>
