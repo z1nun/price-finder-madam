@@ -68,6 +68,7 @@ import CustomZoom from '~/components/detail/map/CustomZoom.vue'
 import CenterButton from '~/components/detail/map/CenterButton.vue'
 import { useStore } from '~/store'
 import { LatLng, StoreCard, storeTypeMap } from '~/types/baseTypes'
+import { routerKey } from 'vue-router'
 
 const { 
   DEFAULT_ZOOM_OPTIONS, 
@@ -115,6 +116,8 @@ const onLoadMap = (mapObject: Map) => {
 const searchCurrent = () => {
   const bounds = map.value?.getBounds()
   if (!bounds) return
+
+  push('/search')
   
   const ne = bounds.getMax() as BoundLatLng
   const sw = bounds.getMin() as BoundLatLng
@@ -177,7 +180,8 @@ const markerDatas = computed<MarkerData[]>(() => {
     }))
 })
 
-const onMarkerClick = (markerId: number) => {  
+const onMarkerClick = (markerId: number | string) => {
+  if(route.params.id == markerId) return
   // 디테일 api 요청
   loadStoreDetail(String(markerId))
   push(`/detail/${markerId}`)
@@ -243,7 +247,7 @@ onMounted(() => {
   if(route.params.id) {
     nextTick(() => {
       selectedMarker.value = id as string
-      const { latitude, longitude } = markerDatas.value.find(marker => marker.storeId === selectedMarker.value)?.place!
+      const { latitude, longitude } = storeCards.data.find(marker => marker.storeId == selectedMarker.value)?.place!
       const zoom = map.value?.getZoom()
       focus(latitude, longitude, zoom)
     })
