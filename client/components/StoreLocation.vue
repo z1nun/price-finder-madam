@@ -3,7 +3,7 @@
     <div>
       <h3>위치정보</h3>
       <ul v-if="!currentDoro.loading">
-        <li>{{ location }}</li>
+        <li>{{ currentDoro.data.address === '' ? '주소를 찾을 수 없습니다' : currentDoro.data.address }}</li>
       </ul>
     </div>
     <button @click="openModal" v-if="props.isSearchButton">위치변경</button>
@@ -13,19 +13,12 @@
 
 <script setup lang="ts">
 import LocationModal from '~/components/LocationModal.vue'
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { useStore } from '~/store'
 
 const {
   asyncStates: { currentDoro },
 } = useStore()
-
-const location = computed<string>(() => {  
-  if (!currentDoro.data.results) return '주소를 찾을 수 없습니다.'
-  
-  const { area1, area2, area3 } = currentDoro.data?.results[0].region
-  return `${area1.name} ${area2.name} ${area3.name}`
-})
 
 //위치변경 버튼 클릭시 모달 오픈
 const modal = ref<boolean>(false)

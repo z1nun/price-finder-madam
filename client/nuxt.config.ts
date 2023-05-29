@@ -5,6 +5,8 @@ const defaultProxyOption = {
 	ws: true
 }
 
+
+
 export default defineNuxtConfig({
   css: ['@/assets/fonts/main.css'],  
   vite: {
@@ -17,15 +19,15 @@ export default defineNuxtConfig({
     }
   },
   modules: [
-    '@pinia/nuxt'
-  ],
+    '@pinia/nuxt',    
+  ],  
   app: {
     head: {
       title:'가격찾아줌마',
       meta: [
         {
-          'http-equiv': "Content-Security-Policy",
-          content: 'upgrade-insecure-requests'
+          // 'http-equiv': "Content-Security-Policy",
+          // content: 'default-src https'
         }
       ]
     },    

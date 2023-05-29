@@ -5,19 +5,20 @@
 </template>
 
 <script setup lang="ts">
-import axios from 'axios';
 import { useStore } from './store';
 import { LatLng } from './types/baseTypes';
 
 const { loadLocation, loadHome } = useStore()
 
 onMounted(async () => {  
+  
   loadLocation()
     .then((result: LatLng) => {    
+      console.log(result)      
       // 로컬에서는 안산이 아니라서... 일단 서울 시청을 중심으로 요청
       loadHome({
-        latitude: 37.33,
-        longitude: 126.58
+        latitude: 37.566295,
+        longitude: 126.977945
       })
     })
 })

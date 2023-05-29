@@ -12,7 +12,8 @@ import {
   CategorySearchRequestBody, 
   GeocodeReverseResponse,  
   HomeRequestBody,
-  HomeResponse
+  HomeResponse,
+  LatlngToAddressResponse
 } from "~/types/apiTypes"
 import { 
   categorySearchUrl, 
@@ -21,7 +22,8 @@ import {
   neighborhoodsStoreUrl, 
   createStoreDetailUrl, 
   storeSearchUrl, 
-  homeUrl
+  homeUrl,
+  createLatlngToAddress
 } from "./urls"
 import { DEFAULT_HEADERS, GEOCODE_HEADERS } from "."
 import { LatLng } from "~/types/baseTypes"
@@ -53,6 +55,11 @@ const requestGeocodeReverse = (latlng: LatLng) => {
   return () => axios.get<GeocodeReverseResponse>(url, GEOCODE_HEADERS)
 }
 
+const requestLatlngToAddress = (latlng: LatLng) => {
+  const url = createLatlngToAddress(latlng)
+  return () => axios.get<LatlngToAddressResponse>(url)
+}
+
 export {
   requestHome,
   requestStoreSearch,
@@ -60,6 +67,6 @@ export {
   requestCurrentPlaceStore,
   requestCategorySearch,
   requestStoreDetail,
-  requestGeocodeReverse
-
+  requestGeocodeReverse,
+  requestLatlngToAddress
 }

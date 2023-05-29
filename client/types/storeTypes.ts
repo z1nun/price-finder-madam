@@ -1,6 +1,6 @@
 // 스토어 타입
 
-import { GeocodeReverseResponse } from "~/types/apiTypes"
+import { GeocodeReverseResponse, LatlngToAddressResponse } from "~/types/apiTypes"
 import { LatLng, StoreCard, StoreDetail } from "~/types/baseTypes"
 
 export type Effect<T = any> = {  
@@ -30,7 +30,7 @@ type AsyncState<T = any, E = unknown> = {
   error: E
 }
 
-type StateTypes = LatLng | StoreCard[] | StoreDetail | string | GeocodeReverseResponse
+type StateTypes = LatLng | StoreCard[] | StoreDetail | string | LatlngToAddressResponse | { address: string}
 
 
 // 비동기 상태들
@@ -38,7 +38,7 @@ type AsyncStates = {
   currentPosition: AsyncState<LatLng>,  // 현재 위치
   storeCards: AsyncState<StoreCard[]>,  // 업소 목록
   storeDetail: AsyncState<StoreDetail>   // 업종 상세
-  currentDoro: AsyncState<GeocodeReverseResponse>    // 현재 주솟값(도로명)
+  currentDoro: AsyncState<{ address: string }>    // 현재 주솟값(도로명)
   indexCards: AsyncState<StoreCard[]>
 }
 

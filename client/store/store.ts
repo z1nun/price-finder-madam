@@ -1,9 +1,9 @@
 import { defineStore } from "pinia";
 import { AsyncStates, } from "../types/storeTypes";
 import { asyncUtils, createAsyncProcess } from "./utils";
-import { requestCategorySearch, requestCurrentPlaceStore, requestGeocodeReverse, requestHome, requestNeighborhoodsStore, requestStoreDetail, requestStoreSearch } from "~/api";
+import { requestCategorySearch, requestCurrentPlaceStore, requestGeocodeReverse, requestHome, requestLatlngToAddress, requestNeighborhoodsStore, requestStoreDetail, requestStoreSearch } from "~/api";
 import { LatLng, StoreDetail, StoreCard } from "~/types/baseTypes";
-import { CategorySearchRequestBody, CurrentPlaceStoreRequestBody, GeocodeReverseResponse, HomeRequestBody, NeighborhoodsStoreRequestBody, StoreSearchRequestBody } from "~/types/apiTypes";
+import { CategorySearchRequestBody, CurrentPlaceStoreRequestBody, GeocodeReverseResponse, HomeRequestBody, LatlngToAddressResponse, NeighborhoodsStoreRequestBody, StoreSearchRequestBody } from "~/types/apiTypes";
 
 const useStore = defineStore('store', () => {  
   const { initial, loading, fulfiled, error } = asyncUtils
@@ -14,12 +14,12 @@ const useStore = defineStore('store', () => {
     storeCards: initial<StoreCard[]>([]),
     indexCards: initial<StoreCard[]>([]),
     storeDetail: initial<StoreDetail>({} as any),
-    currentDoro: initial<GeocodeReverseResponse>({} as any)
+    currentDoro: initial<{ address: string }>({ address: ''})
   })
 
   // 스토어가 관리하는 상태
   const states = reactive({
-
+    
   })
 
   
@@ -56,7 +56,12 @@ const useStore = defineStore('store', () => {
   })
 
   // 업소 자세한 정보 비동기 동작
-  const loadStoreDetail = (storeId: string) => asyncProcess<StoreDetail>(asyncStates.storeDetail, requestStoreDetail(storeId))
+  const loadStoreDetail = (storeId: string) => asyncProcess<StoreDetail>(asyncStates.storeDetail, {
+    callback: requestStoreDetail(storeId),
+    onLoaded: (result: any) => {
+      console.log(result)
+    }
+  })
 
   // 홈에서 더보기 비동기 동작
   const loadNeighborhoodsStore = (body: NeighborhoodsStoreRequestBody) => asyncProcess<StoreCard[]>(asyncStates.storeCards, requestNeighborhoodsStore(body))
@@ -69,10 +74,16 @@ const useStore = defineStore('store', () => {
   })
 
   // 검색 페이지에서 카테고리 선택
+  
+  // 카테고리 - 한식 눌렀을때 검색어에 한식이 올라간 상태에서
+
+  // 둘다 null 이거나 한쪽만 null 이여야한다.
+  // 찾기 버튼을 눌럿다. -> storeType이 한식에 맞는 number 채워지고, storename은 null
+  // 반대로 돈까스 검색했으면 storeType null, storeaName이 돈까스
   const loadCategorySearch = (body: CategorySearchRequestBody) => asyncProcess<StoreCard[]>(asyncStates.storeCards, requestCategorySearch(body))
 
-  // 현재 위도 경도를 도로명으로 변경
-  const loadGeocodingReverse = (latlng: LatLng) => asyncProcess<GeocodeReverseResponse>(asyncStates.currentDoro, requestGeocodeReverse(latlng))
+  // 현재 위도 경도를 도로명으로 변경  
+  const loadLatlngToAddress = (latlng: LatLng) => asyncProcess<LatlngToAddressResponse>(asyncStates.currentDoro, requestLatlngToAddress(latlng))
  
   // 현재 위치 로드
   const loadLocation = async (): Promise<LatLng> => {   
@@ -84,7 +95,7 @@ const useStore = defineStore('store', () => {
         .geolocation
         .getCurrentPosition(   
           (success: GeolocationPosition) => { 
-            if (Object.keys(asyncStates.currentDoro.data).length === 0) loadGeocodingReverse(success.coords)       
+            if (asyncStates.currentDoro.data.address === '') loadLatlngToAddress(success.coords)
             fulfiled(targetState, {
               latitude: success.coords.latitude,
               longitude: success.coords.longitude
@@ -100,11 +111,7 @@ const useStore = defineStore('store', () => {
           }
         )
     })
-  }
-  // 현재 동을 반환합니다.
-  const getCurrnetDong = computed<string>(() => asyncStates.currentDoro.data?.results[0].region.area3.name)
-
-
+  }    
   return {
     loadLocation,
     loadStoreDetail,
