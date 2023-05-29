@@ -1,6 +1,6 @@
 <template>
   <article>
-    <button @click="emit('focusCenter')">
+    <button @click="emit('onCenterButtonClick')">
       <img src="~/assets/img/detail/target.svg" />
     </button>
   </article>
@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 
-const emit = defineEmits<{ (e: 'focusCenter'): void }>()
+const emit = defineEmits<{ (e: 'onCenterButtonClick'): void }>()
 
 </script>
 

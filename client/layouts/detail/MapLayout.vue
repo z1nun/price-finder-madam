@@ -46,7 +46,10 @@
 
     <template v-if="!currentPosition.loading">
       <CustomZoom @zoom="zoom" />
-      <CenterButton @focus-center="focusCenter"/>
+      <CenterButton @onCenterButtonClick="focus(
+        currentPosition.data.latitude,
+        currentPosition.data.longitude
+      )"/>
   
       <button @click="searchCurrent" class="primary-button search-current">
         <span><img src="~/assets/img/detail/location.svg" /></span>
@@ -171,8 +174,9 @@ const markerDatas = computed<MarkerData[]>(() => {
 
 
 const onMarkerClick = (markerId: number) => {
-  selectedMarker.value = markerId
-  console.log(selectedMarker.value)
+  selectedMarker.value = markerId  
+  const { latitude, longitude } = markerDatas.value.find(marker => marker.storeId === markerId)?.place!
+  focus(latitude, longitude)
 }
 
 const createMarkerIcon = (markerId: number) => {  
@@ -217,16 +221,12 @@ const zoom = (e: ZoomType) => {
   if (!target) return
   target?.setZoom(target.getZoom() + (e === 'in' ? 1 : -1), true)
 }
-
-
-// 지도를 초기 상태로 되돌립니다.
-const focusCenter = () => {
-  const center = new window.naver.maps.LatLng(currentPosition.data.latitude, currentPosition.data.longitude)
+ 
+const focus = (latitude: number, longitude: number) => {
+  const center = new window.naver.maps.LatLng(latitude, longitude)
   map.value?.setCenter(center)
   map.value?.setZoom(DEFAULT_ZOOM_LEVEL)
 }
-
-
 
 </script>
 

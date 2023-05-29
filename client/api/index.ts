@@ -3,6 +3,7 @@ import { AxiosRequestConfig } from 'axios'
 export * from './requests'
 
 export const DEFAULT_HEADERS: AxiosRequestConfig = {
+  
 }
 
 export const GEOCODE_HEADERS = {
