@@ -24,9 +24,13 @@
           :key="i"
           v-bind="marker.position"
           :htmlIcon="marker.htmlIcon"
+          @click="onMarkerClick(marker.storeId)"
         >
-          <button class="card-marker">            
-            <img src="~/assets/img/detail/marker-icon.svg" class="innerIcon" />
+          <button :class="['card-marker', (selectedMarker === marker.storeId) && 'active']">  
+            <img 
+              class="innerIcon" 
+              :src="createMarkerIcon(marker.storeId)"
+            />
             <div class="marker-text">
               <div class="title">
                 {{ marker.storeName }}                    
@@ -138,10 +142,11 @@ const searchCurrent = () => {
 type MarkerData = {
   htmlIcon: any, 
   position: LatLng
+  active: boolean
 } & StoreCard
 
 const visibleMarker = ref<boolean>(false)
-const selectedMarker = ref<HTMLButtonElement | null>(null)
+const selectedMarker = ref<number | null>(null)
 const HTMLICON = {
   size: {
     width: 0,
@@ -159,9 +164,24 @@ const markerDatas = computed<MarkerData[]>(() => {
         longitude: card.place.longitude
       },
       ...card,
-      storeType: storeTypeMap[card.storeType as number]
+      storeType: storeTypeMap[card.storeType as number],
+      active: false  
     }))
 })
+
+
+const onMarkerClick = (markerId: number) => {
+  selectedMarker.value = markerId
+  console.log(selectedMarker.value)
+}
+
+const createMarkerIcon = (markerId: number) => {  
+  const prefix = selectedMarker.value === markerId ? '-active' : ''
+  return new URL(
+    `../../assets/img/detail/marker-icon${prefix}.svg`,
+    import.meta.url
+  ).href  
+}
 
 // 마커 객체가 변할때마다 줌을 재설정 해줌 
 watch(markerDatas, (markers: MarkerData[]) => {
@@ -278,6 +298,13 @@ img[alt='지도 확대'] {
   background-color: white;
   cursor: pointer;
 
+  .innerIcon {
+    height: 32px;
+    width: 32px;
+    border-radius: 80px;
+    background-color: $blue-lighten-2;
+  }
+
   .marker-text {
     display: flex;
     align-items: flex-start;
@@ -297,21 +324,19 @@ img[alt='지도 확대'] {
     }
   }
 
-  .innerIcon {
-    height: 32px;
-    width: 32px;
-    border-radius: 80px;
-    background-color: $blue-lighten-2;
-  }
+
 
   &.active {
-    background-color: $blue-lighten-2;
-    color: white;
+    background-color: $blue-lighten-2;    
 
     .innerIcon {
-
+      background-color: white;
     }
 
+    .subtitle,
+    .title {
+      color: white;
+    }
   }
 
 
