@@ -14,7 +14,7 @@ const useStore = defineStore('store', () => {
     storeCards: initial<StoreCard[]>([]),
     indexCards: initial<StoreCard[]>([]),
     storeDetail: initial<StoreDetail>({} as any),
-    currentDoro: initial<string>('')
+    currentDoro: initial<{ address: string }>({ address: ''})
   })
 
   // 스토어가 관리하는 상태
@@ -95,7 +95,7 @@ const useStore = defineStore('store', () => {
         .geolocation
         .getCurrentPosition(   
           (success: GeolocationPosition) => { 
-            if (asyncStates.currentDoro.data === '') loadLatlngToAddress(success.coords)
+            if (asyncStates.currentDoro.data.address === '') loadLatlngToAddress(success.coords)
             fulfiled(targetState, {
               latitude: success.coords.latitude,
               longitude: success.coords.longitude

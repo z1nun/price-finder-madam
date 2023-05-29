@@ -86,6 +86,4 @@ interface Meta {
   count: number
 }
 
-export type LatlngToAddressResponse = BaseResponse<{
-  address: string
-}>
+export type LatlngToAddressResponse = BaseResponse<string>

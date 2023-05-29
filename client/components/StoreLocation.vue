@@ -3,7 +3,7 @@
     <div>
       <h3>위치정보</h3>
       <ul v-if="!currentDoro.loading">
-        <li>{{ currentDoro.data === '' ? '주소를 찾을 수 없습니다' : currentDoro.data }}</li>
+        <li>{{ currentDoro.data.address === '' ? '주소를 찾을 수 없습니다' : currentDoro.data.address }}</li>
       </ul>
     </div>
     <button @click="openModal" v-if="props.isSearchButton">위치변경</button>
