@@ -19,7 +19,7 @@ const useStore = defineStore('store', () => {
 
   // 스토어가 관리하는 상태
   const states = reactive({
-
+    
   })
 
   

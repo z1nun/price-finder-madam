@@ -1,7 +1,8 @@
 import { LatLng } from "~/types/baseTypes"
 
 const END_POINT = 'http://3.34.124.58:8080'
-const BASE_URL = process.env.NODE_ENV === 'development' ? END_POINT : END_POINT
+const HTTPS_END_POINT = 'https://woojin.site'
+const BASE_URL = process.env.NODE_ENV === 'development' ? HTTPS_END_POINT : HTTPS_END_POINT
 
 const GEOCODING_REVERSE_BASE_URL = process.env.NODE_ENV === 'development' ? '/geocoding/map-reversegeocode/v2/gc' : 'https://naveropenapi.apigw.ntruss.com/geocoding/map-reversegeocode/v2/gc'
 

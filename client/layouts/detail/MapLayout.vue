@@ -243,10 +243,8 @@ onMounted(() => {
   if(id) {
     nextTick(() => {
       selectedMarker.value = id as string
-      const { latitude, longitude } = storeCards.data.find(marker => marker.storeId == selectedMarker.value)?.place!
-      const zoom = map.value?.getZoom()
-      console.log(zoom)
-      focus(latitude, longitude, zoom)
+      const { latitude, longitude } = storeCards.data.find(marker => marker.storeId == selectedMarker.value)?.place!      
+      focus(latitude, longitude)
     })
   }
 })

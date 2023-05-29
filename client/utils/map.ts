@@ -51,7 +51,7 @@ const useMapOptions = () => {
     position: zoomControlPositionMap.TOP_RIGHT,
   }
 
-  const DEFAULT_ZOOM_LEVEL = 13
+  const DEFAULT_ZOOM_LEVEL = 14
 
   const DEFAULT_ZOOM_OPTIONS: MapOptions = {
     scaleControl: true,
