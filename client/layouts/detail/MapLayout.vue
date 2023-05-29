@@ -26,13 +26,15 @@
           :htmlIcon="marker.htmlIcon"
         >
           <button class="card-marker">            
-            <img src="~/assets/img/detail/place.svg" class="innerIcon" />
-            <div class="title">
-              {{ marker.storeName }}    
+            <img src="~/assets/img/detail/marker-icon.svg" class="innerIcon" />
+            <div class="marker-text">
+              <div class="title">
+                {{ marker.storeName }}                    
+              </div>
+              <div class="subtitle">
+                {{ marker.storeType }}        
+              </div>
             </div>
-            <!-- <div class="subtitle">
-              {{ marker.storeType }}        
-            </div> -->
           </button>
         </NaverMarker>
       </template>
@@ -260,29 +262,46 @@ img[alt='지도 확대'] {
 
 // 가게 마커
 .card-marker {
-  font-family: 'Pretendard';  
-  border-radius: 23px;    
-  font-size: 16px;
-  white-space: nowrap;
-  height: 40px;  
-  max-height: 40px;
-  padding-left: 40px;
-  padding-right: 10px;
-  cursor: pointer;
-  background-color: white;
-  border: none;
-  color: white;
   position: relative;
+  display: flex;
+
+  height: 48px;
+  max-height: 48px;
+  padding: 0px 16px 0px 8px;  
+  gap: 8px;
+  border-radius: 80px;
+  border: 1px solid #539AFF;  
+
+  align-items: center;
+  font-family: 'Pretendard';  
+  white-space: nowrap;
+  background-color: white;
+  cursor: pointer;
+
+  .marker-text {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;    
+
+    .title {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 140%;
+      color: #343E4C;
+    }
+
+    .subtitle {
+      font-size: 10px;
+      line-height: 140%;
+      color: #8C95A1;
+    }
+  }
 
   .innerIcon {
-    height: 30px;
-    width: 30px;
-    border-radius: 20px;
-    position: absolute;
+    height: 32px;
+    width: 32px;
+    border-radius: 80px;
     background-color: $blue-lighten-2;
-    top: 50%;
-    left: 20px;
-    transform: translate(-50%, -50%);
   }
 
   &.active {
@@ -301,12 +320,12 @@ img[alt='지도 확대'] {
     width: 0px; 
     height: 0px;
     border-bottom: 10px solid transparent;
-    border-top: 10px solid $primary;
-    border-left: 7px solid transparent;
-    border-right: 7px solid transparent;
+    border-top: 10px solid $blue-lighten-2;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
     position: absolute;    
-    bottom: -15px;
-    left: 13px;
+    bottom: -20px;
+    left: 20px;
   }
 }
 </style>
