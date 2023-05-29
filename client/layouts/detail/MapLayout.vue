@@ -30,9 +30,9 @@
             <div class="title">
               {{ marker.storeName }}    
             </div>
-            <div class="subtitle">
+            <!-- <div class="subtitle">
               {{ marker.storeType }}        
-            </div>
+            </div> -->
           </button>
         </NaverMarker>
       </template>
@@ -256,6 +256,9 @@ img[alt='지도 확대'] {
   }
 }
 
+
+
+// 가게 마커
 .card-marker {
   font-family: 'Pretendard';  
   border-radius: 23px;    
@@ -266,27 +269,32 @@ img[alt='지도 확대'] {
   padding-left: 40px;
   padding-right: 10px;
   cursor: pointer;
-  background: $primary;
+  background-color: white;
   border: none;
   color: white;
   position: relative;
-
-  &.active {
-    background-color: $blue-lighten-2;
-    color: white;
-    
-  }
 
   .innerIcon {
     height: 30px;
     width: 30px;
     border-radius: 20px;
     position: absolute;
-    background-color: white;
+    background-color: $blue-lighten-2;
     top: 50%;
     left: 20px;
     transform: translate(-50%, -50%);
   }
+
+  &.active {
+    background-color: $blue-lighten-2;
+    color: white;
+
+    .innerIcon {
+
+    }
+
+  }
+
 
   &::after {
     content: '';

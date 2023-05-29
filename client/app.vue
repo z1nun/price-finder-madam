@@ -12,6 +12,7 @@ import { LatLng } from './types/baseTypes';
 const { loadLocation, loadHome } = useStore()
 
 onMounted(async () => {  
+  
   loadLocation()
     .then((result: LatLng) => {    
       // 로컬에서는 안산이 아니라서... 일단 서울 시청을 중심으로 요청
