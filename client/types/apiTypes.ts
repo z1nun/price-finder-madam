@@ -85,3 +85,7 @@ interface Meta {
   page: number
   count: number
 }
+
+export type LatlngToAddressResponse = BaseResponse<{
+  address: string
+}>
