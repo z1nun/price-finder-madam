@@ -6,7 +6,7 @@
     <div class="searchWrap">
       <div class="searchBar">
         <input type="text" placeholder="EX) 매장명,업종명" />
-        <img src="~/assets/img/detail/Magnifer.svg" />
+        <img src="~/assets/img/detail/magnifer.svg" />
       </div>
       <div class="categoryWrap">
         <button @click="categoryClick('all')" :class="iscategoryClick === 'all' ? 'clicked' : ''">전체</button>
