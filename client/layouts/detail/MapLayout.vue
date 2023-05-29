@@ -222,7 +222,7 @@ const zoom = (e: ZoomType) => {
   target?.setZoom(target.getZoom() + (e === 'in' ? 1 : -1), true)
 }
  
-const focus = (latitude: number, longitude: number) => {
+const focus = (latitude: number, longitude: number, zoomLevel: number = DEFAULT_ZOOM_LEVEL) => {
   const center = new window.naver.maps.LatLng(latitude, longitude)
   map.value?.setCenter(center)
   map.value?.setZoom(DEFAULT_ZOOM_LEVEL)
@@ -328,6 +328,7 @@ img[alt='지도 확대'] {
 
   &.active {
     background-color: $blue-lighten-2;    
+    z-index: 100;
 
     .innerIcon {
       background-color: white;
