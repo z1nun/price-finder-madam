@@ -1,15 +1,15 @@
 // 기본 타입
 
-type StoreType = 
-  '한식' |
-  '중식' |
-  '경양식,일식' |
-  '기타외식업(다방,패스트푸드)' |
-  '이 미용업' |
-  '목욕업' |
-  '세탁업' |
-  '숙박업' |
-  '기타 서비스업종'
+type StoreType =
+  | '한식'
+  | '중식'
+  | '경양식,일식'
+  | '기타외식업(다방,패스트푸드)'
+  | '이 미용업'
+  | '목욕업'
+  | '세탁업'
+  | '숙박업'
+  | '기타 서비스업종'
 
 const storeTypeMap: Record<number, StoreType> = {
   1: '한식',
@@ -20,11 +20,10 @@ const storeTypeMap: Record<number, StoreType> = {
   6: '목욕업',
   7: '세탁업',
   8: '숙박업',
-  13: '기타 서비스업종'
+  13: '기타 서비스업종',
 }
 
 storeTypeMap[0]
-
 
 // 물품 타입
 type Product = {
@@ -40,30 +39,23 @@ type LatLng = {
 
 // 가게 목록
 type StoreCard = {
-  storeId: number
-  storeName: string
-  storeType: number
-  storePride: string
-  storeAddress: string
-  place: LatLng 
+  storeId?: number
+  storeName?: string
+  storeType?: number
+  storePride?: string
+  storeAddress?: string
+  place?: LatLng
 }
 
 // 가게 상세
 type StoreDetail = {
-  storeInfo: string
-  storeNumber: string
-  storeWayToCome: string
-  storeUrl: string
-  products: Product[]
+  storeInfo?: string
+  storeNumber?: string
+  storeWayToCome?: string
+  storeUrl?: string
+  products?: Product[]
 } & StoreCard
 
-export type {
-  Product,
-  LatLng,
-  StoreCard,
-  StoreDetail
-}
+export type { Product, LatLng, StoreCard, StoreDetail }
 
-export {
-  storeTypeMap
-}
+export { storeTypeMap }

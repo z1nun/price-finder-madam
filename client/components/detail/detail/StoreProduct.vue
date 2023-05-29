@@ -2,13 +2,20 @@
   <div class="container">
     <img src="~/assets/img/detail/product.svg" />
     <div>
-      <span>상품명</span>
-      <span class="price">10,000</span>
+      <span> {{ productName }} </span>
+      <span class="price">{{ price }}</span>
     </div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+interface StoreProductProp {
+  productName: string
+  price: number
+}
+
+const { productName, price } = defineProps<StoreProductProp>()
+</script>
 
 <style lang="scss" scoped>
 .container {

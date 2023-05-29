@@ -7,6 +7,7 @@
       <div class="Category">
         {{ storeTypeMap[recommendCard.storeType] }}
       </div>
+      <div>{{ recommendCard.storeId }}</div>
     </div>
 
     <div class="bottom">
@@ -28,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { StoreCard, storeTypeMap } from '~/types/baseTypes';
+import { StoreCard, storeTypeMap } from '~/types/baseTypes'
 
 interface RecommendCardProp {
   recommendCard: StoreCard
@@ -81,24 +82,23 @@ const { recommendCard } = defineProps<RecommendCardProp>()
   }
 
   .bottom {
-    display: flex; 
+    display: flex;
     flex-direction: column;
     gap: 8px;
-    font-weight: 500;    
-    margin-top: 24px;    
+    font-weight: 500;
+    margin-top: 24px;
 
     .title {
       font-weight: 700;
       font-size: 18px;
     }
 
-    .pride {      
+    .pride {
       max-width: 200px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
-  
   }
 
   .check {

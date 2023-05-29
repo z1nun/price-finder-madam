@@ -1,9 +1,12 @@
-import { LatLng } from "~/types/baseTypes"
+import { LatLng } from '~/types/baseTypes'
 
 const END_POINT = 'http://3.34.124.58:8080'
 const BASE_URL = process.env.NODE_ENV === 'development' ? '/api' : END_POINT
 
-const GEOCODING_REVERSE_BASE_URL = process.env.NODE_ENV === 'development' ? '/geocoding/map-reversegeocode/v2/gc' : 'https://naveropenapi.apigw.ntruss.com/geocoding/map-reversegeocode/v2/gc'
+const GEOCODING_REVERSE_BASE_URL =
+  process.env.NODE_ENV === 'development'
+    ? '/geocoding/map-reversegeocode/v2/gc'
+    : 'https://naveropenapi.apigw.ntruss.com/geocoding/map-reversegeocode/v2/gc'
 
 const homeUrl = `${BASE_URL}/home`
 const storeSearchUrl = `${BASE_URL}/search`
@@ -12,7 +15,8 @@ const neighborhoodsStoreUrl = `${BASE_URL}/user_place/stores`
 const currentPlaceStoreUrl = `${BASE_URL}/search/map/stores`
 const categorySearchUrl = `${BASE_URL}/search/category/stores`
 
-const createGecodingReverseUrl = (latlng: LatLng) => `${GEOCODING_REVERSE_BASE_URL}?coords=${latlng.longitude},${latlng.latitude}&output=json&orders=addr`
+const createGecodingReverseUrl = (latlng: LatLng) =>
+  `${GEOCODING_REVERSE_BASE_URL}?coords=${latlng.longitude},${latlng.latitude}&output=json&orders=addr`
 
 export {
   homeUrl,
@@ -21,6 +25,5 @@ export {
   neighborhoodsStoreUrl,
   currentPlaceStoreUrl,
   categorySearchUrl,
-
-  createGecodingReverseUrl
+  createGecodingReverseUrl,
 }

@@ -2,13 +2,21 @@
   <article>
     <h3>매장 정보</h3>
     <ul>
-      <li v-for="(item, index) in inform" :key="index">{{ item }}</li>
+      <li
+        v-for="(item, index) in storeDetail.data?.storeInfo?.split('\r').filter((item) => item.trim() !== '')"
+        :key="index"
+      >
+        {{ item }}
+      </li>
     </ul>
   </article>
 </template>
 
 <script setup lang="ts">
-const inform: string[] = ['영업시간 :07:30~20:00 휴무 :수', '남성역 1번 출구에서182m', '02-775-0038']
+import { useStore } from '~/store'
+const {
+  asyncStates: { storeDetail },
+} = useStore()
 </script>
 
 <style lang="scss" scoped>
