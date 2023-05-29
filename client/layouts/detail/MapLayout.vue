@@ -68,7 +68,6 @@ import CustomZoom from '~/components/detail/map/CustomZoom.vue'
 import CenterButton from '~/components/detail/map/CenterButton.vue'
 import { useStore } from '~/store'
 import { LatLng, StoreCard, storeTypeMap } from '~/types/baseTypes'
-import { routerKey } from 'vue-router'
 
 const { 
   DEFAULT_ZOOM_OPTIONS, 
@@ -237,22 +236,16 @@ const focus = (latitude: number, longitude: number, zoomLevel: number = DEFAULT_
   map.value?.setZoom(zoomLevel)
 }
 
-onBeforeMount(() => {
-  
-})
 
 onMounted(() => {
   flag.value = true
   const id = route.params.id
-  if(route.params.id) {
-    nextTick(() => {
-      selectedMarker.value = id as string
-      const { latitude, longitude } = storeCards.data.find(marker => marker.storeId == selectedMarker.value)?.place!
-      const zoom = map.value?.getZoom()
-      focus(latitude, longitude, zoom)
-    })
+  if(id) {
+    selectedMarker.value = id as string
+    const { latitude, longitude } = storeCards.data.find(marker => marker.storeId == selectedMarker.value)?.place!
+    const zoom = map.value?.getZoom()
+    focus(latitude, longitude, zoom)
   }
-  
 })
 </script>
 
