@@ -1,7 +1,19 @@
 <template>
-  <article class="cardWrap" v-if="storeCards.data.length > 0">
-    <h3>주변 착한가게</h3>
-    <RecommendCard v-for="(cardData, i) in storeCards.data" :key="i" :recommend-card="cardData" />
+  <article class="cardWrap" >
+    <template v-if="storeCards.data.length > 0">
+      <h3>주변 착한가게</h3>
+      <RecommendCard v-for="(cardData, i) in storeCards.data" :key="i" :recommend-card="cardData" />
+    </template>
+    <template v-else>      
+      <h3>주변 착한가게</h3>
+      <div class="imgWrap">
+        <img src="~/assets/img/detail/search-fail.svg"/>
+        <div class="text">
+          찾신 검색결과가 없어요 <br />
+          다른 가게를 찾아보실래요?
+        </div>
+      </div>
+    </template>
   </article>
 </template>
 
@@ -16,9 +28,11 @@ const { asyncStates: { storeCards }} = useStore()
 <style lang="scss" scoped>
 .cardWrap {
   background-color: #ffffff;
-  width: 320px;
-  max-height: 610px;
+  position: relative;
+  width: 320px;  
+  height: 100%;
   display: flex;
+  max-height: 600px;
   flex-direction: column;
   align-items: flex-start;
   padding: 16px 20px;
@@ -52,7 +66,28 @@ const { asyncStates: { storeCards }} = useStore()
     color: #343e4c;
     margin: 0;
   }  
+}
 
+.imgWrap {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
 
+  img {
+    margin-left: 30px;
+  }
+
+  .text {
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 140%;
+    margin-top: 20px;
+    text-align: center;
+    color: #C7C7C7;
+  }
 }
 </style>
