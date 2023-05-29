@@ -4,12 +4,21 @@
       <h3>상품종류</h3>
       <span>전체<img src="~/assets/img/detail/arrowRight.svg" /></span>
     </div>
-    <StoreProduct v-for="index in 3" :key="index" />
+    <StoreProduct
+      v-for="(product, index) in storeDetail?.data.products"
+      :productName="product.productName"
+      :price="product.price"
+      :key="index"
+    />
   </article>
 </template>
 
 <script setup lang="ts">
 import StoreProduct from '~/components/detail/detail/StoreProduct.vue'
+import { useStore } from '~/store'
+const {
+  asyncStates: { storeDetail },
+} = useStore()
 </script>
 
 <style lang="scss" scoped>

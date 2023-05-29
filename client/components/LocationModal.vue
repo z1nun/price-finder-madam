@@ -30,7 +30,8 @@
           @updateSelectedDong="updateSelectedDong"
         />
       </div>
-      <ClickButton class="clickButton" title="변경하기" />
+      <div>{{ selectedDong }}</div>
+      <ClickButton class="clickButton" title="변경하기" @click="search" />
     </section>
   </article>
 </template>
@@ -39,7 +40,12 @@
 import ClickButton from '~/components/ClickButton.vue'
 import DropMenuGu from '~/components/search/DropMenuGu.vue'
 import DropMenuDong from '~/components/search/DropMenuDong.vue'
-import { ref } from 'vue'
+import { ref, onMounted, watch } from 'vue'
+
+//api
+import { CategorySearchRequestBody } from '~/types/apiTypes'
+import { useStore } from '~/store'
+const { loadCategorySearch } = useStore()
 
 //모달 열고 닫기
 const modalGu = ref(false)
@@ -52,8 +58,8 @@ const openModalDong = () => {
 }
 
 //하위 컴포넌트에서 전달받은 '구' 와 '동'
-let selectedGu = ref('')
-let selectedDong = ref('')
+const selectedGu = ref('')
+const selectedDong = ref('')
 
 //값 변경
 const UpdateSelectedGu = (data: string) => {
@@ -61,6 +67,21 @@ const UpdateSelectedGu = (data: string) => {
 }
 const updateSelectedDong = (data: string) => {
   selectedDong.value = data
+}
+
+// 카테고리 - 한식 눌렀을때 검색어에 한식이 올라간 상태에서
+
+// 둘다 null 이거나 한쪽만 null 이여야한다.
+// 찾기 버튼을 눌럿다. -> storeType이 한식에 맞는 number 채워지고, storename은 null
+// 반대로 돈까스 검색했으면 storeType null, storeaName이 돈까스
+
+const search = () => {
+  const body: CategorySearchRequestBody = {
+    storeType: '1',
+    address: selectedDong.value,
+    page: 0,
+  }
+  loadCategorySearch(body)
 }
 
 //구 바뀌면 동 초기화

@@ -2,22 +2,28 @@
   <header>
     <div class="ImgWrap">
       <div><img src="~/assets/img/arrowLeft.svg" /></div>
-      <img src="~/assets/img/sampleImg.svg" />
+      <img :src="storeDetail.data?.storeUrl" />
       <span>1 / 3</span>
     </div>
     <div class="TitleWrap">
-      해피분식
+      {{ storeDetail.data?.storeName }}
       <hr />
       <div><img src="~/assets/img/defaultIcon.svg" />개인 매장</div>
     </div>
   </header>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useStore } from '~/store'
+
+const {
+  asyncStates: { storeDetail },
+} = useStore()
+</script>
 
 <style lang="scss" scoped>
 header {
-  height: 250px;
+  height: 250px !important;
 }
 .ImgWrap {
   width: 360px;
@@ -42,6 +48,11 @@ header {
       top: 0px;
       bottom: 0px;
     }
+  }
+
+  img {
+    width: inherit;
+    height: inherit;
   }
 
   span {

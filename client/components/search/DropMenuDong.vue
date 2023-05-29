@@ -26,8 +26,6 @@ const data = computed({
     emit('updateSelectedDong', selectedDong)
   },
 })
-
-console.log(data)
 </script>
 
 <style lang="scss" scoped>
