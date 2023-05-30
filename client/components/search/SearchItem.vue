@@ -1,12 +1,11 @@
 <template>
-  <article class="cardWrap" >
+  <article class="cardWrap">
     <h3 ref="scrollTarget">주변 착한가게</h3>
     <template v-if="storeCards.data.length > 0">
       <RecommendCard v-for="(cardData, i) in storeCards.data" :key="i" :recommend-card="cardData" />
       <div ref="triggerDiv"></div>
     </template>
     <template v-else>
-      <h3>주변 착한가게</h3>
       <div class="imgWrap">
         <img src="~/assets/img/detail/search-fail.svg" />
         <div class="text">
@@ -14,36 +13,34 @@
           다른 가게를 찾아보실래요?
         </div>
       </div>
-    </template>    
-  </article>  
+    </template>
+  </article>
 </template>
 
 <script setup lang="ts">
 import RecommendCard from '~/components/index/search/RecommendCard.vue'
 
-import { useStore } from '~/store';
+import { useStore } from '~/store'
 
-const { 
-  asyncStates: { storeCards }, 
+const {
+  asyncStates: { storeCards },
   states,
-  scrollSearch
+  scrollSearch,
 } = useStore()
 const observer = ref<IntersectionObserver | null>(null)
 const triggerDiv = ref<Element | null>(null)
 const scrollTarget = ref<Element | null>(null)
 
-
 const handleIntersect = (target: IntersectionObserverEntry) => {
   if (target.isIntersecting) triggerIntersect()
 }
 
-const options: IntersectionObserverInit  = {
+const options: IntersectionObserverInit = {
   root: null,
-  threshold: 1
+  threshold: 1,
 }
 
 const triggerIntersect = () => scrollSearch()
-
 
 onMounted(() => {
   observer.value = new IntersectionObserver((entries: IntersectionObserverEntry[]) => {
