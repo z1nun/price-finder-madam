@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="ImgWrap">
-      <div><img src="~/assets/img/arrowLeft.svg" /></div>
+      <div @click="push(`/search/`)"><img src="~/assets/img/arrowLeft.svg" /></div>
       <img :src="storeDetail.data?.storeUrl" />
     </div>
     <div class="TitleWrap">
@@ -14,6 +14,7 @@
 
 <script setup lang="ts">
 import { useStore } from '~/store'
+const { push } = useRouter()
 
 const {
   asyncStates: { storeDetail },
