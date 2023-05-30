@@ -13,9 +13,9 @@ import SearchItem from '~/components/search/SearchItem.vue'
 import { CategorySearchRequestBody } from '~/types/apiTypes'
 import { useStore } from '~/store'
 import { onMounted } from 'vue'
-const { loadCategorySearch } = useStore()
 const {
   asyncStates: { currentDoro },
+  loadCategorySearch,
 } = useStore()
 
 onMounted(() => {

@@ -30,8 +30,7 @@
           @updateSelectedDong="updateSelectedDong"
         />
       </div>
-      <div>{{ selectedDong }}</div>
-      <ClickButton class="clickButton" title="변경하기" @click="search" />
+      <ClickButton class="clickButton" title="변경하기" @click="search()" />
     </section>
   </article>
 </template>
@@ -40,12 +39,15 @@
 import ClickButton from '~/components/ClickButton.vue'
 import DropMenuGu from '~/components/search/DropMenuGu.vue'
 import DropMenuDong from '~/components/search/DropMenuDong.vue'
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, defineEmits } from 'vue'
 
 //api
 import { CategorySearchRequestBody } from '~/types/apiTypes'
 import { useStore } from '~/store'
-const { loadCategorySearch } = useStore()
+const {
+  asyncStates: { currentDoro },
+  loadCategorySearch,
+} = useStore()
 
 //모달 열고 닫기
 const modalGu = ref(false)
@@ -77,18 +79,36 @@ const updateSelectedDong = (data: string) => {
 
 const search = () => {
   const body: CategorySearchRequestBody = {
-    storeType: '1',
+    storeType: '1', //default 1인데 전체인것도 가능한지?
     address: selectedDong.value,
     page: 0,
   }
   loadCategorySearch(body)
+  sendToParentDong()
+  sendToParentGu()
+  sendToParentModal()
 }
 
 //구 바뀌면 동 초기화
 const changeValue = () => {
   selectedDong.value = ''
 }
+
+//상위 컴포넌트 storeLocation에 값 전달
+const emitEvents = defineEmits(['UpdateDong', 'UpdateGu', 'UpdateModal'])
+const sendToParentDong = () => {
+  emitEvents('UpdateDong', selectedDong.value)
+}
+const sendToParentGu = () => {
+  emitEvents('UpdateGu', selectedGu.value)
+}
+const sendToParentModal = () => {
+  emitEvents('UpdateModal', false)
+}
+
 watch(selectedGu, changeValue)
+watch(selectedGu, sendToParentDong)
+watch(selectedGu, sendToParentGu)
 </script>
 
 <style lang="scss" scoped>
