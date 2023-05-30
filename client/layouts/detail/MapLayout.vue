@@ -65,7 +65,6 @@ const {
   asyncStates: { currentPosition, storeCards, currentDoro },
   loadCurrentPlaceStore,
   loadStoreDetail,
-  loadStoreSearch
 } = useStore()
 
 const { push } = useRouter()
@@ -163,7 +162,7 @@ const markerDatas = computed<MarkerData[]>(() => {
 
 const onMarkerClick = (markerId: number | string) => {
   if (route.params.id == markerId) return
-  // 디테일 api 요청
+  
   loadStoreDetail(String(markerId))
   push(`/detail/${markerId}`)
 }
@@ -177,6 +176,7 @@ const createMarkerIcon = (markerId: number) => {
 watch(markerDatas, (markers: MarkerData[]) => {
   nextTick(() => {
     if(!map.value) return
+
     const newCenter = createCenter(markers)  
     map.value?.setCenter(newCenter)
     map.value?.setZoom(DEFAULT_ZOOM_LEVEL + 2)  
@@ -219,7 +219,6 @@ const focus = (latitude: number, longitude: number, zoomLevel: number = DEFAULT_
 
 // 검색
 const isSearchBarVisible = computed<boolean>(() => {
-  console.log(route.fullPath)
   return route.fullPath !== '/search'
 })
 
