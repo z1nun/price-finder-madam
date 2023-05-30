@@ -41,7 +41,7 @@ const recommendCards = computed<StoreCard[]>(() => indexCards.data?.slice(0, dis
 
 <style scoped lang="scss">
 .SearchArticles {
-  margin-top: 40px;
+  margin-top: 60px;
   max-width: 1456px;
 
   gap: 40px 48px;

@@ -46,7 +46,8 @@ onMounted(() => {
   observer.value = new IntersectionObserver((entries: IntersectionObserverEntry[]) => {
     handleIntersect(entries[0])
   }, options)
-  observer.value.observe(triggerDiv.value!)
+  if (!triggerDiv.value) return
+  observer.value.observe(triggerDiv.value)
   states.scrollTarget = scrollTarget.value
 })
 </script>

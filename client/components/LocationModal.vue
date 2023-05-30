@@ -59,7 +59,6 @@ import { CategorySearchRequestBody } from '~/types/apiTypes'
 import { useStore } from '~/store'
 const {
   loadCategorySearch,
-  loadGeocodeReverse,
   asyncStates: { currentDoro },
 } = useStore()
 
