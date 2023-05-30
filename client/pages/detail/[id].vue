@@ -13,6 +13,11 @@ import MapLayout from '/layouts/detail/MapLayout.vue';
 <style scoped lang="scss">
 section {
   display: flex;
+  position: relative;
+
+  @media (max-width: 768px) {
+    display: block;
+  }
 }
 
 </style>
