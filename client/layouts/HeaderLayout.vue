@@ -2,17 +2,6 @@
   <header>
     <div class="nav">
       <img src="~/assets/img/LOGO.svg" />
-      <span>착한 가게</span>
-      <span>착한 소비</span>
-    </div>
-    <div class="userWrap">
-      <span class="listIcon"><BIconList /></span>
-      <span class="searchIcon"> <BIconSearch /></span>
-      <div class="user">
-        <span class="signup">회원가입</span>
-        <span>/</span>
-        <span>로그인</span>
-      </div>
     </div>
   </header>
 </template>

@@ -35,6 +35,5 @@ section {
 
 .divWrap {
   overflow-y: auto;
-  margin-top: 50px;
 }
 </style>

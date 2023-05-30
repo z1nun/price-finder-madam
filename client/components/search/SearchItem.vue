@@ -64,6 +64,7 @@ onMounted(() => {
   padding: 16px 20px;
   gap: 24px;
   overflow-y: auto;
+  overflow-x: hidden;
   transition: background-color 0.3s ease;
 
   &::-webkit-scrollbar {

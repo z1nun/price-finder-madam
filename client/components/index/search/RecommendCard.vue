@@ -50,7 +50,7 @@ const onCardClick = () => {
 <style lang="scss">
 .RecommendCard {
   max-height: 232px;
-  width: 328px;
+  width: 310px;
   position: relative;
   box-sizing: border-box;
   padding: 20px;
