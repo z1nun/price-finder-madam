@@ -239,6 +239,14 @@ onMounted(() => {
 <style scoped lang="scss">
 .NaverMap {
   position: relative;  
+  overflow: hidden;
+
+  @media (max-width: 768px) {    
+    position: absolute;    
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
 }
 
 #map {
@@ -248,6 +256,11 @@ onMounted(() => {
   &:focus {
     border: none !important;
     outline: none !important;
+  }
+
+  @media (max-width: 768px) {
+    width: 100vw;
+    position: absolute;    
   }
 }
 
