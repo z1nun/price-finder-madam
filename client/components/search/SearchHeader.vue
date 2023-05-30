@@ -89,17 +89,24 @@ const onChange = (event: Event | string) => {
 
 <style lang="scss" scoped>
 header {
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 16px;
   background-color: #ffffff;
   padding-bottom: 16px;
+  @media (min-width: 768px) {
+    width: 360px;
+  }
   .imageWrap {
     display: flex;
     align-items: center;
-    padding: 12px 20px;
+    padding: 12px 0;
     width: 320px;
     height: fit-content;
+    @media (min-width: 768px) {
+      padding: 12px 20px;
+    }
   }
 
   .searchWrap {
@@ -116,11 +123,14 @@ header {
       align-items: center;
       padding: 8px 16px;
       gap: 16px;
-      width: 320px;
+      width: 100%;
       height: 48px;
       background: #ffffff;
       border: 1px solid #3366ff;
       border-radius: 8px;
+      @media (min-width: 768px) {
+        width: 320px;
+      }
 
       input {
         border: none;
@@ -134,8 +144,11 @@ header {
 
     .categoryWrap {
       display: flex;
-      width: 320px;
+      width: 100%;
       gap: 12px;
+      @media (min-width: 768px) {
+        width: 320px;
+      }
 
       button {
         cursor: pointer;
@@ -178,12 +191,16 @@ header {
   }
 
   .categorydetail {
-    width: 320px;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     padding: 0 20px;
     gap: 12px;
+
+    @media (min-width: 768px) {
+      width: 320px;
+    }
 
     button {
       cursor: pointer;

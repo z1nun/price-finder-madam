@@ -25,12 +25,19 @@ const {
 
 <style scoped lang="scss">
 section {
-  width: 360px;
+  width: 100%;
   height: 100vh;
   background-color: #f9fafb;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  position: absolute;
+  z-index: 3;
+
+  @media (min-width: 768px) {
+    position: static;
+    width: 360px;
+  }
 }
 
 .divWrap {

@@ -56,17 +56,22 @@ onMounted(() => {
 .cardWrap {
   background-color: #ffffff;
   position: relative;
-  width: 320px;
+  width: 100%;
   height: 100%;
   display: flex;
   max-height: 590px;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   padding: 16px 20px;
   gap: 24px;
   overflow-y: auto;
   overflow-x: hidden;
   transition: background-color 0.3s ease;
+
+  @media (min-width: 768px) {
+    width: 320px;
+    align-items: flex-start;
+  }
 
   &::-webkit-scrollbar {
     width: 8px;

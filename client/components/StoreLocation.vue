@@ -67,9 +67,15 @@ const props = withDefaults(defineProps<{ isSearchButton: boolean }>(), {
 @import '~/assets/style/StoreCard.scss';
 
 .container {
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
+
+  @media (min-width: 768px) {
+    width: 320px;
+  }
 
   button {
     cursor: pointer;
