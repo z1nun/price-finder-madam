@@ -31,7 +31,7 @@
         </NaverMarker>
       </template>
     </NaverMap>
-    <template v-if="!currentPosition.loading && flag">
+    <template v-if="!currentPosition.loading && flag">      
       <CustomZoom @zoom="zoom" />
       <CenterButton @onCenterButtonClick="focus(currentPosition.data.latitude, currentPosition.data.longitude)" />
 
@@ -39,6 +39,12 @@
         <span><img src="~/assets/img/detail/location.svg" /></span>
         <span class="text">현 위치에서 찾기</span>
       </button>
+
+      <SearchBar
+        v-if="isSearchBarVisible"
+        class="detail" 
+        placeholder='EX) 매장명,업종명'        
+      />
     </template>
   </section>
 </template>
@@ -49,15 +55,17 @@ import { MapOptions, NaverMap, NaverMarker } from 'vue3-naver-maps'
 import useMapOptions, { ZoomType, Map } from '~/utils/map'
 import CustomZoom from '~/components/detail/map/CustomZoom.vue'
 import CenterButton from '~/components/detail/map/CenterButton.vue'
+import SearchBar from '~/components/index/search/SearchBar.vue'
 import { useStore } from '~/store'
 import { LatLng, StoreCard, storeTypeMap } from '~/types/baseTypes'
 
 const { DEFAULT_ZOOM_OPTIONS, DEFAULT_ZOOM_LEVEL } = useMapOptions()
 
 const {
-  asyncStates: { currentPosition, storeCards },
+  asyncStates: { currentPosition, storeCards, currentDoro },
   loadCurrentPlaceStore,
   loadStoreDetail,
+  loadStoreSearch
 } = useStore()
 
 const { push } = useRouter()
@@ -167,10 +175,12 @@ const createMarkerIcon = (markerId: number) => {
 
 // 마커 객체가 변할때마다 줌을 재설정 해줌
 watch(markerDatas, (markers: MarkerData[]) => {
-  const newCenter = createCenter(markers)
-
-  map.value?.setCenter(newCenter)
-  map.value?.setZoom(DEFAULT_ZOOM_LEVEL + 2)  
+  nextTick(() => {
+    if(!map.value) return
+    const newCenter = createCenter(markers)  
+    map.value?.setCenter(newCenter)
+    map.value?.setZoom(DEFAULT_ZOOM_LEVEL + 2)  
+  })
 })
 
 const createCenter = (markers: (MarkerData | StoreCard)[]): naver.maps.LatLng => {
@@ -200,18 +210,27 @@ const zoom = (e: ZoomType) => {
 }
 
 const focus = (latitude: number, longitude: number, zoomLevel: number = DEFAULT_ZOOM_LEVEL) => {
+  if(!map.value) return
+
   const center = new window.naver.maps.LatLng(latitude, longitude)
   map.value?.setCenter(center)
   map.value?.setZoom(zoomLevel)
 }
+
+// 검색
+const isSearchBarVisible = computed<boolean>(() => {
+  console.log(route.fullPath)
+  return route.fullPath !== '/search'
+})
 
 onMounted(() => {
   flag.value = true
   const id = route.params.id
   if (id) {
     nextTick(() => {
-      selectedMarker.value = id as string
+      selectedMarker.value = id as string      
       const { latitude, longitude } = storeCards.data.find((marker) => marker.storeId == selectedMarker.value)?.place!
+
       focus(latitude, longitude)
     })
   }
@@ -220,7 +239,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .NaverMap {
-  position: relative;
+  position: relative;  
 }
 
 #map {

@@ -1,7 +1,7 @@
 <template>
   <section>
-    <DetailLayout />
-    <MapLayout />
+    <DetailLayout />    
+    <MapLayout />    
   </section>
 </template>
 

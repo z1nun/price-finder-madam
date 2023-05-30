@@ -73,7 +73,8 @@ const useStore = defineStore('store', () => {
   const loadHome = (body: HomeRequestBody) =>
     asyncProcess<StoreCard[]>(asyncStates.indexCards, {
       callback: requestHome(body),
-      onLoaded: () => {
+      onLoaded: (result) => {
+        asyncStates.storeCards.data = result.data.data
         states.currentSearchType.searchType = 'home'
         scrollReset()
       },
@@ -89,7 +90,8 @@ const useStore = defineStore('store', () => {
   const loadNeighborhoodsStore = (body: NeighborhoodsStoreRequestBody) =>
     asyncProcess<StoreCard[]>(asyncStates.storeCards, {
       callback: requestNeighborhoodsStore(body),
-      onLoaded: () => (states.currentSearchType.lastBody = body),
+      onLoaded: () => states.currentSearchType.lastBody = body
+      
     })
 
   // 지도에서 현 위치 찾기 api
