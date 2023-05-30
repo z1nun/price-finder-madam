@@ -19,10 +19,14 @@ const { productName, price } = defineProps<StoreProductProp>()
 
 <style lang="scss" scoped>
 .container {
-  width: 320px;
+  width: 100%;
   display: flex;
   justify-content: flex-start;
   gap: 16px;
+
+  @media (min-width: 768px) {
+    width: 320px;
+  }
 
   img {
     width: 48px;

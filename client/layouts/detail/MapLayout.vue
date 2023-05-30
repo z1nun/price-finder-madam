@@ -31,7 +31,7 @@
         </NaverMarker>
       </template>
     </NaverMap>
-    <template v-if="!currentPosition.loading && flag">      
+    <template v-if="!currentPosition.loading && flag">
       <CustomZoom @zoom="zoom" />
       <CenterButton @onCenterButtonClick="focus(currentPosition.data.latitude, currentPosition.data.longitude)" />
 
@@ -40,11 +40,7 @@
         <span class="text">현 위치에서 찾기</span>
       </button>
 
-      <SearchBar
-        v-if="isSearchBarVisible"
-        class="detail" 
-        placeholder='EX) 매장명,업종명'        
-      />
+      <SearchBar v-if="isSearchBarVisible" class="detail" placeholder="EX) 매장명,업종명" />
     </template>
   </section>
 </template>
@@ -162,7 +158,7 @@ const markerDatas = computed<MarkerData[]>(() => {
 
 const onMarkerClick = (markerId: number | string) => {
   if (route.params.id == markerId) return
-  
+
   loadStoreDetail(String(markerId))
   push(`/detail/${markerId}`)
 }
@@ -175,11 +171,11 @@ const createMarkerIcon = (markerId: number) => {
 // 마커 객체가 변할때마다 줌을 재설정 해줌
 watch(markerDatas, (markers: MarkerData[]) => {
   nextTick(() => {
-    if(!map.value) return
+    if (!map.value) return
 
-    const newCenter = createCenter(markers)  
+    const newCenter = createCenter(markers)
     map.value?.setCenter(newCenter)
-    map.value?.setZoom(DEFAULT_ZOOM_LEVEL + 2)  
+    map.value?.setZoom(DEFAULT_ZOOM_LEVEL + 2)
   })
 })
 
@@ -210,7 +206,7 @@ const zoom = (e: ZoomType) => {
 }
 
 const focus = (latitude: number, longitude: number, zoomLevel: number = DEFAULT_ZOOM_LEVEL) => {
-  if(!map.value) return
+  if (!map.value) return
 
   const center = new window.naver.maps.LatLng(latitude, longitude)
   map.value?.setCenter(center)
@@ -227,7 +223,7 @@ onMounted(() => {
   const id = route.params.id
   if (id) {
     nextTick(() => {
-      selectedMarker.value = id as string      
+      selectedMarker.value = id as string
       const { latitude, longitude } = storeCards.data.find((marker) => marker.storeId == selectedMarker.value)?.place!
 
       focus(latitude, longitude)
@@ -238,11 +234,11 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .NaverMap {
-  position: relative;  
+  position: relative;
   overflow: hidden;
 
-  @media (max-width: 768px) {    
-    position: absolute;    
+  @media (max-width: 768px) {
+    position: absolute;
     top: 0;
     left: 0;
     z-index: -1;
@@ -250,8 +246,11 @@ onMounted(() => {
 }
 
 #map {
-  width: calc(100vw - 360px);
+  width: 100vw;
   height: 100vh;
+  @media (min-width: 768px) {
+    width: calc(100vw - 360px);
+  }
 
   &:focus {
     border: none !important;
@@ -260,7 +259,7 @@ onMounted(() => {
 
   @media (max-width: 768px) {
     width: 100vw;
-    position: absolute;    
+    position: absolute;
   }
 }
 

@@ -26,10 +26,11 @@ const isValidImg = computed<boolean>(() => storeDetail.data.storeUrl !== 'http:/
 
 <style lang="scss" scoped>
 header {
+  width: 100%;
   height: 250px;
 }
 .ImgWrap {
-  width: 360px;
+  width: 100%;
   height: 180px;
   background: linear-gradient(360deg, rgba(51, 51, 51, 8e-5) 58.22%, rgba(18, 18, 18, 0.8) 100%), url(.jpg);
   box-shadow: 2px 3px 16px 1px rgba(221, 221, 221, 0.08), 2px 3px 6px 3px rgba(230, 230, 230, 0.16);
@@ -70,8 +71,8 @@ header {
   position: relative;
   width: 280px;
   height: fit-content;
-  left: 20px;
-  bottom: 47px;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
   background: #ffffff;
   box-shadow: 1px 2px 8px rgba(51, 51, 51, 0.16), 2px 3px 16px 1px rgba(221, 221, 221, 0.08),
