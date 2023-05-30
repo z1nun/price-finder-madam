@@ -147,55 +147,24 @@ const useStore = defineStore('store', () => {
     const targetState = asyncStates.currentPosition
     loading(targetState)
 
-    // return new Promise((resolve, reject) => {
-    //   navigator.geolocation.getCurrentPosition(
-    //     (success: GeolocationPosition) => {
-    //       if (asyncStates.currentDoro.data.address === '') loadLatlngToAddress(success.coords)
-    //       fulfiled(targetState, {
-    //         latitude: success.coords.latitude,
-    //         longitude: success.coords.longitude,
-    //       })
-    //       resolve({
-    //         latitude: success.coords.latitude,
-    //         longitude: success.coords.longitude,
-    //       })
-    //     },
-    //     (e: GeolocationPositionError) => {
-    //       error(targetState, e)
-    //       reject(e)
-    //     }
-    //   )
-    // })
-
     return new Promise((resolve, reject) => {
-      // 원하는 위도(latitude)와 경도(longitude) 값 설정
-
-      //길동 (길동, 신길동이 같이 나오는 이슈)
-      const latitude = 37.479944149962
-      const longitude = 126.97701675764
-      // 위치 정보를 성공적으로 가져왔을 때의 동작 수행
-      const successCallback = (success: GeolocationPosition) => {
-        if (asyncStates.currentDoro.data.address === '') {
-          loadLatlngToAddress(success.coords)
+      navigator.geolocation.getCurrentPosition(
+        (success: GeolocationPosition) => {
+          if (asyncStates.currentDoro.data.address === '') loadLatlngToAddress(success.coords)
+          fulfiled(targetState, {
+            latitude: success.coords.latitude,
+            longitude: success.coords.longitude,
+          })
+          resolve({
+            latitude: success.coords.latitude,
+            longitude: success.coords.longitude,
+          })
+        },
+        (e: GeolocationPositionError) => {
+          error(targetState, e)
+          reject(e)
         }
-        fulfiled(targetState, {
-          latitude: latitude,
-          longitude: longitude,
-        })
-        resolve({
-          latitude: latitude,
-          longitude: longitude,
-        })
-      }
-
-      // 위치 정보를 가져오는 데 실패했을 때의 동작 수행
-      const errorCallback = (e: GeolocationPositionError) => {
-        error(targetState, e)
-        reject(e)
-      }
-
-      // 위에서 설정한 값을 사용하여 현재 위치 정보 대신 반환
-      successCallback({ coords: { latitude, longitude } } as GeolocationPosition)
+      )
     })
   }
 

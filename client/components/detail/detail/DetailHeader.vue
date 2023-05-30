@@ -1,8 +1,9 @@
 <template>
   <header>
     <div class="ImgWrap">
-      <div><img src="~/assets/img/arrowLeft.svg" /></div>
-      <img :src="storeDetail.data?.storeUrl" />
+      <div @click="push(`/search/`)"><img src="~/assets/img/arrowLeft.svg" /></div>
+      <img v-if="isValidImg" :src="storeDetail.data?.storeUrl" />
+      <img v-else class="defaultImg" src="~/assets/img/sampleImg.svg" />
     </div>
     <div class="TitleWrap">
       {{ storeDetail.data?.storeName }}
@@ -14,15 +15,18 @@
 
 <script setup lang="ts">
 import { useStore } from '~/store'
+const { push } = useRouter()
 
 const {
   asyncStates: { storeDetail },
 } = useStore()
+
+const isValidImg = computed<boolean>(() => storeDetail.data.storeUrl !== 'http://tearstop.seoul.go.kr/mulga/photo/')
 </script>
 
 <style lang="scss" scoped>
 header {
-  height: 250px !important;
+  height: 250px;
 }
 .ImgWrap {
   width: 360px;
@@ -52,6 +56,7 @@ header {
   img {
     width: inherit;
     height: inherit;
+    object-fit: cover;
   }
 }
 
@@ -62,11 +67,11 @@ header {
   padding: 16px 20px;
   gap: 2px;
 
-  position: absolute;
+  position: relative;
   width: 280px;
   height: fit-content;
   left: 20px;
-  top: 134px;
+  bottom: 47px;
 
   background: #ffffff;
   box-shadow: 1px 2px 8px rgba(51, 51, 51, 0.16), 2px 3px 16px 1px rgba(221, 221, 221, 0.08),
