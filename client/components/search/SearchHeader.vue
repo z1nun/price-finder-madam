@@ -5,7 +5,7 @@
     </router-link>
     <div class="searchWrap">
       <div class="searchBar">
-        <input type="text" placeholder="EX) 매장명,업종명" />
+        <input type="text" placeholder="EX) 매장명,업종명" @input="onChange($event)" />
         <img src="~/assets/img/detail/magnifer.svg" />
       </div>
       <div class="categoryWrap">
@@ -18,69 +18,15 @@
         </button>
       </div>
       <div class="categorydetail">
-        <button
-          @click="categroyDetailClick('1')"
-          :class="iscategoryDetailClick === '1' ? 'clicked' : ''"
-          v-if="iscategoryClick === 'all' || iscategoryClick === 'dining'"
-        >
-          한식
-        </button>
-        <button
-          @click="categroyDetailClick('2')"
-          :class="iscategoryDetailClick === '2' ? 'clicked' : ''"
-          v-if="iscategoryClick === 'all' || iscategoryClick === 'dining'"
-        >
-          중식
-        </button>
-        <button
-          @click="categroyDetailClick('3')"
-          :class="iscategoryDetailClick === '3' ? 'clicked' : ''"
-          v-if="iscategoryClick === 'all' || iscategoryClick === 'dining'"
-        >
-          경양식, 일식
-        </button>
-        <button
-          @click="categroyDetailClick('4')"
-          :class="iscategoryDetailClick === '4' ? 'clicked' : ''"
-          v-if="iscategoryClick === 'all' || iscategoryClick === 'service'"
-        >
-          기타외식업
-        </button>
-        <button
-          @click="categroyDetailClick('5')"
-          :class="iscategoryDetailClick === '5' ? 'clicked' : ''"
-          v-if="iscategoryClick === 'all' || iscategoryClick === 'service'"
-        >
-          미용업
-        </button>
-        <button
-          @click="categroyDetailClick('6')"
-          :class="iscategoryDetailClick === '6' ? 'clicked' : ''"
-          v-if="iscategoryClick === 'all' || iscategoryClick === 'service'"
-        >
-          목욕업
-        </button>
-        <button
-          @click="categroyDetailClick('7')"
-          :class="iscategoryDetailClick === '7' ? 'clicked' : ''"
-          v-if="iscategoryClick === 'all' || iscategoryClick === 'service'"
-        >
-          세탁업
-        </button>
-        <button
-          @click="categroyDetailClick('8')"
-          :class="iscategoryDetailClick === '8' ? 'clicked' : ''"
-          v-if="iscategoryClick === 'all' || iscategoryClick === 'service'"
-        >
-          숙박업
-        </button>
-        <button
-          @click="categroyDetailClick('13')"
-          :class="iscategoryDetailClick === '13' ? 'clicked' : ''"
-          v-if="iscategoryClick === 'all' || iscategoryClick === 'service'"
-        >
-          기타서비스
-        </button>
+        <template v-for="btn in buttons" :key="btn.key">
+          <button
+            v-if="iscategoryClick === 'all' || iscategoryClick === btn.filter"
+            @click="categroyDetailClick(btn.key)"
+            :class="iscategoryDetailClick === btn.key ? 'clicked' : ''"
+          >
+            {{ btn.storeType }}
+          </button>
+        </template>
       </div>
     </div>
   </header>
@@ -89,10 +35,12 @@
 <script setup lang="ts">
 import { ref, Ref } from 'vue'
 //api
-import { CategorySearchRequestBody } from '~/types/apiTypes'
+import { CategorySearchRequestBody, StoreSearchRequestBody } from '~/types/apiTypes'
 import { useStore } from '~/store'
-const { loadCategorySearch } = useStore()
+import { storeTypeMap } from '~/types/baseTypes'
 const {
+  loadCategorySearch,
+  loadStoreSearch,
   asyncStates: { currentDoro },
 } = useStore()
 
@@ -104,13 +52,38 @@ const categoryClick = (category: string) => {
 }
 const categroyDetailClick = (category: string) => {
   iscategoryDetailClick.value = category
-  console.log(iscategoryDetailClick.value)
   const body: CategorySearchRequestBody = {
     storeType: iscategoryDetailClick.value,
-    address: '북창동',
+    address: currentDoro.data.address.split(' ')[0] === '서울특별시' ? currentDoro.data.address.split(' ')[2] : '다동',
     page: 0,
   }
   loadCategorySearch(body)
+}
+
+type ButtonTypes = {
+  storeType: string
+  key: string
+  filter: string
+}
+
+const buttons: ButtonTypes[] = Object.entries(storeTypeMap).map(([key, value], i) => ({
+  storeType: value,
+  key,
+  filter: i < 4 ? 'dining' : 'service',
+}))
+
+const onChange = (event: Event | string) => {
+  if (typeof event === 'string') {
+    console.log(event)
+  } else {
+    const body: StoreSearchRequestBody = {
+      storeName: (event.target as HTMLInputElement).value,
+      address:
+        currentDoro.data.address.split(' ')[0] === '서울특별시' ? currentDoro.data.address.split(' ')[2] : '다동',
+      page: 0,
+    }
+    loadStoreSearch(body)
+  }
 }
 </script>
 
@@ -137,6 +110,7 @@ header {
     .searchBar {
       box-sizing: border-box;
       display: flex;
+
       flex-direction: row;
       justify-content: space-between;
       align-items: center;

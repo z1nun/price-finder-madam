@@ -1,32 +1,32 @@
-import axios from "axios"
-import { createPostRequest } from "./utils"
-import { 
+import axios from 'axios'
+import { createPostRequest } from './utils'
+import {
   StoreDetailResponse,
-  StoreSearchResponse, 
-  StoreSearchRequestBody, 
-  NeighborhoodsStoreResponse, 
-  NeighborhoodsStoreRequestBody, 
+  StoreSearchResponse,
+  StoreSearchRequestBody,
+  NeighborhoodsStoreResponse,
+  NeighborhoodsStoreRequestBody,
   CurrentPlaceStoreResponse,
-  CurrentPlaceStoreRequestBody, 
+  CurrentPlaceStoreRequestBody,
   CategorySearchResponse,
-  CategorySearchRequestBody, 
-  GeocodeReverseResponse,  
+  CategorySearchRequestBody,
+  GeocodeReverseResponse,
   HomeRequestBody,
   HomeResponse,
-  LatlngToAddressResponse
-} from "~/types/apiTypes"
-import { 
-  categorySearchUrl, 
-  currentPlaceStoreUrl, 
+  LatlngToAddressResponse,
+} from '~/types/apiTypes'
+import {
+  categorySearchUrl,
+  currentPlaceStoreUrl,
   createGecodingReverseUrl,
-  neighborhoodsStoreUrl, 
-  createStoreDetailUrl, 
-  storeSearchUrl, 
+  neighborhoodsStoreUrl,
+  createStoreDetailUrl,
+  storeSearchUrl,
   homeUrl,
-  createLatlngToAddress
-} from "./urls"
-import { DEFAULT_HEADERS, GEOCODE_HEADERS } from "."
-import { LatLng } from "~/types/baseTypes"
+  createLatlngToAddress,
+} from './urls'
+import { DEFAULT_HEADERS, GEOCODE_HEADERS } from '.'
+import { LatLng } from '~/types/baseTypes'
 
 // 업소 자세한 정보 요청 api
 const requestStoreDetail = (storeId: string) => {
@@ -41,17 +41,21 @@ const requestHome = createPostRequest<HomeResponse, HomeRequestBody>(homeUrl)
 const requestStoreSearch = createPostRequest<StoreSearchResponse, StoreSearchRequestBody>(storeSearchUrl)
 
 // 홈에서 더보기 요청
-const requestNeighborhoodsStore = createPostRequest<NeighborhoodsStoreResponse, NeighborhoodsStoreRequestBody>(neighborhoodsStoreUrl)
+const requestNeighborhoodsStore = createPostRequest<NeighborhoodsStoreResponse, NeighborhoodsStoreRequestBody>(
+  neighborhoodsStoreUrl
+)
 
 // 지도에서 현 위치 찾기 api
-const requestCurrentPlaceStore = createPostRequest<CurrentPlaceStoreResponse, CurrentPlaceStoreRequestBody>(currentPlaceStoreUrl)
+const requestCurrentPlaceStore = createPostRequest<CurrentPlaceStoreResponse, CurrentPlaceStoreRequestBody>(
+  currentPlaceStoreUrl
+)
 
 // 검색 페이지에서 카테고리 선택
 const requestCategorySearch = createPostRequest<CategorySearchResponse, CategorySearchRequestBody>(categorySearchUrl)
 
 // 위도 경도를 주소로 변환
 const requestGeocodeReverse = (latlng: LatLng) => {
-  const url = createGecodingReverseUrl(latlng)  
+  const url = createGecodingReverseUrl(latlng)
   return () => axios.get<GeocodeReverseResponse>(url, GEOCODE_HEADERS)
 }
 
@@ -68,5 +72,5 @@ export {
   requestCategorySearch,
   requestStoreDetail,
   requestGeocodeReverse,
-  requestLatlngToAddress
+  requestLatlngToAddress,
 }

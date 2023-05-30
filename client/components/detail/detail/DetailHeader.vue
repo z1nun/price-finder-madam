@@ -3,7 +3,6 @@
     <div class="ImgWrap">
       <div><img src="~/assets/img/arrowLeft.svg" /></div>
       <img :src="storeDetail.data?.storeUrl" />
-      <span>1 / 3</span>
     </div>
     <div class="TitleWrap">
       {{ storeDetail.data?.storeName }}
@@ -53,25 +52,6 @@ header {
   img {
     width: inherit;
     height: inherit;
-  }
-
-  span {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding: 2px 8px;
-    gap: 2px;
-    color: #c7c7c7;
-
-    position: absolute;
-    width: 39px;
-    height: 22px;
-    left: 300px;
-    top: 101px;
-
-    background: rgba(18, 18, 18, 0.6);
-    border-radius: 40px;
   }
 }
 
