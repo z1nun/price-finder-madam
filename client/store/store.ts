@@ -32,17 +32,17 @@ const useStore = defineStore('store', () => {
     indexCards: initial<StoreCard[]>([]),
     storeDetail: initial<StoreDetail>({} as any),
     currentDoro: initial<{ address: string }>({ address: '' }),
-    additionalStoreCards: initial<StoreCard[]>([])
+    additionalStoreCards: initial<StoreCard[]>([]),
   })
 
   // 스토어가 관리하는 상태
   const states = reactive<States>({
     currentSearchType: {
       searchType: 'home',
-      lastBody: {}
+      lastBody: {},
     },
     currentPage: 1,
-    scrollTarget: null
+    scrollTarget: null,
   })
 
   // 비동기 프로세스 생성
@@ -65,7 +65,7 @@ const useStore = defineStore('store', () => {
       callback: requestStoreSearch(body),
       onLoaded: () => {
         states.currentSearchType.searchType = 'search'
-        states.currentSearchType.lastBody = body        
+        states.currentSearchType.lastBody = body
       },
     })
 
@@ -74,22 +74,22 @@ const useStore = defineStore('store', () => {
     asyncProcess<StoreCard[]>(asyncStates.indexCards, {
       callback: requestHome(body),
       onLoaded: () => {
-        states.currentSearchType.searchType = 'home'        
-        scrollReset()        
+        states.currentSearchType.searchType = 'home'
+        scrollReset()
       },
     })
 
   // 업소 자세한 정보 비동기 동작
   const loadStoreDetail = (storeId: string) =>
     asyncProcess<StoreDetail>(asyncStates.storeDetail, {
-      callback: requestStoreDetail(storeId),      
+      callback: requestStoreDetail(storeId),
     })
 
   // 홈에서 더보기 비동기 동작
   const loadNeighborhoodsStore = (body: NeighborhoodsStoreRequestBody) =>
     asyncProcess<StoreCard[]>(asyncStates.storeCards, {
       callback: requestNeighborhoodsStore(body),
-      onLoaded: () => states.currentSearchType.lastBody = body
+      onLoaded: () => (states.currentSearchType.lastBody = body),
     })
 
   // 지도에서 현 위치 찾기 api
@@ -103,7 +103,6 @@ const useStore = defineStore('store', () => {
       },
       onError: (e: unknown) => console.log('현 위치에서 찾기 요청에 실패했습니다.', e),
     })
-  
   const loadCategorySearch = (body: CategorySearchRequestBody) =>
     asyncProcess<StoreCard[]>(asyncStates.storeCards, {
       callback: requestCategorySearch(body),
@@ -111,25 +110,22 @@ const useStore = defineStore('store', () => {
         states.currentSearchType.searchType = 'category'
         states.currentSearchType.lastBody = body
         scrollReset()
-      }
+      },
     })
 
-  const searchRequestMapping: Record<
-    SearchType,
-    (body: any) => () => Promise<any>
-  > = {
-    "home": requestNeighborhoodsStore,
-    "search": requestNeighborhoodsStore,
-    "currentPlace": requestCurrentPlaceStore,
-    'category': requestCategorySearch    
+  const searchRequestMapping: Record<SearchType, (body: any) => () => Promise<any>> = {
+    home: requestNeighborhoodsStore,
+    search: requestNeighborhoodsStore,
+    currentPlace: requestCurrentPlaceStore,
+    category: requestCategorySearch,
   }
 
   // 스크롤시 마지막 비동기 동작 요청
-  const scrollSearch = () => {        
+  const scrollSearch = () => {
     const callback = searchRequestMapping[states.currentSearchType.searchType]
     const body = {
       ...states.currentSearchType.lastBody,
-      page: ++states.currentPage
+      page: ++states.currentPage,
     }
 
     return asyncProcess<StoreCard[]>(asyncStates.additionalStoreCards, {
@@ -138,7 +134,7 @@ const useStore = defineStore('store', () => {
         if (result.data.data.length > 0) {
           asyncStates.storeCards.data = asyncStates.storeCards.data.concat(result.data.data)
         }
-      }
+      },
     })
   }
 
@@ -151,24 +147,55 @@ const useStore = defineStore('store', () => {
     const targetState = asyncStates.currentPosition
     loading(targetState)
 
+    // return new Promise((resolve, reject) => {
+    //   navigator.geolocation.getCurrentPosition(
+    //     (success: GeolocationPosition) => {
+    //       if (asyncStates.currentDoro.data.address === '') loadLatlngToAddress(success.coords)
+    //       fulfiled(targetState, {
+    //         latitude: success.coords.latitude,
+    //         longitude: success.coords.longitude,
+    //       })
+    //       resolve({
+    //         latitude: success.coords.latitude,
+    //         longitude: success.coords.longitude,
+    //       })
+    //     },
+    //     (e: GeolocationPositionError) => {
+    //       error(targetState, e)
+    //       reject(e)
+    //     }
+    //   )
+    // })
+
     return new Promise((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition(
-        (success: GeolocationPosition) => {
-          if (asyncStates.currentDoro.data.address === '') loadLatlngToAddress(success.coords)
-          fulfiled(targetState, {
-            latitude: success.coords.latitude,
-            longitude: success.coords.longitude,
-          })
-          resolve({
-            latitude: success.coords.latitude,
-            longitude: success.coords.longitude,
-          })
-        },
-        (e: GeolocationPositionError) => {
-          error(targetState, e)
-          reject(e)
+      // 원하는 위도(latitude)와 경도(longitude) 값 설정
+
+      //길동 (길동, 신길동이 같이 나오는 이슈)
+      const latitude = 37.479944149962
+      const longitude = 126.97701675764
+      // 위치 정보를 성공적으로 가져왔을 때의 동작 수행
+      const successCallback = (success: GeolocationPosition) => {
+        if (asyncStates.currentDoro.data.address === '') {
+          loadLatlngToAddress(success.coords)
         }
-      )
+        fulfiled(targetState, {
+          latitude: latitude,
+          longitude: longitude,
+        })
+        resolve({
+          latitude: latitude,
+          longitude: longitude,
+        })
+      }
+
+      // 위치 정보를 가져오는 데 실패했을 때의 동작 수행
+      const errorCallback = (e: GeolocationPositionError) => {
+        error(targetState, e)
+        reject(e)
+      }
+
+      // 위에서 설정한 값을 사용하여 현재 위치 정보 대신 반환
+      successCallback({ coords: { latitude, longitude } } as GeolocationPosition)
     })
   }
 
@@ -176,7 +203,7 @@ const useStore = defineStore('store', () => {
     console.log(states.scrollTarget)
     nextTick(() => states.scrollTarget?.scrollTo({ top: 0 }))
   }
-  
+
   return {
     loadLocation,
     loadStoreDetail,
@@ -186,8 +213,9 @@ const useStore = defineStore('store', () => {
     loadCategorySearch,
     scrollSearch,
     loadNeighborhoodsStore,
+
     asyncStates,
-    states
+    states,
   }
 })
 
