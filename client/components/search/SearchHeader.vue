@@ -5,7 +5,7 @@
     </router-link>
     <div class="searchWrap">
       <div class="searchBar">
-        <input type="text" placeholder="EX) 매장명,업종명" />
+        <input type="text" placeholder="EX) 매장명,업종명" @input="onChange($event)" />
         <img src="~/assets/img/detail/magnifer.svg" />
       </div>
       <div class="categoryWrap">
@@ -35,11 +35,12 @@
 <script setup lang="ts">
 import { ref, Ref } from 'vue'
 //api
-import { CategorySearchRequestBody } from '~/types/apiTypes'
+import { CategorySearchRequestBody, StoreSearchRequestBody } from '~/types/apiTypes'
 import { useStore } from '~/store'
 import { storeTypeMap } from '~/types/baseTypes'
-const { loadCategorySearch } = useStore()
 const {
+  loadCategorySearch,
+  loadStoreSearch,
   asyncStates: { currentDoro },
 } = useStore()
 
@@ -70,6 +71,20 @@ const buttons: ButtonTypes[] = Object.entries(storeTypeMap).map(([key, value], i
   key,
   filter: i < 4 ? 'dining' : 'service',
 }))
+
+const onChange = (event: Event | string) => {
+  if (typeof event === 'string') {
+    console.log(event)
+  } else {
+    const body: StoreSearchRequestBody = {
+      storeName: (event.target as HTMLInputElement).value,
+      address:
+        currentDoro.data.address.split(' ')[0] === '서울특별시' ? currentDoro.data.address.split(' ')[2] : '다동',
+      page: 0,
+    }
+    loadStoreSearch(body)
+  }
+}
 </script>
 
 <style lang="scss" scoped>
