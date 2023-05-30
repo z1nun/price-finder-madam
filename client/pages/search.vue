@@ -1,6 +1,6 @@
 <template>
   <section>
-    <SearchLayout />    
+    <SearchLayout />
     <MapLayout />
   </section>
 </template>

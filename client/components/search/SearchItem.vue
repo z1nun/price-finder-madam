@@ -5,9 +5,10 @@
       <RecommendCard v-for="(cardData, i) in storeCards.data" :key="i" :recommend-card="cardData" />
       <div ref="triggerDiv"></div>
     </template>
-    <template v-else>      
+    <template v-else>
+      <h3>주변 착한가게</h3>
       <div class="imgWrap">
-        <img src="~/assets/img/detail/search-fail.svg"/>
+        <img src="~/assets/img/detail/search-fail.svg" />
         <div class="text">
           찾신 검색결과가 없어요 <br />
           다른 가게를 찾아보실래요?
@@ -19,6 +20,7 @@
 
 <script setup lang="ts">
 import RecommendCard from '~/components/index/search/RecommendCard.vue'
+
 import { useStore } from '~/store';
 
 const { 
@@ -50,14 +52,13 @@ onMounted(() => {
   observer.value.observe(triggerDiv.value!)
   states.scrollTarget = scrollTarget.value
 })
-
 </script>
 
 <style lang="scss" scoped>
 .cardWrap {
   background-color: #ffffff;
   position: relative;
-  width: 320px;  
+  width: 320px;
   height: 100%;
   display: flex;
   max-height: 590px;
@@ -65,22 +66,22 @@ onMounted(() => {
   align-items: flex-start;
   padding: 16px 20px;
   gap: 24px;
-  overflow-y: auto;  
+  overflow-y: auto;
   transition: background-color 0.3s ease;
-  
+
   &::-webkit-scrollbar {
-    width: 8px;    
-    height: 0px;            
+    width: 8px;
+    height: 0px;
   }
-  
+
   &::-webkit-scrollbar-thumb {
-    background-color: #C7C7C7;
+    background-color: #c7c7c7;
     border-radius: 80px;
-  }  
+  }
 
   &:hover {
     &::-webkit-scrollbar-thumb {
-      background-color: #C7C7C7;  
+      background-color: #c7c7c7;
     }
   }
 
@@ -93,7 +94,7 @@ onMounted(() => {
     line-height: 140%;
     color: #343e4c;
     margin: 0;
-  }  
+  }
 }
 
 .imgWrap {
@@ -115,7 +116,7 @@ onMounted(() => {
     line-height: 140%;
     margin-top: 20px;
     text-align: center;
-    color: #C7C7C7;
+    color: #c7c7c7;
   }
 }
 </style>
