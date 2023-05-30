@@ -1,26 +1,26 @@
 import { defineStore } from 'pinia'
-import { AsyncStates } from '../types/storeTypes'
+import { AsyncStates, States } from '../types/storeTypes'
 import { asyncUtils, createAsyncProcess } from './utils'
 import {
   requestCategorySearch,
   requestCurrentPlaceStore,
-  requestGeocodeReverse,
   requestHome,
   requestLatlngToAddress,
   requestNeighborhoodsStore,
   requestStoreDetail,
   requestStoreSearch,
 } from '~/api'
-import { LatLng, StoreDetail, StoreCard } from '~/types/baseTypes'
+import { LatLng, StoreDetail, StoreCard, SearchType } from '~/types/baseTypes'
 import {
+  BaseResponse,
   CategorySearchRequestBody,
   CurrentPlaceStoreRequestBody,
-  GeocodeReverseResponse,
   HomeRequestBody,
   LatlngToAddressResponse,
   NeighborhoodsStoreRequestBody,
   StoreSearchRequestBody,
 } from '~/types/apiTypes'
+import { AxiosResponse } from 'axios'
 
 const useStore = defineStore('store', () => {
   const { initial, loading, fulfiled, error } = asyncUtils
@@ -32,10 +32,18 @@ const useStore = defineStore('store', () => {
     indexCards: initial<StoreCard[]>([]),
     storeDetail: initial<StoreDetail>({} as any),
     currentDoro: initial<{ address: string }>({ address: '' }),
+    additionalStoreCards: initial<StoreCard[]>([])
   })
 
   // 스토어가 관리하는 상태
-  const states = reactive({})
+  const states = reactive<States>({
+    currentSearchType: {
+      searchType: 'home',
+      lastBody: {}
+    },
+    currentPage: 1,
+    scrollTarget: null
+  })
 
   // 비동기 프로세스 생성
   const asyncProcess = createAsyncProcess(asyncStates)
@@ -55,8 +63,9 @@ const useStore = defineStore('store', () => {
   const loadStoreSearch = (body: StoreSearchRequestBody) =>
     asyncProcess<StoreCard[]>(asyncStates.storeCards, {
       callback: requestStoreSearch(body),
-      onLoaded: (result: any) => {
-        console.log(`${body.storeName}에 대해 검색 요청에 성공했습니다.`, result.data.data)
+      onLoaded: () => {
+        states.currentSearchType.searchType = 'search'
+        states.currentSearchType.lastBody = body        
       },
     })
 
@@ -64,43 +73,74 @@ const useStore = defineStore('store', () => {
   const loadHome = (body: HomeRequestBody) =>
     asyncProcess<StoreCard[]>(asyncStates.indexCards, {
       callback: requestHome(body),
-      onLoaded: (result: any) => {
-        console.log('홈 카드 요청에 성공했습니다.', result.data.data)
-        asyncStates.storeCards.data = result.data.data
+      onLoaded: () => {
+        states.currentSearchType.searchType = 'home'        
+        scrollReset()        
       },
-      onError: (e: unknown) => console.log('홈 카드 요청에 실패했습니다.', e),
     })
 
   // 업소 자세한 정보 비동기 동작
   const loadStoreDetail = (storeId: string) =>
     asyncProcess<StoreDetail>(asyncStates.storeDetail, {
-      callback: requestStoreDetail(storeId),
-      onLoaded: (result: any) => {
-        console.log(result)
-      },
+      callback: requestStoreDetail(storeId),      
     })
 
   // 홈에서 더보기 비동기 동작
   const loadNeighborhoodsStore = (body: NeighborhoodsStoreRequestBody) =>
-    asyncProcess<StoreCard[]>(asyncStates.storeCards, requestNeighborhoodsStore(body))
+    asyncProcess<StoreCard[]>(asyncStates.storeCards, {
+      callback: requestNeighborhoodsStore(body),
+      onLoaded: () => states.currentSearchType.lastBody = body
+    })
 
   // 지도에서 현 위치 찾기 api
   const loadCurrentPlaceStore = (body: CurrentPlaceStoreRequestBody) =>
     asyncProcess<StoreCard[]>(asyncStates.storeCards, {
       callback: requestCurrentPlaceStore(body),
-      onLoaded: (result: any) => console.log('현 위치에서 찾기 요청에 성공했습니다.', result.data.data),
+      onLoaded: () => {
+        states.currentSearchType.searchType = 'currentPlace'
+        states.currentSearchType.lastBody = body
+        scrollReset()
+      },
       onError: (e: unknown) => console.log('현 위치에서 찾기 요청에 실패했습니다.', e),
     })
-
-  // 검색 페이지에서 카테고리 선택
-
-  // 카테고리 - 한식 눌렀을때 검색어에 한식이 올라간 상태에서
-
-  // 둘다 null 이거나 한쪽만 null 이여야한다.
-  // 찾기 버튼을 눌럿다. -> storeType이 한식에 맞는 number 채워지고, storename은 null
-  // 반대로 돈까스 검색했으면 storeType null, storeaName이 돈까스
+  
   const loadCategorySearch = (body: CategorySearchRequestBody) =>
-    asyncProcess<StoreCard[]>(asyncStates.storeCards, requestCategorySearch(body))
+    asyncProcess<StoreCard[]>(asyncStates.storeCards, {
+      callback: requestCategorySearch(body),
+      onLoaded: () => {
+        states.currentSearchType.searchType = 'category'
+        states.currentSearchType.lastBody = body
+        scrollReset()
+      }
+    })
+
+  const searchRequestMapping: Record<
+    SearchType,
+    (body: any) => () => Promise<any>
+  > = {
+    "home": requestNeighborhoodsStore,
+    "search": requestNeighborhoodsStore,
+    "currentPlace": requestCurrentPlaceStore,
+    'category': requestCategorySearch    
+  }
+
+  // 스크롤시 마지막 비동기 동작 요청
+  const scrollSearch = () => {        
+    const callback = searchRequestMapping[states.currentSearchType.searchType]
+    const body = {
+      ...states.currentSearchType.lastBody,
+      page: ++states.currentPage
+    }
+
+    return asyncProcess<StoreCard[]>(asyncStates.additionalStoreCards, {
+      callback: callback(body),
+      onLoaded: (result: AxiosResponse<BaseResponse<StoreCard[]>>) => {
+        if (result.data.data.length > 0) {
+          asyncStates.storeCards.data = asyncStates.storeCards.data.concat(result.data.data)
+        }
+      }
+    })
+  }
 
   // 현재 위도 경도를 도로명으로 변경
   const loadLatlngToAddress = (latlng: LatLng) =>
@@ -131,6 +171,12 @@ const useStore = defineStore('store', () => {
       )
     })
   }
+
+  const scrollReset = () => {
+    console.log(states.scrollTarget)
+    nextTick(() => states.scrollTarget?.scrollTo({ top: 0 }))
+  }
+  
   return {
     loadLocation,
     loadStoreDetail,
@@ -138,7 +184,10 @@ const useStore = defineStore('store', () => {
     loadStoreSearch,
     loadHome,
     loadCategorySearch,
+    scrollSearch,
+    loadNeighborhoodsStore,
     asyncStates,
+    states
   }
 })
 

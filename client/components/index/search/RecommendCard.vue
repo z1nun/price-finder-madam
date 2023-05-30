@@ -1,11 +1,11 @@
 <template>
-  <article class="RecommendCard">
+  <article class="RecommendCard" @click="onCardClick">
     <div class="top">
       <div class="IconBox">
         <img src="~/assets/img/defaultIcon.svg" />
       </div>
       <div class="Category">
-        {{ storeTypeMap[recommendCard.storeType] }}
+        {{ storeTypeMap[recommendCard.storeType as number] }}
       </div>
     </div>
 
@@ -28,6 +28,7 @@
 </template>
 
 <script setup lang="ts">
+import { useStore } from '~/store'
 import { StoreCard, storeTypeMap } from '~/types/baseTypes'
 
 interface RecommendCardProp {
@@ -35,6 +36,15 @@ interface RecommendCardProp {
 }
 
 const { recommendCard } = defineProps<RecommendCardProp>()
+const { loadStoreDetail } = useStore()
+const route = useRoute()
+const { push } = useRouter()
+
+const onCardClick = () => {
+  if (route.params.id == String(recommendCard.storeId)) return
+  loadStoreDetail(String(recommendCard.storeId))
+  push(`/detail/${recommendCard.storeId}`)
+}
 </script>
 
 <style lang="scss">

@@ -12,7 +12,7 @@ const GEOCODING_REVERSE_BASE_URL =
 const homeUrl = `${BASE_URL}/home`
 const storeSearchUrl = `${BASE_URL}/search`
 const createStoreDetailUrl = (storeId: string) => `${BASE_URL}/stores/${storeId}`
-const neighborhoodsStoreUrl = `${BASE_URL}/user_place/stores`
+const neighborhoodsStoreUrl = `${BASE_URL}/search/map`
 const currentPlaceStoreUrl = `${BASE_URL}/search/map/stores`
 const categorySearchUrl = `${BASE_URL}/search/category/stores`
 

@@ -54,6 +54,9 @@ type StoreDetail = {
   products?: Product[]
 } & StoreCard
 
-export type { Product, LatLng, StoreCard, StoreDetail }
+// 현재 카드가 어떤식으로 불러와졌는지
+type SearchType = 'search' | 'home' | 'currentPlace' | 'category'
+
+export type { Product, LatLng, StoreCard, StoreDetail, SearchType }
 
 export { storeTypeMap }
