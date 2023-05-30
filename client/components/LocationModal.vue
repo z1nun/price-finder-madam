@@ -1,9 +1,24 @@
 <template>
   <article class="container">
     <section class="locationWrap">
-      <h3>위치정보 수정</h3>
+      <div class="top">
+        <h3>위치정보 수정</h3>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-x-lg"
+          viewBox="0 0 16 16"
+          @click="sendToParentModal()"
+        >
+          <path
+            d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"
+          />
+        </svg>
+      </div>
       <div class="inputWrap">
-        <input placeholder="서울시" />
+        <input placeholder="서울특별시" />
       </div>
 
       <div>
@@ -16,7 +31,7 @@
         <DropMenuGu v-if="modalGu === true" v-model="selectedGu" @UpdateSelectedGu="UpdateSelectedGu" />
       </div>
 
-      <div>
+      <div v-if="selectedGu">
         <h6>동</h6>
         <div class="inputWrap">
           <input placeholder="동 명칭" v-model="selectedDong" />
@@ -39,14 +54,13 @@
 import ClickButton from '~/components/ClickButton.vue'
 import DropMenuGu from '~/components/search/DropMenuGu.vue'
 import DropMenuDong from '~/components/search/DropMenuDong.vue'
-import { ref, onMounted, watch, defineEmits } from 'vue'
-
-//api
+import { ref, watch, defineEmits } from 'vue'
 import { CategorySearchRequestBody } from '~/types/apiTypes'
 import { useStore } from '~/store'
 const {
-  asyncStates: { currentDoro },
   loadCategorySearch,
+  loadGeocodeReverse,
+  asyncStates: { currentDoro },
 } = useStore()
 
 //모달 열고 닫기
@@ -71,11 +85,9 @@ const updateSelectedDong = (data: string) => {
   selectedDong.value = data
 }
 
-// 카테고리 - 한식 눌렀을때 검색어에 한식이 올라간 상태에서
-
-// 둘다 null 이거나 한쪽만 null 이여야한다.
-// 찾기 버튼을 눌럿다. -> storeType이 한식에 맞는 number 채워지고, storename은 null
-// 반대로 돈까스 검색했으면 storeType null, storeaName이 돈까스
+// const latlng = () => {
+//   loadGeocodeReverse('currentDoro.data.adrress')
+// }
 
 const search = () => {
   const body: CategorySearchRequestBody = {
@@ -141,14 +153,23 @@ watch(selectedGu, sendToParentGu)
   background: #ffffff;
   border-radius: 16px;
 
-  h3 {
-    width: fit-content;
-    height: fit-content;
-    margin: 0;
-    font-weight: 600;
-    font-size: 1rem;
-    line-height: 150%;
-    color: #000000;
+  .top {
+    width: inherit;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    h3 {
+      width: fit-content;
+      height: fit-content;
+      margin: 0;
+      font-weight: 600;
+      font-size: 1rem;
+      line-height: 150%;
+      color: #000000;
+    }
+    svg {
+      cursor: pointer;
+    }
   }
 
   div {
