@@ -8,7 +8,12 @@
 import { useStore } from './store'
 import { LatLng } from './types/baseTypes'
 
-const { loadLocation, loadHome } = useStore()
+const { 
+  loadLocation, 
+  loadHome,
+  loadNeighborhoodsStore,
+  asyncStates: { storeCards }
+ } = useStore()
 
 onMounted(async () => {
   loadLocation().then((result: LatLng) => {
@@ -18,6 +23,15 @@ onMounted(async () => {
       latitude: 37.566295,
       longitude: 126.977945,
     })
+
+    if (storeCards.data.length === 0) loadNeighborhoodsStore({
+    address: '삼성동',
+    page: 0,
+    userPlace: {
+      latitude: 37.566295,
+      longitude: 126.977945,
+    }
+  })
   })
 })
 </script>

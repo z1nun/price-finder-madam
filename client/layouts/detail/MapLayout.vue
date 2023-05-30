@@ -170,7 +170,7 @@ watch(markerDatas, (markers: MarkerData[]) => {
   const newCenter = createCenter(markers)
 
   map.value?.setCenter(newCenter)
-  map.value?.setZoom(DEFAULT_ZOOM_LEVEL + 3)
+  map.value?.setZoom(DEFAULT_ZOOM_LEVEL + 2)  
 })
 
 const createCenter = (markers: (MarkerData | StoreCard)[]): naver.maps.LatLng => {
