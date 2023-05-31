@@ -19,7 +19,7 @@ article {
   top: 20%;
   transform: translateY(-20%);
   z-index: 0;
-  margin-right: 2.5rem;
+  margin-right: 20px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
   background-color: white;
   border-radius: 8px;
