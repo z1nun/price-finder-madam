@@ -3,7 +3,7 @@
     <img src="~/assets/img/detail/product.svg" />
     <div>
       <span> {{ productName }} </span>
-      <span class="price">{{ price }}</span>
+      <span class="price">{{ price.toLocaleString() }}</span>
     </div>
   </div>
 </template>
