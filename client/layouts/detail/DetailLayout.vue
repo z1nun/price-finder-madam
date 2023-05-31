@@ -35,19 +35,6 @@ section {
   gap: 8px;
   z-index: 3;
   overflow-x: hidden;
-
-  
-
-  @media (min-width: 768px) {
-    position: static;
-    width: 360px;
-  }
-}
-
-.divWrap {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
   overflow-y: auto;
 
   &::-webkit-scrollbar {
@@ -65,5 +52,21 @@ section {
       background-color: #c7c7c7;
     }
   }
+
+  
+
+  @media (min-width: 768px) {
+    position: static;
+    width: 360px;
+  }
+}
+
+.divWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  
+
+
 }
 </style>
