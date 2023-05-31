@@ -100,6 +100,8 @@ section {
   @media (min-width: 768px) {
     position: static;
     width: 360px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
   }
 }
 
@@ -111,6 +113,9 @@ section {
   margin-bottom: 10px;
   position: fixed;
   z-index: 4;
+  @media (min-width: 768px) {
+    display: none;
+  }
 }
 
 .bottom_sheet_handle {

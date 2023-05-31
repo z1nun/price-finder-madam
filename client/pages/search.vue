@@ -111,6 +111,10 @@ section {
   margin-bottom: 10px;
   position: fixed;
   z-index: 4;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
 }
 
 .bottom_sheet_handle {

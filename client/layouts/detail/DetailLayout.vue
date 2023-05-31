@@ -32,6 +32,7 @@ section {
   flex-direction: column;
   gap: 8px;
   z-index: 3;
+  overflow-x: hidden;
 
   @media (min-width: 768px) {
     position: static;
@@ -40,6 +41,9 @@ section {
 }
 
 .divWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   overflow-y: auto;
 }
 </style>
