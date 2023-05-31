@@ -3,11 +3,21 @@ div {
   width: 320px;
   height: 200px;
   margin: 10px 0;
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 0px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #c7c7c7;
+    border-radius: 80px;
+  }
   ul {
     display: flex;
     flex-direction: column;
     padding: 0 10px;
     gap: 24px;
+    
     li {
       display: flex;
       align-items: center;

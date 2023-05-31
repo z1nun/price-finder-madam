@@ -252,7 +252,7 @@ const isSearchBarVisible = computed<boolean>(() => {
 
 const computedDong = computed<string>(() => {
   const address = currentDoro.data.address ?? '명동'
-  return address.length > 6 ? address.split(' ')[2] : address
+  return address.length > 6 ? address.split(' ').at(-1)! : address
 })
 
 onMounted(() => {

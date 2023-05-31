@@ -53,7 +53,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.cardWrap {
+.cardWrap {  
   background-color: #ffffff;
   position: relative;
   width: 100%;
