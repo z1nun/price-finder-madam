@@ -7,6 +7,7 @@
       <StoreLocation />
       <StoreProducts />
     </div>
+    <FooterLayout class="detail" />
   </section>
 </template>
 
@@ -16,6 +17,7 @@ import StoreCard from '~/components/detail/detail/StoreCard.vue'
 import StoreInformation from '~/components/detail/detail/StoreInformation.vue'
 import StoreLocation from '~/components/detail/detail/StoreLocation.vue'
 import StoreProducts from '~/components/detail/detail/StoreProducts.vue'
+import FooterLayout from '../FooterLayout.vue'
 
 import { useStore } from '~/store'
 const {

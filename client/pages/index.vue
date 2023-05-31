@@ -9,7 +9,7 @@
     <HowToLayout />
 
     <!-- 진원 -->
-    <FooterLayout />
+    <FooterLayout class="home" />
   </ClientOnly>
 </template>
 
