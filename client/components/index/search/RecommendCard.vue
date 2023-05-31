@@ -82,7 +82,7 @@ const onCardClick = () => {
       justify-content: center;
       align-items: center;
       height: 28px;
-      width: 44px;
+      width: fit-content;
       font-weight: bold;
       padding: 8px;
       background-color: #f7f7f7;
