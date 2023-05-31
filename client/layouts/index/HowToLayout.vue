@@ -1,6 +1,6 @@
 <template>
   <ClientOnly>
-    <section class="HowToLayoutWarpper" v-if="visible">
+    <section class="HowToLayoutWarpper">
       <article class="Title">
         착한소비는 <br />
         어떻게 만들어졌나요?
