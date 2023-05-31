@@ -34,6 +34,8 @@ section {
   z-index: 3;
   overflow-x: hidden;
 
+  
+
   @media (min-width: 768px) {
     position: static;
     width: 360px;
@@ -45,5 +47,21 @@ section {
   flex-direction: column;
   gap: 8px;
   overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 0px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #c7c7c7;
+    border-radius: 80px;
+  }
+
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      background-color: #c7c7c7;
+    }
+  }
 }
 </style>

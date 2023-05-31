@@ -104,11 +104,8 @@ const onSearchBarEnter = () => {
       margin: 0px;
       border: 1px solid #3366FF;
       border-radius: 8px;  
-      height: 48px;
-      font-size: 14px;
-      @media (max-width: 768px) {
-        width: 320px;
-      }
+      height: 48px;      
+      font-size: 14px;      
     }
   }
 }

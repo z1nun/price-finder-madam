@@ -77,7 +77,7 @@ onMounted(() => {
 section {
   display: flex;
   position: relative;
-
+  
   @media (max-width: 768px) {
     display: block;
   }

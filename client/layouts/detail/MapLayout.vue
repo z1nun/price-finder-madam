@@ -40,7 +40,12 @@
         <span class="text">현 위치에서 찾기</span>
       </button>
 
-      <SearchBar v-if="isSearchBarVisible" class="detail" placeholder="EX) 매장명,업종명" />
+      <SearchBar 
+        v-if="isSearchBarVisible" 
+        class="detail" 
+        placeholder="EX) 매장명,업종명" 
+        :dong="currentDoro.data.address"
+      />
     </template>
   </section>
 </template>
@@ -215,7 +220,7 @@ const focus = (latitude: number, longitude: number, zoomLevel: number = DEFAULT_
 
 // 검색
 const isSearchBarVisible = computed<boolean>(() => {
-  return route.fullPath !== '/search'
+  return route.fullPath.includes('/detail')
 })
 
 onMounted(() => {
@@ -240,7 +245,7 @@ onMounted(() => {
   @media (max-width: 768px) {
     position: absolute;
     top: 0;
-    left: 0;
+    left: 0;  
     z-index: -1;
   }
 }
