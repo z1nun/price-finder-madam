@@ -38,6 +38,10 @@
     position: relative;
     text-align: start;
 
+    @media (max-width: 768px) {
+      padding-right: 24px;
+    }
+
     img {
       position: absolute;
       top: 0;

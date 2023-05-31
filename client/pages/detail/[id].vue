@@ -18,6 +18,7 @@
 </template>
 
 <script setup lang="ts">
+import { useStore } from '~/store'
 import DetailLayout from '/layouts/detail/DetailLayout.vue'
 import MapLayout from '/layouts/detail/MapLayout.vue'
 import { ref, onMounted } from 'vue'
@@ -25,6 +26,9 @@ import { ref, onMounted } from 'vue'
 const handle_wrap = ref<HTMLElement | null>(null)
 const bottom_sheet = ref<HTMLElement | null>(null)
 const up_sensor = ref<HTMLElement | null>(null)
+
+const route = useRoute()
+const { asyncStates, loadStoreDetail } = useStore()
 let bottom_touch_start = ref(0)
 let bottom_scroll_start: any
 
@@ -70,6 +74,10 @@ onMounted(() => {
   bottom_sheet.value?.addEventListener('touchmove', handleBottomSheetMove)
   handle_wrap.value?.addEventListener('touchstart', handleWrapStart)
   handle_wrap.value?.addEventListener('touchmove', handleWrapMove)
+
+  if (Object.keys(asyncStates.storeDetail.data).length === 0) {
+    loadStoreDetail(route.params.id as string) 
+  }    
 })
 </script>
 
