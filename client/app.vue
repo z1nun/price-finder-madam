@@ -28,8 +28,8 @@ onMounted(async () => {
         address: currentDoro.data.address,
         page: 0,
         userPlace: {
-          latitude: 37.566295,
-          longitude: 126.977945,
+          latitude: result.latitude,
+          longitude: result.longitude,
         },
       })
   })
