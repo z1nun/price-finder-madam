@@ -43,6 +43,8 @@ const useStore = defineStore('store', () => {
     },
     currentPage: 1,
     scrollTarget: null,
+    mapLatLng: null,
+    lastDong: ''
   })
 
   // 비동기 프로세스 생성
@@ -142,7 +144,16 @@ const useStore = defineStore('store', () => {
 
   // 현재 위도 경도를 도로명으로 변경
   const loadLatlngToAddress = (latlng: LatLng) =>
-    asyncProcess<LatlngToAddressResponse>(asyncStates.currentDoro, requestLatlngToAddress(latlng))
+    asyncProcess<LatlngToAddressResponse>(asyncStates.currentDoro, {
+      callback: requestLatlngToAddress(latlng),
+      onLoaded: (result: any) => {        
+        if(!result.data.data.address) {
+          asyncStates.currentDoro.data.address = states.lastDong
+        } else {
+          states.lastDong = result.data.data.address
+        }        
+      }
+    })
 
   // 현재 위치 로드
   const loadLocation = async (): Promise<LatLng> => {
@@ -171,7 +182,6 @@ const useStore = defineStore('store', () => {
   }
 
   const scrollReset = () => {
-    console.log(states.scrollTarget)
     nextTick(() => states.scrollTarget?.scrollTo({ top: 0 }))
   }
 
@@ -184,7 +194,7 @@ const useStore = defineStore('store', () => {
     loadCategorySearch,
     scrollSearch,
     loadNeighborhoodsStore,
-
+    loadLatlngToAddress,
     asyncStates,
     states,
   }

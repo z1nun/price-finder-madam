@@ -56,6 +56,8 @@ type States = {
   }
   currentPage: number
   scrollTarget: Element | null
+  mapLatLng: LatLng | null
+  lastDong: string
 }
 
 export { AsyncState, AsyncStates, StateTypes, States }

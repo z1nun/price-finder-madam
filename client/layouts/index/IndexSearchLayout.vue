@@ -2,7 +2,7 @@
   <ClientOnly>
     <section class="SearchLayoutWrapper">
       <article class="Title">주변의 착한소비를 찾아보세요</article>
-      <SearchBar />
+      <SearchBar :dong="currentDoro.data.address"/>
       <SearchArticles />
     </section>
   </ClientOnly>
@@ -11,7 +11,9 @@
 <script setup lang="ts">
 import SearchBar from '/components/index/search/SearchBar.vue'
 import SearchArticles from '/components/index/search/SearchArticles.vue'
+import { useStore } from '~/store';
 
+const { asyncStates: { currentDoro }} = useStore()
 </script>
 
 <style scoped lang="scss">

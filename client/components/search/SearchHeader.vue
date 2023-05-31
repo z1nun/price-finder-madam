@@ -41,6 +41,8 @@ import { storeTypeMap } from '~/types/baseTypes'
 const {
   loadCategorySearch,
   loadStoreSearch,
+  loadLatlngToAddress,
+  states,
   asyncStates: { currentDoro },
 } = useStore()
 
@@ -50,7 +52,7 @@ const iscategoryDetailClick: Ref<string> = ref('')
 const categoryClick = (category: string) => {
   iscategoryClick.value = category
 }
-const categroyDetailClick = (category: string) => {
+const categroyDetailClick = async (category: string) => {  
   iscategoryDetailClick.value = category
   const body: CategorySearchRequestBody = {
     storeType: iscategoryDetailClick.value,

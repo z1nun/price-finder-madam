@@ -53,7 +53,6 @@ section {
     }
   }
 
-  
 
   @media (min-width: 768px) {
     position: static;

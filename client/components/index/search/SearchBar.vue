@@ -21,7 +21,7 @@ interface SearchBarProps {
   dong?: string
 }
 
-const { placeholder, dong } = withDefaults(defineProps<SearchBarProps>(), {
+const props = withDefaults(defineProps<SearchBarProps>(), {
   placeholder: 'EX) 합리적인 가격의 매장',
   dong: '삼성동'
 })
@@ -29,10 +29,15 @@ const { placeholder, dong } = withDefaults(defineProps<SearchBarProps>(), {
 const searchText = ref<string>('')
 
 const onSearchBarEnter = () => {
+  console.log({
+    page: 0,
+    storeName: searchText.value,
+    address: props.dong
+  })
   loadStoreSearch({
     page: 0,
     storeName: searchText.value,
-    address: dong
+    address: props.dong
   })
   searchText.value = ''
   push('/search')  

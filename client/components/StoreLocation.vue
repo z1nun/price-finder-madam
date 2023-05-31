@@ -4,7 +4,7 @@
       <h3>위치정보</h3>
       <ul v-if="!currentDoro.loading">
         <div v-if="!Gu">
-          <li>{{ currentDoro.data.address === '' ? '주소를 찾을 수 없습니다' : currentDoro.data.address }}</li>
+          <li>{{ !currentDoro.data.address ? '주소를 찾을 수 없습니다' : currentDoro.data.address }}</li>
         </div>
         <div v-else>
           <li>{{ `서울특별시 ${Gu} ${Dong}` }}</li>
