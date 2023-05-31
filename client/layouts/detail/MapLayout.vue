@@ -1,6 +1,12 @@
 <template>
   <section class="NaverMap">
-    <NaverMap id="map" v-if="!currentPosition.loading && flag" :mapOptions="mapOptions" @onLoad="onLoadMap">
+    <NaverMap 
+      id="map" 
+      v-if="!currentPosition.loading && flag" 
+      :mapOptions="mapOptions" 
+      @onLoad="onLoadMap"
+      @center-point_changed="onCenterPointChange"
+    >
       <!-- 중심 마커 -->
       <NaverMarker v-if="visibleMarker" v-bind="currentPosition.data" :htmlIcon="HTMLICON">
         <div>
@@ -44,7 +50,7 @@
         v-if="isSearchBarVisible" 
         class="detail" 
         placeholder="EX) 매장명,업종명" 
-        :dong="currentDoro.data.address"
+        :dong="computedDong"
       />
     </template>
   </section>
@@ -64,8 +70,10 @@ const { DEFAULT_ZOOM_OPTIONS, DEFAULT_ZOOM_LEVEL } = useMapOptions()
 
 const {
   asyncStates: { currentPosition, storeCards, currentDoro },
+  states,
   loadCurrentPlaceStore,
   loadStoreDetail,
+  loadLatlngToAddress
 } = useStore()
 
 const { push } = useRouter()
@@ -92,16 +100,32 @@ const onLoadMap = (mapObject: Map) => {
     storeCards.data.length > 0
       ? createCenter(storeCards.data)
       : new window.naver.maps.LatLng(currentPosition.data.latitude, currentPosition.data.longitude)
-
+  if (!center) return
   centerLatLng.value = center
   visibleMarker.value = true
   mapObject.setCenter(center)
   map.value = mapObject
 }
 
+const onCenterPointChange = (e: Event) => {
+  const point = map?.value?.getCenter() as BoundLatLng
+  if(!point) return
+  states.mapLatLng = {
+    latitude: point.y,
+    longitude: point.x
+  }  
+
+  
+  // loadLatlngToAddress({
+  //   latitude: point.y,
+  //   longitude: point.x
+  // })      
+}
+
 // 현 위치에서 찾기 버튼
 const searchCurrent = () => {
   const bounds = map.value?.getBounds()
+  loadLatlngToAddress(states.mapLatLng!)
   if (!bounds) return
 
   push('/search')
@@ -179,12 +203,13 @@ watch(markerDatas, (markers: MarkerData[]) => {
     if (!map.value) return
 
     const newCenter = createCenter(markers)
+    if (!newCenter) return
     map.value?.setCenter(newCenter)
     map.value?.setZoom(DEFAULT_ZOOM_LEVEL + 2)
   })
 })
 
-const createCenter = (markers: (MarkerData | StoreCard)[]): naver.maps.LatLng => {
+const createCenter = (markers: (MarkerData | StoreCard)[]): naver.maps.LatLng | null => {
   const markerLength = markers.length
 
   const { totalLat, totalLng } = markers.reduce(
@@ -199,6 +224,8 @@ const createCenter = (markers: (MarkerData | StoreCard)[]): naver.maps.LatLng =>
   )
 
   const newCenter = new window.naver.maps.LatLng(totalLat / markerLength, totalLng / markerLength)
+  if (!newCenter.x) return null
+  
 
   return newCenter
 }
@@ -221,6 +248,11 @@ const focus = (latitude: number, longitude: number, zoomLevel: number = DEFAULT_
 // 검색
 const isSearchBarVisible = computed<boolean>(() => {
   return route.fullPath.includes('/detail')
+})
+
+const computedDong = computed<string>(() => {
+  const address = currentDoro.data.address ?? '명동'
+  return address.length > 6 ? address.split(' ')[2] : address
 })
 
 onMounted(() => {
