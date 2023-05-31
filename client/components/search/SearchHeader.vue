@@ -133,12 +133,24 @@ header {
       }
 
       input {
-        border: none;
-        outline: none;
         width: 252px;
         height: 38px;
+        border: none;
+        outline: none;
         font-size: 0.875rem;
         font-weight: 600;
+        &::-webkit-input-placeholder {
+          color: #8c95a1;
+          font-family: 'Pretendard';
+          font-weight: 600;
+          letter-spacing: -0.003em;
+          line-height: 24px;
+          transition: opacity 0.3s;
+        }
+
+        &:focus::-webkit-input-placeholder {
+          opacity: 0;
+        }
       }
     }
 
@@ -146,6 +158,13 @@ header {
       display: flex;
       width: 100%;
       gap: 12px;
+      font-family: 'Pretendard';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 140%;
+      color: #c7c7c7;
+
       @media (min-width: 768px) {
         width: 320px;
       }
