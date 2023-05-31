@@ -31,7 +31,6 @@ section {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  position: absolute;
   z-index: 3;
 
   @media (min-width: 768px) {
