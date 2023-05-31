@@ -29,6 +29,9 @@ export default defineNuxtConfig({
           // 'http-equiv': "Content-Security-Policy",
           // content: 'default-src https'
         }
+      ],
+      link: [
+        { rel: 'icon', type: 'image/png', href: "/favicon.ico"}
       ]
     },    
   },

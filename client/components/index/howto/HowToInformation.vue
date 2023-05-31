@@ -7,13 +7,13 @@
     </div>
     <div class="info">
       <img src="~/assets/img/clipboard.svg" />
-      <div class="title">ETC</div>
-      <div class="subtitle">ETC INFO</div>
+      <div class="title">어떻게 만들어졌나요</div>
+      <div class="subtitle">신뢰있는 서울시 공공 데이터를 활용하여 만들어졌어요</div>
     </div>
     <div class="info">
       <img src="~/assets/img/clipboard.svg" />
-      <div class="title">ETC</div>
-      <div class="subtitle">ETC INFO</div>
+      <div class="title">가격찾아줌마를 통한 소비생활</div>
+      <div class="subtitle">주변 착한가게들의 위치 정보를 통해 합리적이고 알뜰한 소비생활을 느껴보세요</div>
     </div>
   </article>
 </template>
