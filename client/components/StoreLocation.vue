@@ -3,12 +3,9 @@
     <div>
       <h3>위치정보</h3>
       <ul v-if="!currentDoro.loading">
-        <div v-if="!Gu">
+        <div>
           <li>{{ !currentDoro.data.address ? '주소를 찾을 수 없습니다' : currentDoro.data.address }}</li>
-        </div>
-        <div v-else>
-          <li>{{ `서울특별시 ${Gu} ${Dong}` }}</li>
-        </div>
+        </div>        
       </ul>
     </div>
     <button @click="openModal" v-if="props.isSearchButton">위치변경</button>
@@ -70,7 +67,7 @@ const props = withDefaults(defineProps<{ isSearchButton: boolean }>(), {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-between;  
 
   button {
     cursor: pointer;

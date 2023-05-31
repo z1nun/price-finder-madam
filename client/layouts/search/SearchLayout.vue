@@ -13,11 +13,12 @@ import SearchItem from '~/components/search/SearchItem.vue'
 </script>
 
 <style lang="scss" scoped>
-section {
-  width: 80%;
+section {  
   height: 100vh;
+  max-width: 360px;
   background-color: #f9fafb;
   display: flex;
+  overflow-x: hidden;
   flex-direction: column;
   gap: 8px;
   z-index: 3;

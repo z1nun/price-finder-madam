@@ -77,11 +77,11 @@ const buttons: ButtonTypes[] = Object.entries(storeTypeMap).map(([key, value], i
 const onChange = (event: Event | string) => {
   if (typeof event === 'string') {
     console.log(event)
-  } else {
+  } else {    
     const body: StoreSearchRequestBody = {
       storeName: (event.target as HTMLInputElement).value,
       address:
-        currentDoro.data.address.split(' ')[0] === '서울특별시' ? currentDoro.data.address.split(' ')[2] : '다동',
+        currentDoro.data.address.split(' ').at(-1)!,
       page: 0,
     }
     loadStoreSearch(body)
@@ -96,7 +96,7 @@ header {
   flex-direction: column;
   gap: 16px;
   background-color: #ffffff;
-  padding-bottom: 16px;
+  padding-bottom: 16px;  
   @media (min-width: 768px) {
     width: 360px;
   }
