@@ -9,7 +9,7 @@
           <span>cs</span>
           <span>개인정보</span>
         </div>
-        <span>Title email : text </span>
+        <span>Title email : https://data.seoul.go.kr </span>
         <span>other info </span>
       </div>
     </div>

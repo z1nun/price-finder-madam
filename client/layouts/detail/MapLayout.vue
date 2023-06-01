@@ -202,7 +202,7 @@ watch(markerDatas, (markers: MarkerData[]) => {
   nextTick(() => {
     if (!map.value) return
 
-    const newCenter = createCenter(markers)
+    const newCenter = new window.naver.maps.LatLng(markers[0].position.latitude, markers[0].position.longitude)
     if (!newCenter) return
     map.value?.setCenter(newCenter)
     map.value?.setZoom(DEFAULT_ZOOM_LEVEL + 2)

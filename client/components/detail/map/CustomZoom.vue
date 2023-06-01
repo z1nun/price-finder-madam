@@ -24,7 +24,7 @@ article {
   top: 30%;
   transform: translateY(-30%);
   z-index: 0;
-  margin-right: 2.5rem;
+  margin-right: 20px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
   background-color: $light-lighten-1;
   border-radius: 8px;
