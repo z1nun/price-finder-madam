@@ -6,26 +6,9 @@
   </header>
 </template>
 
-<script setup lang="ts">
-import { BIconList, BIconSearch } from 'bootstrap-icons-vue'
-</script>
+<script setup lang="ts"></script>
 
 <style scoped lang="scss">
-template {
-  @media (min-width: 768px) {
-    width: 728px;
-  }
-  @media (min-width: 1024px) {
-    width: 984px;
-  }
-  @media (min-width: 1440px) {
-    width: 1080px;
-  }
-  @media (min-width: 1640px) {
-    width: 1496px;
-  }
-}
-
 header {
   display: flex;
   justify-content: space-between;
@@ -34,8 +17,14 @@ header {
   padding: 8px 20px;
   margin: 0 auto;
   gap: 24px;
+  @media (min-width: 1024px) {
+    width: 984px;
+  }
   @media (min-width: 1440px) {
-    width: 1080px;
+    width: 1120px;
+  }
+  @media (min-width: 1640px) {
+    width: 1496px;
   }
 }
 .nav {
