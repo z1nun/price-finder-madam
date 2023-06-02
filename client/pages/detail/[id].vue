@@ -1,14 +1,13 @@
 <template>
   <section>
     <div @touchmove="handleUpSensorMove" class="up_sensor" ref="up_sensor"></div>
-    <div
-      @touchstart="handleBottomSheetStart"
-      @touchmove="handleBottomSheetMove"
-      id="bottomSheet"
-      class="bottom_sheet"
-      ref="bottom_sheet"
-    >
-      <div @touchstart="handleWrapStart" @touchmove="handleWrapMove" class="bottom_sheet_handle_wrap" ref="handle_wrap">
+    <div id="bottomSheet" class="bottom_sheet" ref="bottom_sheet">
+      <div
+        @touchstart="handleBottomSheetStart"
+        @touchmove="handleBottomSheetMove"
+        class="bottom_sheet_handle_wrap"
+        ref="handle_wrap"
+      >
         <div class="bottom_sheet_handle"></div>
       </div>
       <DetailLayout />
@@ -56,28 +55,14 @@ const handleBottomSheetMove = (e: TouchEvent) => {
   }
 }
 
-const handleWrapStart = (e: TouchEvent) => {
-  bottom_touch_start.value = e.touches[0].clientY
-}
-
-const handleWrapMove = (e: TouchEvent) => {
-  if (bottom_touch_start.value - e.touches[0].clientY < 0) {
-    bottom_sheet.value!.style.height = '10%'
-    up_sensor.value!.style.display = 'block'
-    up_sensor.value!.style.height = '10%'
-  }
-}
-
 onMounted(() => {
   up_sensor.value?.addEventListener('touchmove', handleUpSensorMove)
-  bottom_sheet.value?.addEventListener('touchstart', handleBottomSheetStart)
-  bottom_sheet.value?.addEventListener('touchmove', handleBottomSheetMove)
-  handle_wrap.value?.addEventListener('touchstart', handleWrapStart)
-  handle_wrap.value?.addEventListener('touchmove', handleWrapMove)
+  handle_wrap.value?.addEventListener('touchstart', handleBottomSheetStart)
+  handle_wrap.value?.addEventListener('touchmove', handleBottomSheetMove)
 
   if (Object.keys(asyncStates.storeDetail.data).length === 0) {
-    loadStoreDetail(route.params.id as string) 
-  }    
+    loadStoreDetail(route.params.id as string)
+  }
 })
 </script>
 
@@ -85,7 +70,7 @@ onMounted(() => {
 section {
   display: flex;
   position: relative;
-  
+
   @media (max-width: 768px) {
     display: block;
   }
