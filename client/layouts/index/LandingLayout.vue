@@ -7,9 +7,7 @@
           우리모두의 합리적인 소비를 위한 가게정보를<br />
           공공데이터를 이용해서 제공해 드립니다
         </p>
-        <button @click="focus" class="primary-button">
-          지금 검색하기
-        </button>        
+        <button @click="focus" class="primary-button">지금 검색하기</button>
       </div>
       <div class="ImageWrap">
         <img src="~/assets/img/good_consumption.png" alt="sample" />
@@ -19,12 +17,10 @@
 </template>
 
 <script setup lang="ts">
-
 const focus = () => {
   const searchBar = document.getElementById('searchBar')
   window.scrollTo({ top: 810, behavior: 'smooth' })
   setTimeout(() => searchBar?.focus(), 500)
-  // nextTick(() => searchBar?.focus())
 }
 </script>
 

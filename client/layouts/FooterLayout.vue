@@ -5,12 +5,9 @@
       <div class="InfoWrap">
         <div class="Info">
           <span>TEAM NAME : 아지매들</span>
-          <span>info</span>
-          <span>cs</span>
-          <span>개인정보</span>
+          <span>우리주변의 착한가게</span>
         </div>
         <span>Title email : https://data.seoul.go.kr </span>
-        <span>other info </span>
       </div>
     </div>
   </footer>
@@ -67,7 +64,9 @@ footer {
 
       img {
         width: 124px;
-        height: 60px;
+        height: 80px;
+        position: relative;
+        bottom: 20px;
       }
     }
   }
