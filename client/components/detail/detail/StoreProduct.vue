@@ -1,6 +1,13 @@
 <template>
   <div class="container">
-    <img src="~/assets/img/detail/product.svg" />
+    <div class="imgWrap">
+      <template v-if="Number(storeType) < 4">
+        <img src="~/assets/img/detail/product.svg" />
+      </template>
+      <template v-if="Number(storeType) > 3">
+        <img src="~/assets/img/detail/HandMoney.svg" />
+      </template>
+    </div>
     <div>
       <span> {{ productName }} </span>
       <span class="price">{{ price.toLocaleString() }}</span>
@@ -12,9 +19,10 @@
 interface StoreProductProp {
   productName: string
   price: number
+  storeType: string | number
 }
 
-const { productName, price } = defineProps<StoreProductProp>()
+const { productName, price, storeType } = defineProps<StoreProductProp>()
 </script>
 
 <style lang="scss" scoped>
@@ -27,12 +35,18 @@ const { productName, price } = defineProps<StoreProductProp>()
   @media (min-width: 768px) {
     width: 320px;
   }
-
-  img {
+  .imgWrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 48px;
     height: 48px;
     background-color: #f9fafb;
-    border-radius: 200px;
+    border-radius: 50%;
+    img {
+      width: 32px;
+      height: 32px;
+    }
   }
 
   div {

@@ -1,7 +1,7 @@
 <template>
   <footer>
     <div class="Container">
-      <img src="~/assets/img/footerLogo.svg" />
+      <img src="~/assets/img/footerLogo.svg" @click="push(`/`)" :style="{ cursor: 'pointer' }" />
       <div class="InfoWrap">
         <div class="Info">
           <span>TEAM NAME : 아지매들</span>
@@ -13,7 +13,9 @@
   </footer>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const { push } = useRouter()
+</script>
 
 <style scoped lang="scss">
 footer {
@@ -23,18 +25,28 @@ footer {
     max-width: 360px;
     .Container {
       display: flex;
+      justify-content: center;
+      align-items: center;
       margin: 0 auto;
-      padding-top: 20px;
+      padding: 24px 20px;
       width: 320px;
+      height: 192px;
       gap: 20px;
+    }
+    .InfoWrap {
+      display: flex;
+      gap: 16px;
     }
     .Info {
       display: flex;
       flex-direction: column;
+      gap: 20px;
     }
     img {
+      width: 124px;
+      height: 60px;
       position: relative;
-      bottom: 70px;
+      bottom: 20px;
     }
   }
 

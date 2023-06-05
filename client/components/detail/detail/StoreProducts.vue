@@ -7,6 +7,7 @@
       v-for="(product, index) in storeDetail?.data.products"
       :productName="product.productName"
       :price="product.price"
+      :storeType="storeDetail?.data.storeType"
       :key="index"
     />
   </article>

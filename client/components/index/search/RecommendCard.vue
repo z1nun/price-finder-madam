@@ -22,7 +22,8 @@
     </div>
 
     <div class="check">
-      <img src="~/assets/img/check.svg" />
+      <template v-if="Number(recommendCard.storeType) < 4"> <img src="~/assets/img/dining.svg" /></template>
+      <template v-if="Number(recommendCard.storeType) > 3"> <img src="~/assets/img/detail/vector.svg" /></template>
     </div>
   </article>
 </template>
