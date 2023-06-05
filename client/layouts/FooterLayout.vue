@@ -14,7 +14,6 @@
 </template>
 
 <script setup lang="ts">
-import { Router } from 'vue-router'
 const { push } = useRouter()
 </script>
 
@@ -31,7 +30,7 @@ footer {
       margin: 0 auto;
       padding: 24px 20px;
       width: 320px;
-      height: 190px;
+      height: 192px;
       gap: 20px;
     }
     .InfoWrap {
