@@ -14,7 +14,6 @@
 </template>
 
 <script setup lang="ts">
-import axios from 'axios'
 import { useStore } from '~/store'
 const { push } = useRouter()
 
@@ -24,14 +23,27 @@ const {
 
 const isValidImg = ref(false)
 
+const checkImgURL = (url: string): Promise<boolean> => {
+  const img = new Image()
+  img.src = url
+
+  return new Promise((resolve, reject) => {
+    img.onload = () => resolve(true)
+    img.onerror = () => reject(false)
+  })
+}
+
 onMounted(() => {
-  if (!storeDetail.data.storeUrl) {
+
+  const url = storeDetail.data.storeUrl
+  if (!url) {
     return
   }
 
-  axios.get(storeDetail.data.storeUrl).then(() => {
-    isValidImg.value = true
-  })
+  checkImgURL(url)
+    .then(() => isValidImg.value = true)
+    .catch(() => isValidImg.value = false)
+    
 })
 
 </script>
