@@ -14,6 +14,7 @@
 </template>
 
 <script setup lang="ts">
+import axios from 'axios'
 import { useStore } from '~/store'
 const { push } = useRouter()
 
@@ -21,7 +22,18 @@ const {
   asyncStates: { storeDetail },
 } = useStore()
 
-const isValidImg = computed<boolean>(() => storeDetail.data.storeUrl !== 'http://tearstop.seoul.go.kr/mulga/photo/')
+const isValidImg = ref(false)
+
+onMounted(() => {
+  if (!storeDetail.data.storeUrl) {
+    return
+  }
+
+  axios.get(storeDetail.data.storeUrl).then(() => {
+    isValidImg.value = true
+  })
+})
+
 </script>
 
 <style lang="scss" scoped>
