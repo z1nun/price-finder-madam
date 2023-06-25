@@ -19,8 +19,8 @@ onMounted(async () => {
   loadLocation().then((result: LatLng) => {    
     // 로컬에서는 안산이 아니라서... 일단 서울 시청을 중심으로 요청
     loadHome({
-      latitude: 37.566295,
-      longitude: 126.977945,
+      latitude: result.latitude,
+      longitude: result.longitude, 
     })
 
     if (storeCards.data.length === 0)
