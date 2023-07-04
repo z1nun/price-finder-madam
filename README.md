@@ -1,4 +1,4 @@
-![image](https://github.com/public-data-contest/price-finder-madam/assets/89727516/3ad3b18d-e536-4d60-b77c-6f69e312541f)### 내주변의 착한 가게를 알려주는 **가격찾아줌마**
+### 내주변의 착한 가게를 알려주는 **가격찾아줌마**
 
 ---
 
@@ -11,6 +11,7 @@
 ![image](https://github.com/public-data-contest/price-finder-madam/assets/89727516/33389069-2567-40fb-9202-5e583d8b193d)
 ![image](https://github.com/public-data-contest/price-finder-madam/assets/89727516/820dee1e-4292-42b1-8430-8a06b754d1b2)
 ![image](https://github.com/public-data-contest/price-finder-madam/assets/89727516/257cca9c-ba6b-41b3-adb8-236b52df8b57)
+![image](https://github.com/public-data-contest/price-finder-madam/assets/89727516/3ad3b18d-e536-4d60-b77c-6f69e312541f)
 ![image](https://github.com/public-data-contest/price-finder-madam/assets/89727516/ec63142d-9d18-44e1-bf9a-77840cc6befa)
 ![image](https://github.com/public-data-contest/price-finder-madam/assets/89727516/63c989c8-3029-4284-8c84-a32a12a1ed80)
 ![image](https://github.com/public-data-contest/price-finder-madam/assets/89727516/986a6b29-9bc2-45f0-a646-fc0215bce1d2)
