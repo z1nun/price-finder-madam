@@ -6,12 +6,10 @@
 
 ![image](https://github.com/public-data-contest/price-finder-madam/assets/89727516/72f61700-714e-4f1c-b8c1-b2bd40194d63)
 ![image](https://github.com/public-data-contest/price-finder-madam/assets/89727516/1fca59c0-9aa8-4939-aa9e-0a043319c050)
-![image](https://github.com/public-data-contest/price-finder-madam/assets/89727516/9be00b40-417b-44f3-9c35-8e0f8d502d03)
 ![image](https://github.com/public-data-contest/price-finder-madam/assets/89727516/ab8aec98-e881-4389-aad8-410c99c111d8)
 ![image](https://github.com/public-data-contest/price-finder-madam/assets/89727516/33389069-2567-40fb-9202-5e583d8b193d)
 ![image](https://github.com/public-data-contest/price-finder-madam/assets/89727516/820dee1e-4292-42b1-8430-8a06b754d1b2)
 ![image](https://github.com/public-data-contest/price-finder-madam/assets/89727516/257cca9c-ba6b-41b3-adb8-236b52df8b57)
-![image](https://github.com/public-data-contest/price-finder-madam/assets/89727516/3ad3b18d-e536-4d60-b77c-6f69e312541f)
 ![image](https://github.com/public-data-contest/price-finder-madam/assets/89727516/ec63142d-9d18-44e1-bf9a-77840cc6befa)
 ![image](https://github.com/public-data-contest/price-finder-madam/assets/89727516/63c989c8-3029-4284-8c84-a32a12a1ed80)
 ![image](https://github.com/public-data-contest/price-finder-madam/assets/89727516/986a6b29-9bc2-45f0-a646-fc0215bce1d2)
