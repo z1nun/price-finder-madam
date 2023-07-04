@@ -1,6 +1,6 @@
 <template>
   <ClientOnly>
-    <section class="HowToLayoutWarpper" v-if="visible">
+    <section class="HowToLayoutWarpper">
       <article class="Title">
         착한소비는 <br />
         어떻게 만들어졌나요?
@@ -12,12 +12,11 @@
 
 <script setup lang="ts">
 import HowToInformation from '~/components/index/howto/HowToInformation.vue'
-import useDisplay from '~/utils/display';
+import useDisplay from '~/utils/display'
 
 const { divice } = useDisplay()
 
 const visible = computed<boolean>(() => !(divice.value === 'xs'))
-
 </script>
 
 <style scoped lang="scss">
@@ -27,11 +26,11 @@ const visible = computed<boolean>(() => !(divice.value === 'xs'))
   display: flex;
   flex-direction: column;
   align-items: center;
-    
+
   .Title {
     margin-top: 80px;
     font-family: 'Pretendard' sans-serif;
-    color: #343E4C;
+    color: #343e4c;
     font-size: 28px;
     line-height: 150%;
     font-weight: 700;
