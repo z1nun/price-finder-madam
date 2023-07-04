@@ -34,18 +34,15 @@ const checkImgURL = (url: string): Promise<boolean> => {
 }
 
 onMounted(() => {
-
   const url = storeDetail.data.storeUrl
   if (!url) {
     return
   }
 
   checkImgURL(url)
-    .then(() => isValidImg.value = true)
-    .catch(() => isValidImg.value = false)
-    
+    .then(() => (isValidImg.value = true))
+    .catch(() => (isValidImg.value = false))
 })
-
 </script>
 
 <style lang="scss" scoped>

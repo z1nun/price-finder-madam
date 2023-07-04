@@ -53,7 +53,6 @@ section {
     }
   }
 
-
   @media (min-width: 768px) {
     position: static;
     width: 360px;
@@ -64,8 +63,5 @@ section {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  
-
-
 }
 </style>

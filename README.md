@@ -1,1 +1,5 @@
-[![CI](https://github.com/public-data-contest/price-finder-madam/actions/workflows/ci.yml/badge.svg)](https://github.com/public-data-contest/price-finder-madam/actions/workflows/ci.yml)
+### 내주변의 착한 가게를 알려주는 **가격찾아줌마**
+
+---
+
+2023 서울 열린데이터광장 공공데이터 활용 모바일 앱/웹 경진대회 장려상 수상작
